@@ -1,31 +1,36 @@
+/**
+ * Footer — minimal, informational.
+ * All type in IBM Plex Mono, small uppercase.
+ * Left: copyright. Right: external links.
+ */
 export default function Footer() {
+  const links = [
+    { href: "https://github.com/anuar-afiq", label: "GitHub" },
+    { href: "https://linkedin.com/in/anuar-afiq", label: "LinkedIn" },
+    { href: "mailto:hello@anuar.dev", label: "Email" },
+  ]
+
   return (
-    <footer className="mt-auto border-t border-gray-200 dark:border-gray-700 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
-      <div className="flex justify-center gap-6">
-        <a
-          href="https://github.com/anuar"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-gray-900 dark:hover:text-white transition-colors"
-        >
-          GitHub
-        </a>
-        <a
-          href="https://linkedin.com/in/anuar"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-gray-900 dark:hover:text-white transition-colors"
-        >
-          LinkedIn
-        </a>
-        <a
-          href="mailto:anuar@email.com"
-          className="hover:text-gray-900 dark:hover:text-white transition-colors"
-        >
-          Email
-        </a>
+    <footer className="border-t border-line mt-auto">
+      <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <p className="font-mono text-[11px] text-warm uppercase tracking-widest">
+          © {new Date().getFullYear()} Anuar Afiq
+        </p>
+
+        <div className="flex items-center gap-6">
+          {links.map(({ href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith("mailto") ? undefined : "_blank"}
+              rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+              className="font-mono text-[11px] text-warm uppercase tracking-widest hover:text-rust transition-colors duration-200"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
       </div>
-      <p className="mt-3">© {new Date().getFullYear()} Anuar</p>
     </footer>
   )
 }

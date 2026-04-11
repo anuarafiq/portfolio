@@ -1,34 +1,175 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import SectionWrapper from "../components/SectionWrapper"
+import { projects } from "../data/projects"
+
+/**
+ * Staggered page-load animation.
+ * The container fires once on mount; children reveal sequentially with 90ms gap.
+ * Easing [0.22, 1, 0.36, 1] is a custom ease-out that feels snappy, not floaty.
+ */
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.09,
+      delayChildren: 0.05,
+    },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, y: 18 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+const featured = projects.filter((p) => p.featured)
 
 export default function Home() {
   useEffect(() => {
-    document.title = "Anuar | Home"
+    document.title = "Anuar Afiq"
   }, [])
 
   return (
-    <SectionWrapper>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col items-center text-center gap-6 py-16"
-      >
-        <h1 className="text-5xl font-bold text-gray-900 dark:text-white">
-          Hi, I&apos;m Anuar 👋
-        </h1>
-        <p className="text-xl text-gray-500 dark:text-gray-400 max-w-xl">
-          A software engineering student building real projects, learning by doing.
-        </p>
-        <Link
-          to="/projects"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-        >
-          View My Projects
-        </Link>
-      </motion.div>
-    </SectionWrapper>
+    <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
+      {/* ─── HERO ──────────────────────────────────────────────────────────── */}
+      {/*
+       * Layout: left-aligned display name + right-aligned metadata block.
+       * Grid break: the display type uses clamp(4.5rem, 12vw, 9.5rem) which at
+       * mid-viewports pushes the name right up to the content boundary — the
+       * letters themselves become structural elements, not just text.
+       */}
+      <section className="pt-16 pb-12">
+        <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-6">
+          01. Hello
+        </motion.p>
+
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+          {/* Display name — weight 300 (light) so the high-contrast serifs of Cormorant
+              Garamond create fine/thick stroke drama at large sizes */}
+          <motion.h1 variants={item} className="text-display text-ink font-serif select-none">
+            Anuar
+            <br />
+            Afiq
+          </motion.h1>
+
+          {/* Metadata annotation — small mono, right-aligned, reads like a caption */}
+          <motion.div variants={item} className="md:text-right md:pb-3 shrink-0">
+            <p className="font-mono text-xs text-warm leading-loose">
+              Software Engineer
+              <br />
+              AI / ML Focus
+              <br />
+              APU — Kuala Lumpur
+              <br />
+              Batch of 2027
+            </p>
+          </motion.div>
+        </div>
+
+        <motion.div variants={item} className="border-t border-line" />
+      </section>
+
+      {/* ─── CURRENTLY BUILDING ──────────────────────────────────────────── */}
+      {/*
+       * Status board aesthetic: monospaced, left-aligned, reads like a terminal
+       * or index card. Each row is a live signal of what I'm working on.
+       */}
+      <section className="py-10">
+        <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-6">
+          02. Currently Building
+        </motion.p>
+
+        <motion.div variants={item} className="space-y-3.5">
+          {[
+            { name: "Portfolio v2", status: "In Progress", stack: "React + Tailwind" },
+            { name: "AI Study Assistant", status: "Planning", stack: "Python + RAG" },
+            { name: "Transformer Deep Dive", status: "Reading", stack: "Research Paper" },
+          ].map((entry) => (
+            <div
+              key={entry.name}
+              className="flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-sm"
+            >
+              <span className="text-warm text-xs select-none" aria-hidden="true">
+                →
+              </span>
+              <span className="text-ink font-medium w-44">{entry.name}</span>
+              <span className="text-warm text-xs uppercase tracking-wider w-24">
+                [{entry.status}]
+              </span>
+              <span className="text-warm text-xs">{entry.stack}</span>
+            </div>
+          ))}
+        </motion.div>
+      </section>
+
+      <motion.div variants={item} className="border-t border-line" />
+
+      {/* ─── FEATURED WORK ───────────────────────────────────────────────── */}
+      {/*
+       * Editorial project items — not cards. Each has a decorative index number,
+       * title at serif scale, muted description, and tag chips.
+       * The .project-row class handles the left-border-reveal hover state.
+       */}
+      <section className="py-10">
+        <div className="flex items-center justify-between mb-8">
+          <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest">
+            03. Selected Work
+          </motion.p>
+          <motion.div variants={item}>
+            <Link
+              to="/projects"
+              className="font-mono text-[11px] text-warm uppercase tracking-wider hover:text-rust transition-colors duration-200"
+            >
+              All work →
+            </Link>
+          </motion.div>
+        </div>
+
+        <div className="space-y-1">
+          {featured.map((project, i) => (
+            <motion.article
+              key={project.id}
+              variants={item}
+              className="project-row py-5 px-4 -mx-4"
+            >
+              <div className="flex items-start gap-5">
+                <span
+                  className="font-mono text-xs text-warm mt-1.5 w-6 shrink-0 select-none tabular-nums"
+                  aria-hidden="true"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
+                    <h3 className="font-serif font-semibold text-xl text-ink leading-tight">
+                      {project.title}
+                    </h3>
+                    <span className="font-mono text-xs text-warm">{project.year}</span>
+                  </div>
+                  <p className="font-serif text-warm text-base leading-relaxed mb-3">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-mono text-[10px] uppercase tracking-wider text-warm border border-line px-2 py-0.5"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+    </motion.main>
   )
 }

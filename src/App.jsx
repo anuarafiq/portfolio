@@ -1,29 +1,29 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { ThemeProvider } from "./context/ThemeContext"
-import Navbar from "./components/Navbar"
+import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import Home from "./pages/Home"
 import Projects from "./pages/Projects"
 import About from "./pages/About"
-import Contact from "./pages/Contact"
+import Blog from "./pages/Blog"
+import BlogPost from "./pages/BlogPost"
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors">
-          <Navbar />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
-          </main>
-          <Footer />
+    <BrowserRouter>
+      {/* min-h-dvh: uses the dynamic viewport height on mobile (avoids iOS Safari chrome issues) */}
+      <div className="min-h-dvh flex flex-col bg-paper text-ink">
+        <Nav />
+        <div className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/notes" element={<Blog />} />
+            <Route path="/notes/:slug" element={<BlogPost />} />
+          </Routes>
         </div>
-      </BrowserRouter>
-    </ThemeProvider>
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
 }

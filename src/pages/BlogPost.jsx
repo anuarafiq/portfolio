@@ -1,0 +1,123 @@
+import { useEffect } from "react"
+import { useParams, Link } from "react-router-dom"
+import { motion } from "framer-motion"
+import { posts } from "../data/posts"
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+}
+const item = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+}
+
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })
+}
+
+export default function BlogPost() {
+  const { slug } = useParams()
+  const post = posts.find((p) => p.slug === slug)
+
+  useEffect(() => {
+    document.title = post ? `${post.title} — Anuar Afiq` : "Not Found — Anuar Afiq"
+  }, [post])
+
+  if (!post) {
+    return (
+      <div className="max-w-3xl mx-auto px-6 py-24">
+        <p className="font-mono text-sm text-warm mb-4">Post not found.</p>
+        <Link
+          to="/notes"
+          className="font-mono text-[11px] uppercase tracking-widest text-rust hover:underline"
+        >
+          ← Back to Notes
+        </Link>
+      </div>
+    )
+  }
+
+  return (
+    <motion.main variants={container} initial="hidden" animate="show" className="max-w-3xl mx-auto px-6">
+      {/* ─── ARTICLE HEADER ─────────────────────────────────────────────── */}
+      <header className="pt-16 pb-10">
+        {/* Back nav + category tag */}
+        <motion.div variants={item} className="flex items-center gap-4 mb-8">
+          <Link
+            to="/notes"
+            className="font-mono text-[11px] uppercase tracking-widest text-warm hover:text-rust transition-colors duration-200"
+          >
+            ← Notes
+          </Link>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-warm border border-line px-2 py-0.5">
+            {post.category}
+          </span>
+        </motion.div>
+
+        {/* Title — sized between display-sm and body h1 */}
+        <motion.h1
+          variants={item}
+          className="font-serif font-semibold text-ink leading-tight mb-4"
+          style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", letterSpacing: "-0.02em" }}
+        >
+          {post.title}
+        </motion.h1>
+
+        {/* Byline */}
+        <motion.div variants={item} className="flex items-center gap-5 font-mono text-[11px] text-warm">
+          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          <span>{post.readingTime} read</span>
+        </motion.div>
+
+        <motion.div variants={item} className="border-t border-line mt-8" />
+      </header>
+
+      {/* ─── ARTICLE BODY ───────────────────────────────────────────────── */}
+      {/*
+       * Prose reading experience: Cormorant Garamond at 1.125rem, generous
+       * line-height. Max-width constraint (3xl container) keeps line length
+       * in the 60-70 char sweet spot for readability.
+       */}
+      <motion.article variants={item} className="pb-16">
+        <div className="space-y-5">
+          {post.content.map((block, i) => {
+            if (block.type === "p") {
+              return (
+                <p key={i} className="font-serif text-ink text-lg leading-relaxed">
+                  {block.text}
+                </p>
+              )
+            }
+            if (block.type === "h3") {
+              return (
+                <h3
+                  key={i}
+                  className="font-serif font-semibold text-ink text-2xl mt-8 mb-1"
+                  style={{ letterSpacing: "-0.02em" }}
+                >
+                  {block.text}
+                </h3>
+              )
+            }
+            return null
+          })}
+        </div>
+
+        {/* Back link at bottom — wayfinding */}
+        <div className="mt-12 pt-8 border-t border-line">
+          <Link
+            to="/notes"
+            className="font-mono text-[11px] uppercase tracking-widest text-warm hover:text-rust transition-colors duration-200"
+          >
+            ← All Notes
+          </Link>
+        </div>
+      </motion.article>
+    </motion.main>
+  )
+}

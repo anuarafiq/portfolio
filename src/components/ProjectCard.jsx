@@ -1,44 +1,71 @@
-import { motion } from "framer-motion"
+/**
+ * Editorial project row — NOT a card.
+ *
+ * Design decisions:
+ * - Left border in rust appears on hover via .project-row CSS class
+ * - Index number is a decorative typographic anchor, not functional nav
+ * - WIP badge styled like a rubber stamp: no fill, rust border, small uppercase
+ * - Tags are small border-only chips — label not container
+ * - No rounded corners on any element here — sharp edges suit ink-on-paper
+ */
+export default function ProjectCard({ index, title, description, tags, status, year, githubUrl }) {
+  const displayNum = String(index + 1).padStart(2, "0")
 
-export default function ProjectCard({ title, description, tech, githubUrl, comingSoon }) {
   return (
-    <motion.div
-      whileHover={{ scale: 1.03 }}
-      transition={{ type: "spring", stiffness: 300 }}
-      className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 flex flex-col gap-3 shadow-sm"
-    >
-      <div className="flex items-start justify-between">
-        <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{title}</h3>
-        {comingSoon && (
-          <span className="text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-2 py-1 rounded-full">
-            Coming Soon
-          </span>
-        )}
-      </div>
-
-      <p className="text-gray-500 dark:text-gray-400 text-sm">{description}</p>
-
-      <div className="flex flex-wrap gap-2 mt-auto">
-        {tech.map((t) => (
-          <span
-            key={t}
-            className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded"
-          >
-            {t}
-          </span>
-        ))}
-      </div>
-
-      {githubUrl && (
-        <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline mt-1"
+    <article className="project-row py-5 px-4 -mx-4">
+      <div className="flex items-start gap-5">
+        {/* Decorative sequence number — purely visual */}
+        <span
+          className="font-mono text-xs text-warm mt-1.5 tabular-nums select-none shrink-0 w-6"
+          aria-hidden="true"
         >
-          View on GitHub →
-        </a>
-      )}
-    </motion.div>
+          {displayNum}
+        </span>
+
+        <div className="flex-1 min-w-0">
+          {/* Title + metadata row */}
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
+            <h3 className="font-serif font-semibold text-xl text-ink leading-tight">{title}</h3>
+            <div className="flex items-center gap-2.5">
+              {status === "wip" && (
+                /* Stamp-style badge — no fill, border only, no border-radius */
+                <span className="font-mono text-[10px] uppercase tracking-widest text-rust border border-rust px-1.5 py-0.5 leading-none">
+                  WIP
+                </span>
+              )}
+              <span className="font-mono text-xs text-warm">{year}</span>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="font-serif text-warm text-base leading-relaxed mb-3">{description}</p>
+
+          {/* Tags + optional link */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="font-mono text-[10px] uppercase tracking-wider text-warm border border-line px-2 py-0.5"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {githubUrl && (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs text-rust hover:underline ml-auto"
+              >
+                View ↗
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </article>
   )
 }
