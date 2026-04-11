@@ -12,24 +12,24 @@ const item = {
 
 const timeline = [
   {
-    year: "2022",
-    event: "Enrolled in B.Sc. Computer Science",
-    detail: "Asia Pacific University, Kuala Lumpur",
-  },
-  {
     year: "2023",
-    event: "First complete web project",
+    event: "First complete web project in high school",
     detail: "Paradise Shoes — HTML, CSS, JavaScript from scratch",
   },
   {
     year: "2024",
-    event: "Dug into OOP and database design",
-    detail: "Shipped ProjectOOP (MonoGame/C#) and an Airbnb-style DB system",
+    event: "Enrolled in Universiti Teknologi PETRONAS, Malaysia.",
+    detail: "Majoring in Computer Science",
   },
   {
     year: "2025",
-    event: "Started taking design seriously",
-    detail: "Rebuilt portfolio with editorial aesthetic. Exploring AI/ML properly.",
+    event: "Dug into OOP and database design",
+    detail: "Completed a MonoGame project and an Airbnb-style DB system",
+  },
+  {
+    year: "2026",
+    event: "Focusing on AI and machine learning development.",
+    detail: "Exploring the foundations of AI/ML properly with statistical methods",
   },
 ]
 
@@ -61,9 +61,7 @@ export default function About() {
         </motion.p>
         {/* Two-line display title — second line is longer, creates natural asymmetry */}
         <motion.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
-          The person
-          <br />
-          behind the code
+          The person behind the code
         </motion.h1>
         <motion.div variants={item} className="border-t border-line mt-8" />
       </section>
@@ -83,8 +81,8 @@ export default function About() {
             <h2 className="font-serif font-semibold text-lg text-ink mb-4">In my own words</h2>
             <div className="space-y-4 font-serif text-base text-warm leading-relaxed">
               <p>
-                I&apos;m a computer science student at Asia Pacific University in Kuala Lumpur.
-                My focus is software engineering with a growing interest in AI and machine learning —
+                I&apos;m a Computer Science student at Universiti Teknologi PETRONAS, Malaysia.
+                My focus is software engineering with a growing interest in AI and machine learning,
                 specifically the parts that feel like actual engineering rather than magic.
               </p>
               <p>
@@ -93,7 +91,7 @@ export default function About() {
               </p>
               <p>
                 Outside of code: I think a lot about design — why some interfaces feel inevitable and
-                others feel fought-against. I also read too much and sleep too little.
+                others feel fought-against. I also read and sleep too much.
               </p>
             </div>
           </motion.div>
@@ -144,13 +142,13 @@ export default function About() {
             {timeline.map((entry) => (
               <div key={entry.year} className="flex gap-5 items-start relative">
                 {/* Year — anchored to the left of the vertical rule */}
-                <span className="font-mono text-[11px] text-rust w-14 shrink-0 mt-1 text-right leading-snug">
+                <span className="font-mono text-[11px] text-rust w-10 shrink-0 mt-1 text-right leading-snug">
                   {entry.year}
                 </span>
 
                 {/* Dot — sits on the vertical rule line */}
                 <span
-                  className="absolute left-[3.25rem] top-[0.4rem] w-1.5 h-1.5 bg-rust shrink-0"
+                  className="absolute left-[3.35rem] top-[0.4rem] w-1.5 h-1.5 bg-rust shrink-0"
                   aria-hidden="true"
                 />
 
