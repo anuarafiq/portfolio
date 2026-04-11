@@ -33,9 +33,7 @@ export default function Blog() {
           Notes
         </motion.p>
         <motion.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
-          Thinking
-          <br />
-          out loud
+          Thinking out loud
         </motion.h1>
         <motion.p variants={item} className="font-serif text-warm text-lg max-w-xl mb-8">
           Notes on machine learning, engineering, and whatever I&apos;m chewing on. Not polished,

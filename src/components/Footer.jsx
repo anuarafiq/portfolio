@@ -5,9 +5,9 @@
  */
 export default function Footer() {
   const links = [
-    { href: "https://github.com/anuar-afiq", label: "GitHub" },
-    { href: "https://linkedin.com/in/anuar-afiq", label: "LinkedIn" },
-    { href: "mailto:hello@anuar.dev", label: "Email" },
+    { href: "https://github.com/anuarafiq", label: "GitHub" },
+    { href: "https://linkedin.com/in/anuar-afiq-arfahairy-234964314", label: "LinkedIn" },
+    { href: "mailto:anuarafiq2407@gmail.com", label: "Email" },
   ]
 
   return (

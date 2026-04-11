@@ -45,13 +45,13 @@ export default function Home() {
        */}
       <section className="pt-16 pb-12">
         <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-6">
-          01. Hello
+          00. Hello
         </motion.p>
 
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           {/* Display name — weight 300 (light) so the high-contrast serifs of Cormorant
               Garamond create fine/thick stroke drama at large sizes */}
-          <motion.h1 variants={item} className="text-display text-ink font-serif select-none">
+          <motion.h1 variants={item} className="text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.88] tracking-[-0.03em] font-light text-ink font-serif select-none">
             Anuar Afiq
           </motion.h1>
 
@@ -77,7 +77,7 @@ export default function Home() {
        */}
       <section className="py-10">
         <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-6">
-          02. Currently Building
+          01. Currently Building
         </motion.p>
 
         <motion.div variants={item} className="space-y-3.5">
@@ -93,8 +93,8 @@ export default function Home() {
               <span className="text-warm text-xs select-none" aria-hidden="true">
                 →
               </span>
-              <span className="text-ink font-medium w-44">{entry.name}</span>
-              <span className="text-warm text-xs uppercase tracking-wider w-24">
+              <span className="text-ink font-medium w-50">{entry.name}</span>
+              <span className="text-warm text-xs uppercase tracking-wider w-30">
                 [{entry.status}]
               </span>
               <span className="text-warm text-xs">{entry.stack}</span>
@@ -114,7 +114,7 @@ export default function Home() {
       <section className="py-10">
         <div className="flex items-center justify-between mb-8">
           <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest">
-            03. Selected Work
+            02. Selected Work
           </motion.p>
           <motion.div variants={item}>
             <Link

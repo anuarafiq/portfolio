@@ -27,7 +27,7 @@ export default function Nav() {
           className="font-serif text-xl font-semibold tracking-tight text-ink hover:text-rust transition-colors duration-200"
           aria-label="Home"
         >
-          AA
+          Aa
         </Link>
 
         {/* Primary navigation */}
