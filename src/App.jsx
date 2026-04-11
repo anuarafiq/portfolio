@@ -6,6 +6,7 @@ import Projects from "./pages/Projects"
 import About from "./pages/About"
 import Blog from "./pages/Blog"
 import BlogPost from "./pages/BlogPost"
+import ProjectDetail from "./pages/ProjectDetail"
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/notes" element={<Blog />} />
             <Route path="/notes/:slug" element={<BlogPost />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
           </Routes>
         </div>
         <Footer />
