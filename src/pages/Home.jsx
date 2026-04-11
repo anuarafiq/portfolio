@@ -31,7 +31,7 @@ const featured = projects.filter((p) => p.featured)
 
 export default function Home() {
   useEffect(() => {
-    document.title = "Anuar Afiq"
+    document.title = "Portfolio"
   }, [])
 
   return (
@@ -52,21 +52,17 @@ export default function Home() {
           {/* Display name — weight 300 (light) so the high-contrast serifs of Cormorant
               Garamond create fine/thick stroke drama at large sizes */}
           <motion.h1 variants={item} className="text-display text-ink font-serif select-none">
-            Anuar
-            <br />
-            Afiq
+            Anuar Afiq
           </motion.h1>
 
           {/* Metadata annotation — small mono, right-aligned, reads like a caption */}
           <motion.div variants={item} className="md:text-right md:pb-3 shrink-0">
             <p className="font-mono text-xs text-warm leading-loose">
-              Software Engineer
+              CS Major
               <br />
               AI / ML Focus
               <br />
-              APU — Kuala Lumpur
-              <br />
-              Batch of 2027
+              Universiti Teknologi PETRONAS
             </p>
           </motion.div>
         </div>
