@@ -1,0 +1,38 @@
+export const projects = [
+  {
+    id: 1,
+    title: "Smart Parking System",
+    description: "CLI-based parking management system built in Python.",
+    tech: ["Python", "CLI"],
+    githubUrl: null,
+    image: null,
+    comingSoon: true,
+  },
+  {
+    id: 2,
+    title: "ProjectOOP",
+    description: "Object-oriented game built with MonoGame framework in C#.",
+    tech: ["C#", "MonoGame"],
+    githubUrl: null,
+    image: null,
+    comingSoon: true,
+  },
+  {
+    id: 3,
+    title: "Airbnb Database System",
+    description: "Relational database system modelling an Airbnb-style platform.",
+    tech: ["MySQL"],
+    githubUrl: null,
+    image: null,
+    comingSoon: true,
+  },
+  {
+    id: 4,
+    title: "Paradise Shoes",
+    description: "Web application for a shoe store with product listings and cart.",
+    tech: ["HTML", "CSS", "JavaScript"],
+    githubUrl: null,
+    image: null,
+    comingSoon: true,
+  },
+]
