@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { projects } from "../data/projects"
+import { currentlyBuilding } from "../data/status"
 
 /**
  * Staggered page-load animation.
@@ -81,11 +82,7 @@ export default function Home() {
         </motion.p>
 
         <motion.div variants={item} className="space-y-3.5">
-          {[
-            { name: "Portfolio v2", status: "In Progress", stack: "React + Tailwind" },
-            { name: "AI Study Assistant", status: "Planning", stack: "Python + RAG" },
-            { name: "Transformer Deep Dive", status: "Reading", stack: "Research Paper" },
-          ].map((entry) => (
+          {currentlyBuilding.map((entry) => (
             <div
               key={entry.name}
               className="flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-sm"
