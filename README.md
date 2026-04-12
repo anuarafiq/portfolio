@@ -1,6 +1,6 @@
 # Portfolio — Anuar Afiq
 
-Personal portfolio site built with an ink-on-paper editorial aesthetic. Live at [anuarafiq.me](https://anuarafiq.me).
+Personal portfolio site built with an ink-on-paper editorial aesthetic.
 
 ## Pages
 
