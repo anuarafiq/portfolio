@@ -33,4 +33,4 @@ npm run preview  # preview production build
 
 ## License
 
-MIT
+[MIT](LICENSE)
