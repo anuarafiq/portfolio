@@ -22,7 +22,7 @@ export default function ProjectDetail() {
 
   // Update the browser tab title whenever the project changes.
   useEffect(() => {
-    document.title = project ? `${project.title} — Anuar Afiq` : "Not Found — Anuar Afiq"
+    document.title = project ? `${project.title} — Portfolio` : "Not Found — Portfolio"
   }, [project])
 
   // Guard clause: if no project matched, show a minimal not-found state.

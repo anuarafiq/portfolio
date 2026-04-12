@@ -22,7 +22,7 @@ function formatDate(dateStr) {
 
 export default function Blog() {
   useEffect(() => {
-    document.title = "Notes — Anuar Afiq"
+    document.title = "Notes — Portfolio"
   }, [])
 
   return (
