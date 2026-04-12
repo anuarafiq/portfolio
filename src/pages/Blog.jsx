@@ -51,7 +51,7 @@ export default function Blog() {
       <motion.div variants={item} className="pb-16">
         {posts.map((post) => (
           <Link
-            key={post.id}
+            key={post.slug}
             to={`/notes/${post.slug}`}
             className="group block py-6 border-b border-line project-row px-4 -mx-4"
           >
