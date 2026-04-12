@@ -31,7 +31,7 @@ function CodeBlock({ children, ...props }) {
     <div className="relative group">
       {language && (
         <span
-          className="absolute top-2.25 left-6 font-mono text-warm select-none"
+          className="absolute top-2.5 left-6 font-mono text-warm select-none"
           style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}
         >
           {language}
@@ -39,7 +39,7 @@ function CodeBlock({ children, ...props }) {
       )}
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-3 font-mono text-warm border border-line px-2 py-0.5 hover:text-rust hover:border-rust transition-colors duration-200 cursor-pointer select-none"
+        className="absolute top-2.5 right-3 font-mono text-warm border border-line px-2 py-0.5 hover:text-rust hover:border-rust transition-colors duration-200 cursor-pointer select-none"
         style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}
       >
         {copied ? "Copied" : "Copy"}
