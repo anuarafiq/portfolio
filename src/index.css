@@ -136,3 +136,82 @@
     background-color: var(--color-paper-dim);
   }
 }
+
+/* ─── Code Block Styles (rehype-pretty-code) ────────────────────────────── */
+@layer base {
+  /* Code block container */
+  figure[data-rehype-pretty-code-figure] pre {
+    background-color: var(--color-paper-dim);
+    border-top: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-rust);
+    border-radius: 2px;
+    padding: 1.1rem 1.25rem;
+    padding-top: 2rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  /* Code inside pre — reset */
+  figure[data-rehype-pretty-code-figure] pre code {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  /* Inline code (not inside a pre block) */
+  :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background-color: var(--color-paper-dim);
+    border: 1px solid var(--color-line);
+    border-radius: 2px;
+    padding: 0.15em 0.35em;
+  }
+
+  /* ── Token color overrides ──
+   * Shiki inlines style="color:#HEX" on each span.
+   * We override with !important to apply ink-on-paper palette. */
+
+  /* Keywords: from, import, def, const, return, =, + → deep rust */
+  figure[data-rehype-pretty-code-figure] span[style*="#D73A49"],
+  figure[data-rehype-pretty-code-figure] span[style*="#d73a49"] {
+    color: #7a3e1d !important;
+    font-weight: 500;
+  }
+
+  /* Functions and method calls → warm brown */
+  figure[data-rehype-pretty-code-figure] span[style*="#6F42C1"],
+  figure[data-rehype-pretty-code-figure] span[style*="#6f42c1"] {
+    color: #5c5033 !important;
+  }
+
+  /* Strings → muted green */
+  figure[data-rehype-pretty-code-figure] span[style*="#032F62"],
+  figure[data-rehype-pretty-code-figure] span[style*="#032f62"] {
+    color: #3d6b4a !important;
+  }
+
+  /* Comments → warm, italic */
+  figure[data-rehype-pretty-code-figure] span[style*="#6A737D"],
+  figure[data-rehype-pretty-code-figure] span[style*="#6a737d"] {
+    color: var(--color-warm) !important;
+    font-style: italic;
+  }
+
+  /* Numbers and constants → warm amber */
+  figure[data-rehype-pretty-code-figure] span[style*="#005CC5"],
+  figure[data-rehype-pretty-code-figure] span[style*="#005cc5"] {
+    color: #6b4c2a !important;
+  }
+
+  /* Default text / punctuation → ink */
+  figure[data-rehype-pretty-code-figure] span[style*="#24292E"],
+  figure[data-rehype-pretty-code-figure] span[style*="#24292e"] {
+    color: var(--color-ink) !important;
+  }
+}
