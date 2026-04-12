@@ -30,6 +30,52 @@
   --display-sm: clamp(2.5rem, 6vw, 5rem);
 }
 
+/* ─── Dark Mode ──────────────────────────────────────────────────────────────
+ *
+ * Dark mode activates in two cases:
+ *   1. System is dark AND the user hasn't manually chosen light (media query)
+ *   2. User explicitly toggled dark via the Nav button ([data-theme="dark"])
+ *
+ * The toggle writes "light" or "dark" to localStorage and sets data-theme on
+ * <html>. A flash-prevention script in index.html applies it before React mounts.
+ * Removing the attribute resets to system-adaptive behaviour.
+ *
+ * ┌─ TO CHANGE THE DARK PALETTE ──────────────────────────────────────────┐
+ * │  Edit the six values in BOTH blocks below (they must stay in sync).   │
+ * │  (To change the light palette, edit the @theme block near line 14.)   │
+ * └───────────────────────────────────────────────────────────────────────┘
+ *
+ * Current: "Charcoal Broadsheet" — neutral warm charcoal, modern editorial
+ *   ink       → #ede5d5  warm off-white
+ *   paper     → #1e1c18  warm dark charcoal
+ *   rust      → #d4502a  rust, unchanged
+ *   warm      → #8c8272  warm gray-brown secondary text
+ *   line      → #302c24  charcoal border
+ *   paper-dim → #171512  slightly darker charcoal for code blocks
+ */
+
+/* Case 1: system dark, no manual override */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-ink: #ede5d5;
+    --color-paper: #1e1c18;
+    --color-rust: #d4502a;
+    --color-warm: #8c8272;
+    --color-line: #302c24;
+    --color-paper-dim: #171512;
+  }
+}
+
+/* Case 2: user manually toggled dark */
+:root[data-theme="dark"] {
+  --color-ink: #ede5d5;
+  --color-paper: #1e1c18;
+  --color-rust: #d4502a;
+  --color-warm: #8c8272;
+  --color-line: #302c24;
+  --color-paper-dim: #171512;
+}
+
 /* ─── Global Base Styles ─────────────────────────────────────────────────── */
 @layer base {
   *,
@@ -74,6 +120,18 @@
   ::selection {
     background-color: var(--color-rust);
     color: var(--color-paper);
+  }
+
+  /* In dark mode, --color-paper becomes very dark — dark text on rust is
+   * illegible. Switch to ink (now cream) so selection stays readable. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) ::selection {
+      color: var(--color-ink);
+    }
+  }
+
+  :root[data-theme="dark"] ::selection {
+    color: var(--color-ink);
   }
 }
 
@@ -214,4 +272,52 @@
   figure[data-rehype-pretty-code-figure] span[style*="#24292e"] {
     color: var(--color-ink) !important;
   }
+
+  /* ── Dark mode token overrides ──
+   * ┌─ TO CHANGE DARK CODE COLORS ──────────────────────────────────────────┐
+   * │  Edit the four color values in BOTH blocks below (keep them in sync). │
+   * │  Comments use var(--color-warm) and default text uses var(--color-ink)│
+   * │  — those auto-update from the palette block above, no edit needed.    │
+   * └───────────────────────────────────────────────────────────────────────┘ */
+
+  /* Case 1: system dark, no manual override */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#D73A49"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#d73a49"] {
+      color: #c87e5a !important;
+    }
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#6F42C1"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#6f42c1"] {
+      color: #b8a07a !important;
+    }
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#032F62"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#032f62"] {
+      color: #7aad8c !important;
+    }
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#005CC5"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#005cc5"] {
+      color: #c49060 !important;
+    }
+  }
+
+  /* Case 2: user manually toggled dark */
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#D73A49"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#d73a49"] {
+    color: #c87e5a !important;
+  }
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#6F42C1"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#6f42c1"] {
+    color: #b8a07a !important;
+  }
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#032F62"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#032f62"] {
+    color: #7aad8c !important;
+  }
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#005CC5"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#005cc5"] {
+    color: #c49060 !important;
+  }
+
+  /* Comments → auto via var(--color-warm); no override needed */
+  /* Default text → auto via var(--color-ink); no override needed */
 }
