@@ -7,6 +7,7 @@ import About from "./pages/About"
 import Blog from "./pages/Blog"
 import BlogPost from "./pages/BlogPost"
 import ProjectDetail from "./pages/ProjectDetail"
+import NotFound from "./pages/NotFound"
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/notes" element={<Blog />} />
             <Route path="/notes/:slug" element={<BlogPost />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />
