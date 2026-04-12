@@ -16,6 +16,16 @@ The thing that finally broke the cycle was picking a project I actually cared ab
 
 The messy projects are the good projects. The ones where you hit a wall and have to read three papers before you can continue. Those are the ones you remember.
 
+```python
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# embed a question about lecture slides
+query = model.encode("What is gradient descent?")
+docs  = model.encode(["Slide 1 content", "Slide 2 content"])
+```
+
 ### The Uncomfortable Part
 
 The uncomfortable part is that this approach means accepting that your knowledge will be uneven for a long time. I know a lot about attention mechanisms and almost nothing about SVMs. That used to bother me. It doesn't anymore. The goal was never encyclopaedic coverage — it was to be useful.
