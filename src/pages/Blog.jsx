@@ -36,8 +36,7 @@ export default function Blog() {
           Thinking out loud
         </motion.h1>
         <motion.p variants={item} className="font-serif text-warm text-lg max-w-xl mb-8">
-          Notes on machine learning, engineering, and whatever I&apos;m chewing on. Not polished,
-          just honest.
+          Notes on machine learning, engineering, and whatever I&apos;m chewing on. Not polished, just honest.
         </motion.p>
         <motion.div variants={item} className="border-t border-line" />
       </section>
@@ -68,7 +67,7 @@ export default function Blog() {
                 <h2 className="font-serif font-semibold text-ink text-xl leading-tight mb-2 group-hover:text-rust transition-colors duration-200">
                   {post.title}
                 </h2>
-                <p className="font-serif text-warm text-base leading-relaxed mb-3">
+                <p className="font-serif font-bold text-warm text-base leading-relaxed mb-3 text-justify">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center gap-4">

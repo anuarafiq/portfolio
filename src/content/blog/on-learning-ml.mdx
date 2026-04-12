@@ -1,31 +1,48 @@
 ---
-title: "On Learning Machine Learning Without a Roadmap"
-date: "2025-03-15"
+title: "Course Difficulty Predictor"
+date: "2026-04-12"
 category: "ML"
-readingTime: "4 min"
-excerpt: "Everyone has a roadmap. I tried three different ones before giving up and just starting to build things. Here's what actually stuck."
+readingTime: "7 min"
+excerpt: "I tried following generic ML roadmaps. None of them stuck until I built something I actually find interesting."
 ---
 
-The machine learning landscape is full of roadmaps. YouTube playlists that promise to take you from zero to job-ready in 90 days. Notion templates with colour-coded progress bars. Reddit threads arguing about whether you need to do Andrew Ng's course before fast.ai or the other way around.
-
-I tried three different roadmaps before I stopped following them entirely. Not because they were bad — they weren't — but because I kept stalling at the same place: the transition from understanding a concept to actually building with it.
+I watched a lot of ML roadmaps. YouTube playlists, Reddit arguments about Andrew Ng vs fast.ai, fancy Notion templates. Three different ones. Each one lost me at the same spot: understanding something in theory doesn't mean you can build with it.
+That gap between knowing and doing is brutal.
 
 ### What Actually Worked
 
-The thing that finally broke the cycle was picking a project I actually cared about and working backwards from it. I wanted to build a study assistant that could answer questions about my lecture slides. That forced me to learn embeddings, vector databases, and retrieval-augmented generation — not because a roadmap told me to, but because I needed them.
+I stopped following roadmaps and started with a problem I could see every semester: course selection at UTP is a guess. You ask friends, check the lecturer's reputation, wonder if you can handle the workload. Nobody really knows until it's Week 3.
+Building a predictor forced me to learn what mattered. Feature engineering to make sense of course data. Classification to predict difficulty levels. Model validation to know if the thing actually works. Not because a roadmap said so, but because I needed it.
+The messy projects are the ones that stick. You hit a wall, spend three hours reading Stack Overflow, finally get it working at 11pm. You remember those.
 
-The messy projects are the good projects. The ones where you hit a wall and have to read three papers before you can continue. Those are the ones you remember.
 
 ```python
-from sentence_transformers import SentenceTransformer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+# Raw data: course name, lecturer, enrollment, past grades
+# What actually predicts if a course is Hard vs Medium vs Easy?
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf.fit(course_data, difficulty_labels)
 
-# embed a question about lecture slides
-query = model.encode("What is gradient descent?")
-docs  = model.encode(["Slide 1 content", "Slide 2 content"])
+# feature importance tells you what actually matters
+print(clf.feature_importances_)
 ```
-
 ### The Uncomfortable Part
 
-The uncomfortable part is that this approach means accepting that your knowledge will be uneven for a long time. I know a lot about attention mechanisms and almost nothing about SVMs. That used to bother me. It doesn't anymore. The goal was never encyclopaedic coverage — it was to be useful.
+Your knowledge will be lopsided. After this project you'll understand classification and feature engineering. Probably nothing about time series or neural networks. That used to bother me. But the goal was never to know everything. It was to build something people actually use.
+
+### The Path Forward
+Weeks 1-2: Collect and explore course data. What do we even have? Lecturer names, enrollment sizes, past GPA requirements, student reviews on private channels. Spend time just looking at it. Make some plots. Get comfortable with the data.
+
+Weeks 3-4: Clean the data and build features. How do you turn "Dr. Ahmed is tough" into numbers? What if a course has 50 students vs 150? Does time of day matter (8am lectures harder to pass)? Start combining raw numbers into things the model can actually use.
+
+Weeks 5-6: Train a few models. Logistic regression as the baseline. Random forest next. See what works. Most of this is running code and watching the accuracy numbers move. When they don't move, that's when you dig.
+
+Week 7: Figure out what actually matters. Random forest can tell you which features mattered most. Turns out enrollment size might be noise. Lecturer probably isn't. Use that to refine.
+
+Week 8-9: Build the interface. Streamlit is fast for this. Drop a course selector, hit a button, see the prediction. Takes maybe 50 lines of code. Suddenly it's not just a jupyter notebook. It's a tool.
+
+Week 10: Put it on GitHub. Deploy it somewhere free so you can send the link. That's the difference between "I trained a model" and "Here's the thing I built."
+
+That's 10 weeks at 1-2 hours a week. You end up with a portfolio piece, a GitHub repo, and an actual tool people use. Better than any roadmap told me to do.

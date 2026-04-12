@@ -139,12 +139,15 @@ export default function Home() {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
-                    <h3 className="font-serif font-semibold text-xl text-ink leading-tight">
+                    <Link
+                      to={`/projects/${project.slug}`}
+                      className="font-serif font-semibold text-xl text-ink leading-tight hover:text-rust transition-colors duration-200"
+                    >
                       {project.title}
-                    </h3>
+                    </Link>
                     <span className="font-mono text-xs text-warm">{project.year}</span>
                   </div>
-                  <p className="font-serif text-warm text-base leading-relaxed mb-3">
+                  <p className="font-serif font-bold text-warm text-base leading-relaxed mb-3 text-justify">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">

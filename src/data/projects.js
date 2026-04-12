@@ -11,16 +11,16 @@ export const projects = [
       "Manual parking management is error-prone and doesn't scale. The brief called for a system that could track dozens of spaces across multiple levels, calculate fees accurately, and produce a summary report — all without a GUI.",
     solution:
       "Modelled the domain with OOP: a ParkingLot owns Levels, each Level owns Spaces, and a Ticket is issued on entry and resolved on exit. Billing is calculated from timestamps. A reporting module aggregates occupancy data at the end of each session.",
-    tags: ["Python", "OOP", "CLI"],
+    tags: ["C++", "CLI"],
     status: "complete",
-    year: "2024",
+    year: "2025",
     githubUrl: "https://github.com/anuarafiq/Smart-Parking-System",
     featured: true,
   },
   {
     id: 2,
     slug: "projectoop",
-    title: "ProjectOOP",
+    title: "Space Shooter Game",
     description:
       "Side-scrolling game built with the MonoGame framework in C#. Implemented collision detection, sprite animation state machines, and hand-authored level design.",
     longDescription:
@@ -29,9 +29,9 @@ export const projects = [
       "The challenge was building a playable game without the safety net of Unity or Godot. MonoGame gives you a game loop and a graphics device — nothing else. All game logic, state management, and physics had to be written by hand.",
     solution:
       "Built a finite state machine for character animation so each action (idle, run, jump, fall) transitions cleanly. Collision detection uses axis-aligned bounding boxes with a separate resolution pass. Level data is stored in a 2D tile array and rendered from a spritesheet.",
-    tags: ["C#", "MonoGame", "Game Dev"],
+    tags: ["C#", "MonoGame", "Game Dev", "OOP"],
     status: "complete",
-    year: "2024",
+    year: "2025",
     githubUrl: "https://github.com/anuarafiq/ProjectOOP",
     featured: true,
   },
@@ -47,9 +47,9 @@ export const projects = [
       "Designing a schema that accurately reflects real-world constraints — a guest can have many bookings, a property can have many reviews, a host can list many properties — while avoiding redundancy and update anomalies.",
     solution:
       "Started with an ER diagram to map entities and cardinalities, then normalised to 3NF to eliminate transitive dependencies. Wrote queries using JOINs, subqueries, and window functions to answer analytical questions that a real platform would need.",
-    tags: ["MySQL", "Database", "SQL"],
+    tags: ["Database", "SQL"],
     status: "complete",
-    year: "2023",
+    year: "2026",
     githubUrl: "https://github.com/anuarafiq/Airbnb-Database-System",
     featured: false,
   },
@@ -65,7 +65,7 @@ export const projects = [
       "The constraint was no frameworks. Building cart state, DOM updates, and page transitions in vanilla JS forces you to understand exactly what React and similar tools are abstracting away.",
     solution:
       "Cart state is held in a plain JavaScript object and persisted to localStorage. Product data is stored as a JS array and rendered into the DOM on page load. Event delegation handles clicks on dynamically rendered elements without attaching hundreds of listeners.",
-    tags: ["HTML", "CSS", "JavaScript"],
+    tags: ["HTML", "CSS", "JavaScript", "PHP", "SQL"],
     status: "complete",
     year: "2023",
     githubUrl: "https://github.com/anuarafiq/Paradise-Shoes",
@@ -83,10 +83,10 @@ export const projects = [
       "Most developer portfolios look the same: dark mode, neon accents, card grids. The challenge was building something that felt considered and personal without being over-designed.",
     solution:
       "Committed to a single aesthetic — ink on paper — and applied it consistently across typography, spacing, and motion. Data is separated from presentation (projects, posts, and status live in /data). Components are small and single-purpose.",
-    tags: ["React", "Tailwind", "Vite"],
+    tags: ["React", "Tailwind", "Vite", "Framer Motion", "Web Design"],
     status: "wip",
-    year: "2025",
+    year: "2026",
     githubUrl: "https://github.com/anuarafiq/portfolio",
     featured: false,
   },
-]
+].sort((a, b) => Number(b.year) - Number(a.year))

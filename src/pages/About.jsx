@@ -78,8 +78,8 @@ export default function About() {
         {/* ── LEFT: Personal note + skills ──────────────────────────────── */}
         <div>
           <motion.div variants={item} className="mb-10">
-            <h2 className="font-serif font-semibold text-lg text-ink mb-4">In my own words</h2>
-            <div className="space-y-4 font-serif text-base text-warm leading-relaxed">
+            <h2 className="font-serif font-bold text-lg text-ink mb-4">In my own words</h2>
+            <div className="space-y-4 font-serif font-bold text-warm text-ink leading-relaxed text-justify">
               <p>
                 I&apos;m a Computer Science student at Universiti Teknologi PETRONAS, Malaysia.
                 My focus is software engineering with a growing interest in AI and machine learning,
@@ -98,17 +98,17 @@ export default function About() {
 
           {/* Skills — honest text descriptions */}
           <motion.div variants={item} className="mb-10">
-            <h2 className="font-serif font-semibold text-lg text-ink mb-5">Skills, honestly</h2>
+            <h2 className="font-serif font-bold text-lg text-ink mb-5">Skills, honestly</h2>
             <div className="space-y-4">
               {skills.map((skill) => (
                 <div
                   key={skill.name}
                   className="grid grid-cols-[130px_1fr] gap-4 items-start"
                 >
-                  <span className="font-mono text-[11px] text-ink uppercase tracking-wider mt-0.5 leading-snug">
+                  <span className="font-mono text-[12px] text-ink uppercase tracking-wider mt-0.5 leading-snug">
                     {skill.name}
                   </span>
-                  <span className="font-serif text-sm text-warm leading-snug">{skill.level}</span>
+                  <span className="font-mono text-[12px] text-warm leading-snug">{skill.level}</span>
                 </div>
               ))}
             </div>
@@ -129,7 +129,7 @@ export default function About() {
 
         {/* ── RIGHT: Education timeline ─────────────────────────────────── */}
         <motion.div variants={item}>
-          <h2 className="font-serif font-semibold text-lg text-ink mb-6">Timeline</h2>
+          <h2 className="font-serif font-bold text-lg text-ink mb-6">Timeline</h2>
 
           {/* Timeline with vertical rule on left side */}
           <div className="relative space-y-7">
@@ -153,7 +153,7 @@ export default function About() {
                 />
 
                 <div className="pl-4">
-                  <p className="font-serif font-semibold text-ink text-base leading-tight mb-1">
+                  <p className="font-serif font-semibold text-ink text-lg leading-tight mb-1">
                     {entry.event}
                   </p>
                   <p className="font-mono text-[11px] text-warm leading-snug">{entry.detail}</p>

@@ -40,7 +40,7 @@ export default function Projects() {
         <motion.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
           Projects
         </motion.h1>
-        <motion.p variants={item} className="font-serif text-warm text-lg mb-8 max-w-xl">
+        <motion.p variants={item} className="font-serif text-warm text-ink mb-8 max-w-xl">
           Things I&apos;ve built, broken, and shipped. Some finished, some not.
         </motion.p>
         <motion.div variants={item} className="border-t border-line" />
