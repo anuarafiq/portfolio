@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { posts } from "../data/posts"
@@ -12,7 +12,45 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 }
 
+function CodeBlock({ children, ...props }) {
+  const [copied, setCopied] = useState(false)
+  const preRef = useRef(null)
+
+  const codeEl = children?.props || {}
+  const language = codeEl["data-language"] || ""
+
+  function handleCopy() {
+    const text = preRef.current?.textContent || ""
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  return (
+    <div className="relative group">
+      <div
+        className="absolute top-2 right-3 flex items-center gap-3 font-mono text-warm select-none"
+        style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}
+      >
+        {language && <span>{language}</span>}
+        <button
+          onClick={handleCopy}
+          className="text-warm hover:text-rust transition-colors duration-200 cursor-pointer"
+          style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}
+        >
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+      <pre ref={preRef} {...props}>
+        {children}
+      </pre>
+    </div>
+  )
+}
+
 const mdxComponents = {
+  pre: (props) => <CodeBlock {...props} />,
   p: ({ children }) => (
     <p className="font-serif text-ink text-lg leading-relaxed">{children}</p>
   ),
