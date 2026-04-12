@@ -29,19 +29,21 @@ function CodeBlock({ children, ...props }) {
 
   return (
     <div className="relative group">
-      <div
-        className="absolute top-2 right-3 flex items-center gap-3 font-mono text-warm select-none"
-        style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}
-      >
-        {language && <span>{language}</span>}
-        <button
-          onClick={handleCopy}
-          className="text-warm hover:text-rust transition-colors duration-200 cursor-pointer"
+      {language && (
+        <span
+          className="absolute top-2.25 left-6 font-mono text-warm select-none"
           style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}
         >
-          {copied ? "Copied" : "Copy"}
-        </button>
-      </div>
+          {language}
+        </span>
+      )}
+      <button
+        onClick={handleCopy}
+        className="absolute top-2 right-3 font-mono text-warm border border-line px-2 py-0.5 hover:text-rust hover:border-rust transition-colors duration-200 cursor-pointer select-none"
+        style={{ fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}
+      >
+        {copied ? "Copied" : "Copy"}
+      </button>
       <pre ref={preRef} {...props}>
         {children}
       </pre>
