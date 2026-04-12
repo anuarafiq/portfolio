@@ -11,7 +11,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="border-t border-line mt-auto">
+    <footer className="sticky bottom-0 z-50 bg-paper border-t border-line mt-auto">
       <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <p className="font-mono text-[11px] text-warm uppercase tracking-widest">
           © {new Date().getFullYear()} Anuar Afiq
