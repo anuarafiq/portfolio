@@ -90,7 +90,7 @@ export default function Nav() {
             className="font-mono text-[11px] uppercase tracking-widest text-rust border border-rust px-3 py-1 hover:bg-rust hover:text-paper transition-colors duration-200 shrink-0"
             aria-label="Download Resume PDF"
           >
-            CV ↗
+            Resume ↗
           </a>
         </div>
       </nav>

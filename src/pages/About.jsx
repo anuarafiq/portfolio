@@ -122,7 +122,7 @@ export default function About() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-rust border border-rust px-5 py-3 hover:bg-rust hover:text-paper transition-colors duration-200"
             >
-              Download CV ↗
+              Download Resume ↗
             </a>
           </motion.div>
         </div>
