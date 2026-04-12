@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
+import { useEffect } from "react"
 import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import Home from "./pages/Home"
@@ -9,11 +10,20 @@ import BlogPost from "./pages/BlogPost"
 import ProjectDetail from "./pages/ProjectDetail"
 import NotFound from "./pages/NotFound"
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" })
+  }, [pathname])
+  return null
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       {/* min-h-dvh: uses the dynamic viewport height on mobile (avoids iOS Safari chrome issues) */}
       <div className="min-h-dvh flex flex-col bg-paper text-ink">
+        <ScrollToTop />
         <Nav />
         <div className="flex-1">
           <Routes>
