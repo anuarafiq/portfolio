@@ -12,6 +12,20 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 }
 
+const mdxComponents = {
+  p: ({ children }) => (
+    <p className="font-serif text-ink text-lg leading-relaxed">{children}</p>
+  ),
+  h3: ({ children }) => (
+    <h3
+      className="font-serif font-semibold text-ink text-2xl mt-8 mb-1"
+      style={{ letterSpacing: "-0.02em" }}
+    >
+      {children}
+    </h3>
+  ),
+}
+
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -42,11 +56,12 @@ export default function BlogPost() {
     )
   }
 
+  const PostContent = post.Component
+
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-3xl mx-auto px-6">
       {/* ─── ARTICLE HEADER ─────────────────────────────────────────────── */}
       <header className="pt-16 pb-10">
-        {/* Back nav + category tag */}
         <motion.div variants={item} className="flex items-center gap-4 mb-8">
           <Link
             to="/notes"
@@ -59,7 +74,6 @@ export default function BlogPost() {
           </span>
         </motion.div>
 
-        {/* Title — sized between display-sm and body h1 */}
         <motion.h1
           variants={item}
           className="font-serif font-semibold text-ink leading-tight mb-4"
@@ -68,7 +82,6 @@ export default function BlogPost() {
           {post.title}
         </motion.h1>
 
-        {/* Byline */}
         <motion.div variants={item} className="flex items-center gap-5 font-mono text-[11px] text-warm">
           <time dateTime={post.date}>{formatDate(post.date)}</time>
           <span>{post.readingTime} read</span>
@@ -78,37 +91,11 @@ export default function BlogPost() {
       </header>
 
       {/* ─── ARTICLE BODY ───────────────────────────────────────────────── */}
-      {/*
-       * Prose reading experience: Cormorant Garamond at 1.125rem, generous
-       * line-height. Max-width constraint (3xl container) keeps line length
-       * in the 60-70 char sweet spot for readability.
-       */}
       <motion.article variants={item} className="pb-16">
         <div className="space-y-5">
-          {post.content.map((block, i) => {
-            if (block.type === "p") {
-              return (
-                <p key={i} className="font-serif text-ink text-lg leading-relaxed">
-                  {block.text}
-                </p>
-              )
-            }
-            if (block.type === "h3") {
-              return (
-                <h3
-                  key={i}
-                  className="font-serif font-semibold text-ink text-2xl mt-8 mb-1"
-                  style={{ letterSpacing: "-0.02em" }}
-                >
-                  {block.text}
-                </h3>
-              )
-            }
-            return null
-          })}
+          <PostContent components={mdxComponents} />
         </div>
 
-        {/* Back link at bottom — wayfinding */}
         <div className="mt-12 pt-8 border-t border-line">
           <Link
             to="/notes"
