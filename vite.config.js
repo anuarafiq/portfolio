@@ -12,7 +12,10 @@ export default defineConfig({
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
       rehypePlugins: [
         [rehypePrettyCode, {
-          theme: 'github-light',
+          theme: {
+            light: 'github-light',
+            dark: 'github-dark',
+          },
           keepBackground: false,
         }],
       ],

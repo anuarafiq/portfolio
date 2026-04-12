@@ -14,7 +14,7 @@
 @theme {
   --color-ink: #1a1208;
   --color-paper: #f4efe8;
-  --color-rust: #c8391a;
+  --color-rust: #1c3f5e;
   --color-warm: #9c9080;
   --color-line: #d4cdb8;
   --color-paper-dim: #ede6d8;
@@ -59,7 +59,7 @@
   :root:not([data-theme="light"]) {
     --color-ink: #ede5d5;
     --color-paper: #1e1c18;
-    --color-rust: #d4502a;
+    --color-rust: #4a7fa8;
     --color-warm: #8c8272;
     --color-line: #302c24;
     --color-paper-dim: #171512;
@@ -70,7 +70,7 @@
 :root[data-theme="dark"] {
   --color-ink: #ede5d5;
   --color-paper: #1e1c18;
-  --color-rust: #d4502a;
+  --color-rust: #4a7fa8;
   --color-warm: #8c8272;
   --color-line: #302c24;
   --color-paper-dim: #171512;
@@ -231,93 +231,126 @@
     padding: 0.15em 0.35em;
   }
 
-  /* ── Token color overrides ──
-   * Shiki inlines style="color:#HEX" on each span.
-   * We override with !important to apply ink-on-paper palette. */
+  /* ── Dual-theme token activation ──
+   * With theme: { light, dark }, Shiki outputs CSS custom properties on each span:
+   *   style="--shiki-light:#HEX;--shiki-dark:#HEX"
+   * We activate the right one per theme via color: var(--shiki-light/dark).
+   * This covers every token automatically — no per-color overrides needed. */
 
-  /* Keywords: from, import, def, const, return, =, + → deep rust */
-  figure[data-rehype-pretty-code-figure] span[style*="#D73A49"],
-  figure[data-rehype-pretty-code-figure] span[style*="#d73a49"] {
-    color: #7a3e1d !important;
-    font-weight: 500;
+  figure[data-rehype-pretty-code-figure] code span {
+    color: var(--shiki-light);
   }
-
-  /* Functions and method calls → warm brown */
-  figure[data-rehype-pretty-code-figure] span[style*="#6F42C1"],
-  figure[data-rehype-pretty-code-figure] span[style*="#6f42c1"] {
-    color: #5c5033 !important;
-  }
-
-  /* Strings → muted green */
-  figure[data-rehype-pretty-code-figure] span[style*="#032F62"],
-  figure[data-rehype-pretty-code-figure] span[style*="#032f62"] {
-    color: #3d6b4a !important;
-  }
-
-  /* Comments → warm, italic */
-  figure[data-rehype-pretty-code-figure] span[style*="#6A737D"],
-  figure[data-rehype-pretty-code-figure] span[style*="#6a737d"] {
-    color: var(--color-warm) !important;
-    font-style: italic;
-  }
-
-  /* Numbers and constants → warm amber */
-  figure[data-rehype-pretty-code-figure] span[style*="#005CC5"],
-  figure[data-rehype-pretty-code-figure] span[style*="#005cc5"] {
-    color: #6b4c2a !important;
-  }
-
-  /* Default text / punctuation → ink */
-  figure[data-rehype-pretty-code-figure] span[style*="#24292E"],
-  figure[data-rehype-pretty-code-figure] span[style*="#24292e"] {
-    color: var(--color-ink) !important;
-  }
-
-  /* ── Dark mode token overrides ──
-   * ┌─ TO CHANGE DARK CODE COLORS ──────────────────────────────────────────┐
-   * │  Edit the four color values in BOTH blocks below (keep them in sync). │
-   * │  Comments use var(--color-warm) and default text uses var(--color-ink)│
-   * │  — those auto-update from the palette block above, no edit needed.    │
-   * └───────────────────────────────────────────────────────────────────────┘ */
 
   /* Case 1: system dark, no manual override */
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#D73A49"],
-    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#d73a49"] {
-      color: #c87e5a !important;
-    }
-    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#6F42C1"],
-    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#6f42c1"] {
-      color: #b8a07a !important;
-    }
-    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#032F62"],
-    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#032f62"] {
-      color: #7aad8c !important;
-    }
-    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#005CC5"],
-    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="#005cc5"] {
-      color: #c49060 !important;
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] code span {
+      color: var(--shiki-dark);
     }
   }
 
   /* Case 2: user manually toggled dark */
-  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#D73A49"],
-  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#d73a49"] {
-    color: #c87e5a !important;
-  }
-  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#6F42C1"],
-  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#6f42c1"] {
-    color: #b8a07a !important;
-  }
-  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#032F62"],
-  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#032f62"] {
-    color: #7aad8c !important;
-  }
-  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#005CC5"],
-  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="#005cc5"] {
-    color: #c49060 !important;
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] code span {
+    color: var(--shiki-dark);
   }
 
-  /* Comments → auto via var(--color-warm); no override needed */
-  /* Default text → auto via var(--color-ink); no override needed */
+  /* ── Light mode ink-on-paper aesthetic overrides ──
+   * Shiki's github-light colors are replaced with warmer, editorial tones.
+   * Match on --shiki-light value in the style attribute. */
+
+  /* Keywords → deep rust */
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#D73A49"],
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#d73a49"] {
+    color: #7a3e1d !important;
+    font-weight: 500;
+  }
+
+  /* Functions → warm brown */
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6F42C1"],
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6f42c1"] {
+    color: #5c5033 !important;
+  }
+
+  /* Strings → muted green */
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#032F62"],
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#032f62"] {
+    color: #3d6b4a !important;
+  }
+
+  /* Comments → warm gray, italic */
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6A737D"],
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6a737d"] {
+    color: var(--color-warm) !important;
+    font-style: italic;
+  }
+
+  /* Numbers / constants → warm amber */
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#005CC5"],
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#005cc5"] {
+    color: #6b4c2a !important;
+  }
+
+  /* Default text / punctuation → ink */
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#24292E"],
+  figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#24292e"] {
+    color: var(--color-ink) !important;
+  }
+
+  /* ── Dark mode aesthetic overrides ──
+   * ┌─ TO CHANGE DARK CODE COLORS ──────────────────────────────────────────┐
+   * │  Edit values in BOTH selector blocks below (media query + data-theme). │
+   * └───────────────────────────────────────────────────────────────────────┘ */
+
+  /* Case 1: system dark */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#D73A49"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#d73a49"] {
+      color: #c87e5a !important;
+    }
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6F42C1"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6f42c1"] {
+      color: #b8a07a !important;
+    }
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#032F62"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#032f62"] {
+      color: #7aad8c !important;
+    }
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#005CC5"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#005cc5"] {
+      color: #c49060 !important;
+    }
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6A737D"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6a737d"] {
+      color: var(--color-warm) !important;
+    }
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#24292E"],
+    :root:not([data-theme="light"]) figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#24292e"] {
+      color: var(--color-ink) !important;
+    }
+  }
+
+  /* Case 2: user manually toggled dark */
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#D73A49"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#d73a49"] {
+    color: #c87e5a !important;
+  }
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6F42C1"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6f42c1"] {
+    color: #b8a07a !important;
+  }
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#032F62"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#032f62"] {
+    color: #7aad8c !important;
+  }
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#005CC5"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#005cc5"] {
+    color: #c49060 !important;
+  }
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6A737D"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#6a737d"] {
+    color: var(--color-warm) !important;
+  }
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#24292E"],
+  :root[data-theme="dark"] figure[data-rehype-pretty-code-figure] span[style*="--shiki-light:#24292e"] {
+    color: var(--color-ink) !important;
+  }
 }
