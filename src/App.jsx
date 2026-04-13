@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import { useEffect } from "react"
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import Home from "./pages/Home"
@@ -39,6 +40,7 @@ export default function App() {
         </div>
         <Footer />
         <Analytics />
+        <SpeedInsights />
       </div>
     </BrowserRouter>
   )
