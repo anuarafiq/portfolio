@@ -49,7 +49,7 @@ const skills = [
 
 export default function About() {
   useEffect(() => {
-    document.title = "About — Portfolio"
+    document.title = "About - Portfolio"
   }, [])
 
   return (

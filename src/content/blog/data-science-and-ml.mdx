@@ -1,0 +1,50 @@
+---
+title: "Data Science and Machine Learning"
+date: "2026-03-18"
+category: "Learning"
+readingTime: "4 min"
+excerpt: "Currently working through data science and ML — what I'm learning, what's clicking, and what still confuses me."
+---
+
+I'm in the middle of learning data science and machine learning right now. Not finished. Not an expert. Just someone working through it and writing down what I find.
+
+The thing nobody tells you upfront: most of ML is data, not models. Everyone wants to jump to neural networks. The actual work is cleaning messy data, figuring out which features matter, deciding what "accurate" even means for your problem.
+
+### What I'm Working Through
+
+I started with the fundamentals — statistics that I thought I remembered but didn't really. Mean, variance, correlation. How probability connects to prediction. Why overfitting is more than just a buzzword.
+
+Then supervised learning. Classification first because the output is clean: this or that, category A or B. Regression after, because predicting a number feels more slippery. The math is similar; the intuition is different.
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Split before you do anything else
+# Don't let your test set influence your decisions
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+```
+
+### What's Actually Clicking
+
+Feature engineering. The part where you take raw data and turn it into something a model can use. That's where domain knowledge matters more than algorithm choice. A better feature beats a fancier model almost every time.
+
+Pandas. It clicked slowly, then all at once. Now I find myself thinking in DataFrames.
+
+The feedback loop of training, evaluating, and iterating. Once that rhythm makes sense, the process feels less like guesswork.
+
+### What Still Confuses Me
+
+How to pick the right model without just trying all of them. The theory says decision boundaries and assumptions — in practice it often feels empirical.
+
+Hyperparameter tuning. I understand what it is. I don't always understand why certain values work better than others.
+
+Interpreting results honestly. It's easy to report accuracy. Harder to know if the model is actually useful or just fitting your training data well.
+
+### Why I'm Doing This
+
+I study at UTP, and data is everywhere in engineering — sensor readings, maintenance logs, academic records. I want to build tools that do something useful with that data. Not for the sake of ML, but because the problems are real.
+
+That's the frame I'm using for everything I learn here: can I build something with this?

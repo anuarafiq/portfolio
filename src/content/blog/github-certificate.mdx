@@ -1,0 +1,47 @@
+---
+title: "GitHub Foundations"
+date: "2026-04-13"
+category: "Learning"
+readingTime: "3 min"
+excerpt: "Working through GitHub's foundations certificate — what I already knew, what I didn't, and why it's worth formalising."
+---
+
+I've been using GitHub for a while. Pushing code, making commits, opening the occasional pull request. I thought I knew it. Then I started working through the GitHub Foundations certificate and realised I knew the surface.
+
+### What I Already Knew
+
+The basics: repositories, commits, branches, push and pull. Enough to not embarrass myself. I could clone a repo, make changes, and get them onto GitHub without losing work.
+
+That's maybe 20% of what GitHub is actually for.
+
+### What I Didn't Know
+
+Issues as a workflow tool. I used them to report bugs on other people's repos. I didn't really think about them as a structured way to manage my own work. Labels, milestones, assignees — there's a whole project management layer I was ignoring.
+
+```bash
+# I was doing this
+git add .
+git commit -m "fix stuff"
+git push
+
+# The certificate made me think more carefully about this
+git add src/specific-file.js
+git commit -m "fix: resolve null reference in user auth flow"
+git push origin feature/user-auth
+```
+
+Branch strategy. I knew branches existed. I didn't have a consistent mental model for when to branch, what to name things, or how it connects to a team's workflow.
+
+GitHub Actions. I'd seen CI/CD mentioned everywhere but never set it up myself. Seeing how a workflow file triggers on push, runs tests, and reports back — that made automation feel approachable.
+
+### Why Formalise Something You Already Use
+
+Because there's a difference between using a tool and understanding it. I can drive a car without knowing how the engine works. But if I'm going to spend years building software on top of GitHub, I want to know the engine.
+
+The certificate also gives me vocabulary. When someone talks about protecting a branch, rebasing versus merging, or a PR review workflow — I want to know exactly what that means and why it matters.
+
+### Still In Progress
+
+I'm not done yet. The foundations certificate is the starting point. There are more advanced certifications — Actions, Advanced Security, Copilot. Right now I'm focused on building the base.
+
+The goal isn't the badge. It's having no gaps in the fundamentals so I can focus on the actual work.

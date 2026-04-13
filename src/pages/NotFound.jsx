@@ -23,7 +23,7 @@ const item = {
 
 export default function NotFound() {
   useEffect(() => {
-    document.title = "404 — Not Found"
+    document.title = "404 - Not Found"
   }, [])
 
   return (

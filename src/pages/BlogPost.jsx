@@ -79,7 +79,7 @@ export default function BlogPost() {
   const post = posts.find((p) => p.slug === slug)
 
   useEffect(() => {
-    document.title = post ? `${post.title} — Portfolio` : "Not Found — Portfolio"
+    document.title = post ? `${post.title} - Portfolio` : "Not Found - Portfolio"
   }, [post])
 
   if (!post) {

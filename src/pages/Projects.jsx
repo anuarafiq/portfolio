@@ -19,7 +19,7 @@ export default function Projects() {
   const [activeTag, setActiveTag] = useState("All")
 
   useEffect(() => {
-    document.title = "Work — Portfolio"
+    document.title = "Work - Portfolio"
   }, [])
 
   const filtered =
