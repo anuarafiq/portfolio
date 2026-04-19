@@ -9,7 +9,7 @@ excerpt: "I tried following generic ML roadmaps. None of them stuck until I buil
 I watched a lot of ML roadmaps. YouTube playlists, Reddit arguments about Andrew Ng vs fast.ai, fancy Notion templates. Three different ones. Each one lost me at the same spot: understanding something in theory doesn't mean you can build with it.
 That gap between knowing and doing is brutal.
 
-### What Actually Worked
+### what actually worked
 
 I stopped following roadmaps and started with a problem I could see every semester: course selection at UTP is a guess. You ask friends, check the lecturer's reputation, wonder if you can handle the workload. Nobody really knows until it's Week 3.
 Building a predictor forced me to learn what mattered. Feature engineering to make sense of course data. Classification to predict difficulty levels. Model validation to know if the thing actually works. Not because a roadmap said so, but because I needed it.
@@ -28,11 +28,11 @@ clf.fit(course_data, difficulty_labels)
 # feature importance tells you what actually matters
 print(clf.feature_importances_)
 ```
-### The Uncomfortable Part
+### the uncomfortable part
 
 Your knowledge will be lopsided. After this project you'll understand classification and feature engineering. Probably nothing about time series or neural networks. That used to bother me. But the goal was never to know everything. It was to build something people actually use.
 
-### The Path Forward
+### the path forward
 Weeks 1-2: Collect and explore course data. What do we even have? Lecturer names, enrollment sizes, past GPA requirements, student reviews on private channels. Spend time just looking at it. Make some plots. Get comfortable with the data.
 
 Weeks 3-4: Clean the data and build features. How do you turn "Dr. Ahmed is tough" into numbers? What if a course has 50 students vs 150? Does time of day matter (8am lectures harder to pass)? Start combining raw numbers into things the model can actually use.
