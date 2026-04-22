@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { posts } from "../data/posts"
+import { useScrollProgress } from "../hooks/useScrollProgress"
 
 const container = {
   hidden: {},
@@ -96,10 +97,17 @@ export default function BlogPost() {
     )
   }
 
+  const progress = useScrollProgress()
   const PostContent = post.Component
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-3xl mx-auto px-6">
+      {/* ─── READING PROGRESS ───────────────────────────────────────────── */}
+      <div
+        className="fixed top-0 left-0 h-[2px] bg-rust transition-[width] duration-150 ease-out z-50"
+        style={{ width: `${Math.round(progress * 100)}%` }}
+      />
+
       {/* ─── ARTICLE HEADER ─────────────────────────────────────────────── */}
       <header className="pt-16 pb-10">
         <motion.div variants={item} className="flex items-center gap-4 mb-8">
