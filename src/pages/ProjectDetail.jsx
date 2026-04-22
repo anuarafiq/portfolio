@@ -1,16 +1,8 @@
-import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { projects } from "../data/projects"
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-}
-const item = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-}
+import { useMeta } from "../hooks/useMeta"
+import { container, item } from "../lib/motion"
 
 export default function ProjectDetail() {
   // useParams() reads the :slug segment from the URL.
@@ -20,10 +12,10 @@ export default function ProjectDetail() {
   // Find the matching project. .find() returns the first match or undefined.
   const project = projects.find((p) => p.slug === slug)
 
-  // Update the browser tab title whenever the project changes.
-  useEffect(() => {
-    document.title = project ? `${project.title} - Portfolio` : "Not Found - Portfolio"
-  }, [project])
+  useMeta({
+    title: project ? `${project.title} - Anuar Afiq` : "Not Found - Anuar Afiq",
+    description: project?.description ?? "Project by Anuar Afiq.",
+  })
 
   // Guard clause: if no project matched, show a minimal not-found state.
   if (!project) {

@@ -1,17 +1,11 @@
-import { useEffect, useState, useRef } from "react"
+import { useState, useRef } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { posts } from "../data/posts"
 import { useScrollProgress } from "../hooks/useScrollProgress"
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-}
-const item = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-}
+import { useMeta } from "../hooks/useMeta"
+import { container, item } from "../lib/motion"
+import { formatDate } from "../lib/utils"
 
 function CodeBlock({ children, ...props }) {
   const [copied, setCopied] = useState(false)
@@ -67,21 +61,15 @@ const mdxComponents = {
   ),
 }
 
-function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
-}
-
 export default function BlogPost() {
   const { slug } = useParams()
   const post = posts.find((p) => p.slug === slug)
 
-  useEffect(() => {
-    document.title = post ? `${post.title} - Portfolio` : "Not Found - Portfolio"
-  }, [post])
+  useMeta({
+    title: post ? `${post.title} - Anuar Afiq` : "Not Found - Anuar Afiq",
+    description: post?.excerpt ?? "A note by Anuar Afiq.",
+    type: "article",
+  })
 
   if (!post) {
     return (

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Anuar Afiq — Notes</title>
+    <link>https://anuarafiq.me/notes</link>
+    <description>Writing on code, design, and things worth thinking about.</description>
+    <language>en-gb</language>
+    <atom:link href="https://anuarafiq.me/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Wed, 22 Apr 2026 14:31:50 GMT</lastBuildDate>
+  <item>
+    <title><![CDATA[Final Exams]]></title>
+    <link>https://anuarafiq.me/notes/finals</link>
+    <guid>https://anuarafiq.me/notes/finals</guid>
+    <pubDate>Sun, 19 Apr 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Final exam week. The kind of week where months collapse into days.]]></description>
+  </item>
+  <item>
+    <title><![CDATA[GitHub Foundations]]></title>
+    <link>https://anuarafiq.me/notes/github-certificate</link>
+    <guid>https://anuarafiq.me/notes/github-certificate</guid>
+    <pubDate>Mon, 13 Apr 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Working through GitHub's foundations certificate — what I already knew, what I didn't, and why it's worth formalising.]]></description>
+  </item>
+  <item>
+    <title><![CDATA[Course Difficulty Predictor]]></title>
+    <link>https://anuarafiq.me/notes/course-difficulty-predictor</link>
+    <guid>https://anuarafiq.me/notes/course-difficulty-predictor</guid>
+    <pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[I tried following generic ML roadmaps. None of them stuck until I built something I actually find interesting.]]></description>
+  </item>
+  <item>
+    <title><![CDATA[Monospace]]></title>
+    <link>https://anuarafiq.me/notes/monospace-thinking</link>
+    <guid>https://anuarafiq.me/notes/monospace-thinking</guid>
+    <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Somehow, equal-width characters makes me feels precise. How I write code, notes and even document; it feels different.]]></description>
+  </item>
+  <item>
+    <title><![CDATA[Data Science and Machine Learning]]></title>
+    <link>https://anuarafiq.me/notes/data-science-and-ml</link>
+    <guid>https://anuarafiq.me/notes/data-science-and-ml</guid>
+    <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Currently working through data science and ML — what I'm learning, what's clicking, and what still confuses me.]]></description>
+  </item>
+  </channel>
+</rss>

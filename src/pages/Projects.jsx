@@ -1,29 +1,29 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { projects } from "../data/projects"
 import ProjectCard from "../components/ProjectCard"
+import { useMeta } from "../hooks/useMeta"
+import { container, item } from "../lib/motion"
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-}
-const item = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-}
-
-// Collect all unique tags from the projects array
 const ALL_TAGS = ["All", ...new Set(projects.flatMap((p) => p.tags))]
+const STATUS_FILTERS = ["All", "Complete", "WIP"]
 
 export default function Projects() {
   const [activeTag, setActiveTag] = useState("All")
+  const [activeStatus, setActiveStatus] = useState("All")
 
-  useEffect(() => {
-    document.title = "Work - Portfolio"
-  }, [])
+  useMeta({
+    title: "Work - Anuar Afiq",
+    description: "Projects by Anuar Afiq - web apps, games, and tools built with Python, C++, C#, and React.",
+  })
 
-  const filtered =
-    activeTag === "All" ? projects : projects.filter((p) => p.tags.includes(activeTag))
+  const filtered = projects.filter((p) => {
+    const tagMatch = activeTag === "All" || p.tags.includes(activeTag)
+    const statusMatch =
+      activeStatus === "All" ||
+      (activeStatus === "WIP" ? p.status === "wip" : p.status === "complete")
+    return tagMatch && statusMatch
+  })
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
@@ -46,11 +46,25 @@ export default function Projects() {
         <motion.div variants={item} className="border-t border-line" />
       </section>
 
+      {/* ─── STATUS FILTER ─────────────────────────────────────────────────── */}
+      <motion.div variants={item} className="flex flex-wrap gap-2 mb-4" role="group" aria-label="Filter projects by status">
+        {STATUS_FILTERS.map((s) => (
+          <button
+            key={s}
+            onClick={() => setActiveStatus(s)}
+            aria-pressed={activeStatus === s}
+            className={`font-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border transition-colors duration-200 cursor-pointer ${
+              activeStatus === s
+                ? "bg-rust text-paper border-rust"
+                : "text-warm border-line hover:border-rust hover:text-rust"
+            }`}
+          >
+            {s}
+          </button>
+        ))}
+      </motion.div>
+
       {/* ─── TAG FILTER ────────────────────────────────────────────────────── */}
-      {/*
-       * Active state: filled ink/paper. Inactive: border only.
-       * No rounded corners — consistent with the sharp editorial aesthetic.
-       */}
       <motion.div variants={item} className="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter projects by tag">
         {ALL_TAGS.map((tag) => (
           <button

@@ -1,29 +1,15 @@
-import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { posts } from "../data/posts"
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-}
-const item = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-}
-
-function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  })
-}
+import { useMeta } from "../hooks/useMeta"
+import { container, item } from "../lib/motion"
+import { formatDateShort as formatDate } from "../lib/utils"
 
 export default function Blog() {
-  useEffect(() => {
-    document.title = "Notes - Portfolio"
-  }, [])
+  useMeta({
+    title: "Notes - Anuar Afiq",
+    description: "Writing on software, learning, and building things - notes by Anuar Afiq.",
+  })
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">

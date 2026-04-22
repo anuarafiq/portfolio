@@ -1,14 +1,6 @@
-import { useEffect } from "react"
 import { motion } from "framer-motion"
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-}
-const item = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-}
+import { useMeta } from "../hooks/useMeta"
+import { container, item } from "../lib/motion"
 
 const timeline = [
   {
@@ -48,9 +40,10 @@ const skills = [
 ]
 
 export default function About() {
-  useEffect(() => {
-    document.title = "About - Portfolio"
-  }, [])
+  useMeta({
+    title: "About - Anuar Afiq",
+    description: "Background, skills, and timeline of Anuar Afiq - CS student, developer, and occasional writer.",
+  })
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">

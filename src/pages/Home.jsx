@@ -1,39 +1,17 @@
-import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { projects } from "../data/projects"
 import { currentlyBuilding } from "../data/status"
-
-/**
- * Staggered page-load animation.
- * The container fires once on mount; children reveal sequentially with 90ms gap.
- * Easing [0.22, 1, 0.36, 1] is a custom ease-out that feels snappy, not floaty.
- */
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.09,
-      delayChildren: 0.05,
-    },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
-}
+import { useMeta } from "../hooks/useMeta"
+import { container, item } from "../lib/motion"
 
 const featured = projects.filter((p) => p.featured)
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "Portfolio"
-  }, [])
+  useMeta({
+    title: "Anuar Afiq",
+    description: "Anuar Afiq - computer science student building web apps, games, and tools. Based in Malaysia.",
+  })
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
