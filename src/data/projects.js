@@ -72,6 +72,25 @@ export const projects = [
     featured: false,
   },
   {
+    id: 6,
+    slug: "career-os",
+    title: "Career OS",
+    description:
+      "Career navigation platform built for the Talentbank Tech Hackathon 2026. Connects job seekers, employers, and universities through AI-powered career pathing, smart matching, and outcome tracking.",
+    longDescription:
+      "Career OS is a full-stack career navigation platform and competition entry for the Talentbank Tech Hackathon 2026. It models three connected user groups — candidates, employers, and universities — each with their own dashboard and workflows. Candidates get AI-powered career path visualization built with React Flow, personalized coaching, and a living portfolio. Employers get intelligent candidate matching and talent retention signals. Universities get graduate outcome tracking and curriculum feedback loops.",
+    problem:
+      "Career navigation is fragmented. Job boards show listings but not pathways. University systems track enrollment, not outcomes. The hackathon brief called for a platform that bridges all three sides — helping candidates see realistic career paths, giving employers smarter matching, and letting institutions close the feedback loop on graduate employment.",
+    solution:
+      "Built on Next.js App Router with Supabase handling auth and the relational data layer. The career path visualizer uses React Flow to render branching trajectory graphs. AI features run through Vercel AI SDK with Google and Groq as model providers. Role-based routing separates the candidate, employer, and university surfaces into distinct dashboard experiences.",
+    tags: ["Next.js", "TypeScript", "Supabase", "AI SDK", "React Flow", "Tailwind"],
+    status: "wip",
+    year: "2026",
+    githubUrl: "https://github.com/anuarafiq/career-os",
+    liveUrl: "https://career-os-five-omega.vercel.app",
+    featured: true,
+  },
+  {
     id: 5,
     slug: "portfolio",
     title: "This Portfolio",

@@ -112,16 +112,28 @@ export default function ProjectDetail() {
           >
             ← All Projects
           </Link>
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-xs text-rust hover:underline"
-            >
-              View on GitHub ↗
-            </a>
-          )}
+          <div className="flex items-center gap-5">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs text-rust hover:underline"
+              >
+                Live Demo ↗
+              </a>
+            )}
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs text-rust hover:underline"
+              >
+                View on GitHub ↗
+              </a>
+            )}
+          </div>
         </div>
       </motion.article>
     </motion.main>
