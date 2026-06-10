@@ -71,6 +71,8 @@ export default function BlogPost() {
     type: "article",
   })
 
+  const progress = useScrollProgress()
+
   if (!post) {
     return (
       <div className="max-w-3xl mx-auto px-6 py-24">
@@ -85,7 +87,6 @@ export default function BlogPost() {
     )
   }
 
-  const progress = useScrollProgress()
   const PostContent = post.Component
 
   return (

@@ -28,15 +28,18 @@ const posts = readdirSync(BLOG_DIR)
   .filter((p) => p.date)
   .sort((a, b) => new Date(b.date) - new Date(a.date))
 
+// "]]>" inside CDATA would terminate the section early and inject markup
+const cdata = (v) => `<![CDATA[${String(v ?? "").replaceAll("]]>", "]]]]><![CDATA[>")}]]>`
+
 const items = posts
   .map(
     (p) => `
   <item>
-    <title><![CDATA[${p.title}]]></title>
+    <title>${cdata(p.title)}</title>
     <link>${SITE_URL}/notes/${p.slug}</link>
     <guid>${SITE_URL}/notes/${p.slug}</guid>
     <pubDate>${new Date(p.date).toUTCString()}</pubDate>
-    <description><![CDATA[${p.excerpt ?? ""}]]></description>
+    <description>${cdata(p.excerpt)}</description>
   </item>`
   )
   .join("")
