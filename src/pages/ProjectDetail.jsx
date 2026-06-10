@@ -83,7 +83,7 @@ export default function ProjectDetail() {
         {/* Overview — uses longDescription if available, falls back to description */}
         <section>
           <p className="font-mono text-[11px] text-rust uppercase tracking-widest mb-3">Overview</p>
-          <p className="font-serif text-ink text-lg leading-relaxed">
+          <p className="font-serif text-ink text-lg leading-relaxed text-justify">
             {project.longDescription || project.description}
           </p>
         </section>
@@ -92,7 +92,7 @@ export default function ProjectDetail() {
         {project.problem && (
           <section>
             <p className="font-mono text-[11px] text-rust uppercase tracking-widest mb-3">Problem</p>
-            <p className="font-serif text-ink text-lg leading-relaxed">{project.problem}</p>
+            <p className="font-serif text-ink text-lg leading-relaxed text-justify">{project.problem}</p>
           </section>
         )}
 
@@ -100,7 +100,7 @@ export default function ProjectDetail() {
         {project.solution && (
           <section>
             <p className="font-mono text-[11px] text-rust uppercase tracking-widest mb-3">Solution</p>
-            <p className="font-serif text-ink text-lg leading-relaxed">{project.solution}</p>
+            <p className="font-serif text-ink text-lg leading-relaxed text-justify">{project.solution}</p>
           </section>
         )}
 
