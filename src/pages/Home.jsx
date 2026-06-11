@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
+import TransitionLink from "../components/TransitionLink"
+import { morphNameFor } from "../lib/viewTransition"
 import { projects } from "../data/projects"
 import { currentlyBuilding } from "../data/status"
 import { useMeta } from "../hooks/useMeta"
@@ -117,12 +119,15 @@ export default function Home() {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
-                    <Link
+                    <TransitionLink
                       to={`/projects/${project.slug}`}
+                      vtTarget={project.slug}
+                      data-vt={project.slug}
                       className="font-serif font-semibold text-xl text-ink leading-tight hover:text-rust transition-colors duration-200"
+                      style={{ viewTransitionName: morphNameFor(project.slug) }}
                     >
                       {project.title}
-                    </Link>
+                    </TransitionLink>
                     <span className="font-mono text-xs text-warm">{project.year}</span>
                   </div>
                   <p className="font-serif font-bold text-warm text-base leading-relaxed mb-3 text-justify">

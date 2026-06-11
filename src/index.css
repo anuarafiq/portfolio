@@ -200,6 +200,49 @@
   }
 }
 
+/* ─── View Transitions: editorial page morph ─────────────────────────────
+ *
+ * Project titles carry a per-slug view-transition-name (set inline in
+ * ProjectCard / Home / ProjectDetail). TransitionLink wraps the route swap
+ * in document.startViewTransition, so the title glides and rescales between
+ * the list row and the detail headline while the rest of the page crossfades
+ * underneath - one continuous broadsheet, not two screens.
+ *
+ * Reduced motion never reaches these rules: TransitionLink skips the API
+ * entirely when prefers-reduced-motion is set, and the media query below is
+ * a second guard for any other source of view transitions.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  /* Morphing groups (the titles): unhurried exponential ease-out, like a
+   * page settling flat after being turned. */
+  ::view-transition-group(*) {
+    animation-duration: 0.45s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Page underneath: old leaves quickly, new arrives a beat later so the
+   * title morph reads as the protagonist of the transition. */
+  ::view-transition-old(root) {
+    animation: vt-page-out 0.18s cubic-bezier(0.4, 0, 1, 1) both;
+  }
+
+  ::view-transition-new(root) {
+    animation: vt-page-in 0.32s 0.08s cubic-bezier(0, 0, 0.2, 1) both;
+  }
+}
+
+@keyframes vt-page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-page-in {
+  from {
+    opacity: 0;
+  }
+}
+
 /* ─── Code Block Styles (rehype-pretty-code) ────────────────────────────── */
 @layer base {
   /* Code block container */

@@ -1,10 +1,16 @@
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { projects } from "../data/projects"
+import TransitionLink from "../components/TransitionLink"
 import { useMeta } from "../hooks/useMeta"
 import { container, item } from "../lib/motion"
+import { isViewTransitioning, morphNameFor } from "../lib/viewTransition"
 
 export default function ProjectDetail() {
+  // When arriving via a TransitionLink morph, the View Transitions API owns
+  // the entrance - skip the Framer stagger so the title isn't opacity-0 when
+  // the browser snapshots the new state. Direct loads keep the stagger.
+  const arrivedViaMorph = isViewTransitioning()
   // useParams() reads the :slug segment from the URL.
   // If the user visits /projects/smart-parking, slug === "smart-parking".
   const { slug } = useParams()
@@ -33,18 +39,24 @@ export default function ProjectDetail() {
   }
 
   return (
-    <motion.main variants={container} initial="hidden" animate="show" className="max-w-3xl mx-auto px-6">
+    <motion.main
+      variants={container}
+      initial={arrivedViaMorph ? false : "hidden"}
+      animate="show"
+      className="max-w-3xl mx-auto px-6"
+    >
 
       {/* ─── HEADER ─────────────────────────────────────────────────────── */}
       <header className="pt-16 pb-10">
         {/* Back nav + optional WIP badge */}
         <motion.div variants={item} className="flex items-center gap-4 mb-8">
-          <Link
+          <TransitionLink
             to="/projects"
+            vtTarget={project.slug}
             className="font-mono text-[11px] uppercase tracking-widest text-warm hover:text-rust transition-colors duration-200"
           >
             ← Projects
-          </Link>
+          </TransitionLink>
           {project.status === "wip" && (
             <span className="font-mono text-[10px] uppercase tracking-widest text-rust border border-rust px-1.5 py-0.5 leading-none">
               WIP
@@ -55,8 +67,13 @@ export default function ProjectDetail() {
         {/* Title */}
         <motion.h1
           variants={item}
+          data-vt={project.slug}
           className="font-serif font-semibold text-ink leading-tight mb-4"
-          style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", letterSpacing: "-0.02em" }}
+          style={{
+            fontSize: "clamp(1.75rem, 4vw, 3rem)",
+            letterSpacing: "-0.02em",
+            viewTransitionName: morphNameFor(project.slug),
+          }}
         >
           {project.title}
         </motion.h1>
@@ -106,12 +123,13 @@ export default function ProjectDetail() {
 
         {/* Footer: GitHub link + back nav */}
         <div className="pt-8 border-t border-line flex items-center justify-between">
-          <Link
+          <TransitionLink
             to="/projects"
+            vtTarget={project.slug}
             className="font-mono text-[11px] uppercase tracking-widest text-warm hover:text-rust transition-colors duration-200"
           >
             ← All Projects
-          </Link>
+          </TransitionLink>
           <div className="flex items-center gap-5">
             {project.liveUrl && (
               <a

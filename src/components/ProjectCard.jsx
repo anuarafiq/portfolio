@@ -8,7 +8,8 @@
  * - Tags are small border-only chips — label not container
  * - No rounded corners on any element here — sharp edges suit ink-on-paper
  */
-import { Link } from "react-router-dom"
+import TransitionLink from "./TransitionLink"
+import { morphNameFor } from "../lib/viewTransition"
 
 export default function ProjectCard({ index, slug, title, description, tags, status, year, githubUrl }) {
   const displayNum = String(index + 1).padStart(2, "0")
@@ -27,12 +28,15 @@ export default function ProjectCard({ index, slug, title, description, tags, sta
         <div className="flex-1 min-w-0">
           {/* Title + metadata row */}
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
-            <Link
+            <TransitionLink
                 to={`/projects/${slug}`}
+                vtTarget={slug}
+                data-vt={slug}
                 className="font-serif font-semibold text-xl text-ink leading-tight hover:text-rust transition-colors duration-200"
+                style={{ viewTransitionName: morphNameFor(slug) }}
               >
                 {title}
-              </Link>
+              </TransitionLink>
             <div className="flex items-center gap-2.5">
               {status === "wip" && (
                 /* Stamp-style badge — no fill, border only, no border-radius */

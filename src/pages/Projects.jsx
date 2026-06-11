@@ -4,6 +4,7 @@ import { projects } from "../data/projects"
 import ProjectCard from "../components/ProjectCard"
 import { useMeta } from "../hooks/useMeta"
 import { container, item } from "../lib/motion"
+import { isViewTransitioning } from "../lib/viewTransition"
 
 const ALL_TAGS = ["All", ...new Set(projects.flatMap((p) => p.tags))]
 const STATUS_FILTERS = ["All", "Complete", "WIP"]
@@ -11,6 +12,10 @@ const STATUS_FILTERS = ["All", "Complete", "WIP"]
 export default function Projects() {
   const [activeTag, setActiveTag] = useState("All")
   const [activeStatus, setActiveStatus] = useState("All")
+  // Skip the Framer entrance when arriving via a view-transition morph
+  // (back-nav from a detail page) - the API animates the title back into
+  // its row, and a stagger would leave the morph target at opacity 0.
+  const arrivedViaMorph = isViewTransitioning()
 
   useMeta({
     title: "Work - Anuar Afiq",
@@ -26,7 +31,12 @@ export default function Projects() {
   })
 
   return (
-    <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
+    <motion.main
+      variants={container}
+      initial={arrivedViaMorph ? false : "hidden"}
+      animate="show"
+      className="max-w-5xl mx-auto px-6"
+    >
       {/* ─── PAGE HEADER ───────────────────────────────────────────────────── */}
       {/*
        * "Projects" in display-sm scale — at 1440px this is ~72px tall.
