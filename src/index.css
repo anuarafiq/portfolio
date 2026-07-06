@@ -200,13 +200,16 @@
   }
 }
 
-/* ─── View Transitions: editorial page morph ─────────────────────────────
+/* ─── View Transitions: broadsheet page turn ─────────────────────────────
  *
  * Project titles carry a per-slug view-transition-name (set inline in
  * ProjectCard / Home / ProjectDetail). TransitionLink wraps the route swap
  * in document.startViewTransition, so the title glides and rescales between
- * the list row and the detail headline while the rest of the page crossfades
- * underneath - one continuous broadsheet, not two screens.
+ * the list row and the detail headline while the page beneath performs a
+ * broadsheet turn: the departing page lifts slightly and fades, the arriving
+ * page drops and settles - like a sheet of newsprint being laid flat on a
+ * table. The title morph is the protagonist; the body motion reinforces the
+ * "one continuous broadsheet" metaphor physically.
  *
  * Reduced motion never reaches these rules: TransitionLink skips the API
  * entirely when prefers-reduced-motion is set, and the media query below is
@@ -220,26 +223,28 @@
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Page underneath: old leaves quickly, new arrives a beat later so the
-   * title morph reads as the protagonist of the transition. */
+  /* Page body: old lifts away quickly, new drops and settles a beat later
+   * so the title morph reads as the protagonist of the transition. */
   ::view-transition-old(root) {
     animation: vt-page-out 0.18s cubic-bezier(0.4, 0, 1, 1) both;
   }
 
   ::view-transition-new(root) {
-    animation: vt-page-in 0.32s 0.08s cubic-bezier(0, 0, 0.2, 1) both;
+    animation: vt-page-in 0.38s 0.06s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 }
 
 @keyframes vt-page-out {
   to {
     opacity: 0;
+    transform: translateY(-10px);
   }
 }
 
 @keyframes vt-page-in {
   from {
     opacity: 0;
+    transform: translateY(8px);
   }
 }
 
