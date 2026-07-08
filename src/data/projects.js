@@ -16,6 +16,7 @@ export const projects = [
     year: "2025",
     githubUrl: "https://github.com/anuarafiq/Smart-Parking-System",
     featured: true,
+    visual: "terminal",
   },
   {
     id: 2,
@@ -34,6 +35,7 @@ export const projects = [
     year: "2025",
     githubUrl: "https://github.com/anuarafiq/ProjectOOP",
     featured: true,
+    visual: "sprite",
   },
   {
     id: 3,
@@ -52,6 +54,7 @@ export const projects = [
     year: "2026",
     githubUrl: "https://github.com/anuarafiq/Airbnb-Database-System",
     featured: false,
+    visual: "erd",
   },
   {
     id: 4,
@@ -70,6 +73,7 @@ export const projects = [
     year: "2023",
     githubUrl: "https://github.com/anuarafiq/Paradise-Shoes",
     featured: false,
+    visual: "storefront",
   },
   {
     id: 6,
@@ -89,6 +93,7 @@ export const projects = [
     githubUrl: "https://github.com/anuarafiq/career-os",
     liveUrl: "https://career-os-five-omega.vercel.app",
     featured: true,
+    visual: "flow",
   },
   {
     id: 5,
@@ -107,5 +112,6 @@ export const projects = [
     year: "2026",
     githubUrl: "https://github.com/anuarafiq/portfolio",
     featured: false,
+    visual: "typescale",
   },
 ].sort((a, b) => Number(b.year) - Number(a.year))

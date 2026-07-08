@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import TransitionLink from "../components/TransitionLink"
+import ProjectVisual from "../components/ProjectVisual"
 import { morphNameFor } from "../lib/viewTransition"
 import { projects } from "../data/projects"
 import { currentlyBuilding } from "../data/status"
@@ -47,6 +48,60 @@ export default function Home() {
             </p>
           </motion.div>
         </div>
+
+        {/* Hero motif — a generated node-graph study, ink linework on paper.
+            Torn-edge + one-off placement: this is the site's one imagery
+            "signature moment," everywhere else stays a plain hairline frame. */}
+        <motion.div
+          variants={item}
+          className="torn-edge editorial-frame mb-10 text-ink"
+          aria-hidden="true"
+        >
+          <svg viewBox="0 0 1200 220" className="w-full h-auto block" role="presentation">
+            <g fill="none" stroke="currentColor" strokeWidth="1">
+              <line x1="120" y1="110" x2="220" y2="60" />
+              <line x1="120" y1="110" x2="220" y2="160" />
+              <line x1="220" y1="60" x2="340" y2="40" />
+              <line x1="220" y1="60" x2="340" y2="110" />
+              <line x1="220" y1="160" x2="340" y2="110" />
+              <line x1="220" y1="160" x2="340" y2="180" />
+              <line x1="340" y1="40" x2="460" y2="70" />
+              <line x1="340" y1="110" x2="460" y2="70" />
+              <line x1="340" y1="110" x2="460" y2="150" />
+              <line x1="340" y1="180" x2="460" y2="150" />
+              <line x1="460" y1="70" x2="580" y2="110" />
+              <line x1="460" y1="150" x2="580" y2="110" />
+              <line x1="580" y1="110" x2="700" y2="60" />
+              <line x1="580" y1="110" x2="700" y2="160" />
+              <line x1="700" y1="60" x2="820" y2="110" />
+              <line x1="700" y1="160" x2="820" y2="110" />
+              <line x1="820" y1="110" x2="940" y2="40" />
+              <line x1="820" y1="110" x2="940" y2="180" />
+              <line x1="940" y1="40" x2="1060" y2="110" />
+              <line x1="940" y1="180" x2="1060" y2="110" />
+            </g>
+            <g fill="currentColor">
+              <circle cx="120" cy="110" r="5" />
+              <circle cx="220" cy="60" r="3" />
+              <circle cx="220" cy="160" r="3" />
+              <circle cx="340" cy="40" r="4" />
+              <circle cx="340" cy="110" r="6" />
+              <circle cx="340" cy="180" r="4" />
+              <circle cx="460" cy="70" r="3" />
+              <circle cx="460" cy="150" r="3" />
+              <circle cx="580" cy="110" r="5" />
+              <circle cx="700" cy="60" r="3" />
+              <circle cx="700" cy="160" r="3" />
+              <circle cx="820" cy="110" r="6" />
+              <circle cx="940" cy="40" r="3" />
+              <circle cx="940" cy="180" r="3" />
+              <circle cx="1060" cy="110" r="5" />
+            </g>
+            <text x="24" y="24" className="font-mono" fontSize="11" letterSpacing="0.15em" fill="currentColor" opacity="0.55">FIG. 01</text>
+            <text x="24" y="200" className="font-mono" fontSize="11" letterSpacing="0.15em" fill="currentColor" opacity="0.55">NETWORK STUDY</text>
+            <text x="1176" y="200" className="font-mono" fontSize="11" letterSpacing="0.15em" fill="currentColor" opacity="0.55" textAnchor="end">2026</text>
+          </svg>
+        </motion.div>
 
         <motion.div variants={item} className="border-t border-line" />
       </section>
@@ -117,6 +172,11 @@ export default function Home() {
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
+
+                {project.visual && (
+                  <ProjectVisual type={project.visual} className="hidden sm:block w-28 aspect-[400/220] shrink-0" />
+                )}
+
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
                     <TransitionLink

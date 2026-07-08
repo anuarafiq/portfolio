@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { useMeta } from "../hooks/useMeta"
 import { container, item } from "../lib/motion"
+import portrait from "../assets/portrait.jpg"
 
 const timeline = [
   {
@@ -73,7 +74,7 @@ export default function About() {
           <motion.div variants={item} className="mb-10">
             <h2 className="font-serif font-bold text-lg text-ink mb-4">In my own words</h2>
             <div className="space-y-4 font-serif font-bold text-warm text-ink leading-relaxed text-justify">
-              <p>
+              <p className="dropcap">
                 I&apos;m a Computer Science student at Universiti Teknologi PETRONAS, Malaysia.
                 My focus is software engineering with a growing interest in AI and machine learning,
                 specifically the parts that feel like actual engineering rather than magic.
@@ -81,6 +82,10 @@ export default function About() {
               <p>
                 I learn by building. Most of what I know came from a project that confused me first.
                 I&apos;m comfortable being the person in the room who doesn&apos;t know something yet.
+              </p>
+              <p className="pull-quote">
+                &ldquo;I&apos;m comfortable being the person in the room who doesn&apos;t know
+                something yet.&rdquo;
               </p>
               <p>
                 Outside of code: I think a lot about design — why some interfaces feel inevitable and
@@ -120,8 +125,16 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* ── RIGHT: Education timeline ─────────────────────────────────── */}
+        {/* ── RIGHT: Portrait + education timeline ─────────────────────── */}
         <motion.div variants={item}>
+          <div className="editorial-frame aspect-[3/4] mb-10">
+            <img
+              src={portrait}
+              alt="Anuar Afiq"
+              className="w-full h-full object-cover grayscale-[15%] contrast-[1.05]"
+            />
+          </div>
+
           <h2 className="font-serif font-bold text-lg text-ink mb-6">Timeline</h2>
 
           {/* Timeline with vertical rule on left side */}

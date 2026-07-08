@@ -10,8 +10,9 @@
  */
 import TransitionLink from "./TransitionLink"
 import { morphNameFor } from "../lib/viewTransition"
+import ProjectVisual from "./ProjectVisual"
 
-export default function ProjectCard({ index, slug, title, description, tags, status, year, githubUrl }) {
+export default function ProjectCard({ index, slug, title, description, tags, status, year, githubUrl, visual }) {
   const displayNum = String(index + 1).padStart(2, "0")
 
   return (
@@ -24,6 +25,10 @@ export default function ProjectCard({ index, slug, title, description, tags, sta
         >
           {displayNum}
         </span>
+
+        {visual && (
+          <ProjectVisual type={visual} className="hidden sm:block w-28 aspect-[400/220] shrink-0" />
+        )}
 
         <div className="flex-1 min-w-0">
           {/* Title + metadata row */}

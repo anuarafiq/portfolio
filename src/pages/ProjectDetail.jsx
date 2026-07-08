@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { projects } from "../data/projects"
 import TransitionLink from "../components/TransitionLink"
+import ProjectVisual from "../components/ProjectVisual"
 import { useMeta } from "../hooks/useMeta"
 import { container, item } from "../lib/motion"
 import { isViewTransitioning, morphNameFor } from "../lib/viewTransition"
@@ -96,6 +97,10 @@ export default function ProjectDetail() {
 
       {/* ─── BODY ───────────────────────────────────────────────────────── */}
       <motion.article variants={item} className="pb-16 space-y-10">
+
+        {project.visual && (
+          <ProjectVisual type={project.visual} className="w-full aspect-[400/220]" />
+        )}
 
         {/* Overview — uses longDescription if available, falls back to description */}
         <section>

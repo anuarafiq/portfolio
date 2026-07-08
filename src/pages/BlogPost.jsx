@@ -59,6 +59,7 @@ const mdxComponents = {
       {children}
     </h3>
   ),
+  blockquote: ({ children }) => <div className="pull-quote">{children}</div>,
 }
 
 export default function BlogPost() {
@@ -129,7 +130,7 @@ export default function BlogPost() {
 
       {/* ─── ARTICLE BODY ───────────────────────────────────────────────── */}
       <motion.article variants={item} className="pb-16">
-        <div className="space-y-5 text-justify">
+        <div className="article-body space-y-5 text-justify">
           <PostContent components={mdxComponents} />
         </div>
 

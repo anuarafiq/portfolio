@@ -14,7 +14,7 @@
 @theme {
   --color-ink: #1a1208;
   --color-paper: #f4efe8;
-  --color-rust: #1c3f5e;
+  --color-rust: #b8341d;
   --color-warm: #9c9080;
   --color-line: #d4cdb8;
   --color-paper-dim: #ede6d8;
@@ -48,7 +48,7 @@
  * Current: "Charcoal Broadsheet" — neutral warm charcoal, modern editorial
  *   ink       → #ede5d5  warm off-white
  *   paper     → #1e1c18  warm dark charcoal
- *   rust      → #d4502a  rust, unchanged
+ *   rust      → #e0623a  vermillion, brightened for 4.5:1 contrast on charcoal
  *   warm      → #8c8272  warm gray-brown secondary text
  *   line      → #302c24  charcoal border
  *   paper-dim → #171512  slightly darker charcoal for code blocks
@@ -59,7 +59,7 @@
   :root:not([data-theme="light"]) {
     --color-ink: #ede5d5;
     --color-paper: #1e1c18;
-    --color-rust: #4a7fa8;
+    --color-rust: #e0623a;
     --color-warm: #8c8272;
     --color-line: #302c24;
     --color-paper-dim: #171512;
@@ -197,6 +197,62 @@
     border-left-color: var(--color-rust);
     padding-left: 1rem;
     background-color: var(--color-paper-dim);
+  }
+
+  /* Editorial image frame — hairline border, zero radius. Default container
+   * for all non-hero imagery. No padding here: photos want to sit flush to
+   * the border; diagrams that want a matted inset (ProjectVisual) add their
+   * own padding on top of this. */
+  .editorial-frame {
+    border: 1px solid var(--color-line);
+    background-color: var(--color-paper-dim);
+  }
+
+  /* Torn paper edge — reserved for the Home hero only, so imagery gets its
+   * own signature moment instead of competing with the view-transition morph. */
+  .torn-edge {
+    clip-path: polygon(
+      0% 2%, 4% 0%, 9% 1.6%, 14% 0.2%, 19% 2.2%, 24% 0.6%, 29% 1.8%, 34% 0%,
+      39% 1.5%, 44% 0.3%, 49% 2%, 54% 0%, 59% 1.2%, 64% 0.2%, 69% 1.8%,
+      74% 0.5%, 79% 1.5%, 84% 0%, 89% 2%, 94% 0.5%, 100% 1.5%,
+      100% 100%, 0% 100%
+    );
+  }
+
+  /* Pull quote — large italic serif break with a rust rule. */
+  .pull-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.3;
+    color: var(--color-ink);
+    border-top: 1px solid var(--color-rust);
+    padding-top: 1.25rem;
+    margin-block: 2rem;
+  }
+
+  /* MDX blockquotes wrap their text in a <p> that carries its own body-copy
+   * classes — force it to inherit the pull-quote's type instead of fighting it. */
+  .pull-quote p {
+    font: inherit;
+    color: inherit;
+    margin: 0;
+  }
+
+  /* Drop cap — first paragraph opener on About / blog posts. Blog posts apply
+   * it automatically to the article body's first paragraph via :first-of-type,
+   * since MDX renders every <p> through the same component mapping. */
+  .dropcap::first-letter,
+  .article-body p:first-of-type::first-letter {
+    font-family: var(--font-serif);
+    font-size: 3.4em;
+    font-weight: 600;
+    line-height: 0.8;
+    float: left;
+    padding-right: 0.08em;
+    padding-top: 0.05em;
+    color: var(--color-rust);
   }
 }
 
