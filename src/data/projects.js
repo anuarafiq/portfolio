@@ -77,12 +77,12 @@ export const projects = [
   },
   {
     id: 6,
-    slug: "career-os",
-    title: "Career OS",
+    slug: "path-os",
+    title: "Path OS",
     description:
       "Career navigation platform built for the Talentbank Tech Hackathon 2026. Connects job seekers, employers, and universities through AI-powered career pathing, smart matching, and outcome tracking.",
     longDescription:
-      "Career OS is a full-stack career navigation platform and competition entry for the Talentbank Tech Hackathon 2026. It models three connected user groups — candidates, employers, and universities — each with their own dashboard and workflows. Candidates get AI-powered career path visualization built with React Flow, personalized coaching, and a living portfolio. Employers get intelligent candidate matching and talent retention signals. Universities get graduate outcome tracking and curriculum feedback loops.",
+      "Path OS is a full-stack career navigation platform and competition entry for the Talentbank Tech Hackathon 2026. It models three connected user groups — candidates, employers, and universities — each with their own dashboard and workflows. Candidates get AI-powered career path visualization built with React Flow, personalized coaching, and a living portfolio. Employers get intelligent candidate matching and talent retention signals. Universities get graduate outcome tracking and curriculum feedback loops.",
     problem:
       "Career navigation is fragmented. Job boards show listings but not pathways. University systems track enrollment, not outcomes. The hackathon brief called for a platform that bridges all three sides — helping candidates see realistic career paths, giving employers smarter matching, and letting institutions close the feedback loop on graduate employment.",
     solution:
@@ -90,8 +90,8 @@ export const projects = [
     tags: ["Next.js", "TypeScript", "Supabase", "AI SDK", "React Flow", "Tailwind"],
     status: "wip",
     year: "2026",
-    githubUrl: "https://github.com/anuarafiq/career-os",
-    liveUrl: "https://career-os-five-omega.vercel.app",
+    githubUrl: "https://github.com/anuarafiq/path-os",
+    liveUrl: "https://path-os-five-omega.vercel.app",
     featured: true,
     visual: "flow",
   },
