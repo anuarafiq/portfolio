@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { projects } from "../data/projects"
 import TransitionLink from "../components/TransitionLink"
 import ProjectVisual from "../components/ProjectVisual"
@@ -40,7 +40,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <motion.main
+    <m.main
       variants={container}
       initial={arrivedViaMorph ? false : "hidden"}
       animate="show"
@@ -50,7 +50,7 @@ export default function ProjectDetail() {
       {/* ─── HEADER ─────────────────────────────────────────────────────── */}
       <header className="pt-16 pb-10">
         {/* Back nav + optional WIP badge */}
-        <motion.div variants={item} className="flex items-center gap-4 mb-8">
+        <m.div variants={item} className="flex items-center gap-4 mb-8">
           <TransitionLink
             to="/projects"
             vtTarget={project.slug}
@@ -63,10 +63,10 @@ export default function ProjectDetail() {
               WIP
             </span>
           )}
-        </motion.div>
+        </m.div>
 
         {/* Title */}
-        <motion.h1
+        <m.h1
           variants={item}
           data-vt={project.slug}
           className="font-serif font-semibold text-ink leading-tight mb-4"
@@ -77,10 +77,10 @@ export default function ProjectDetail() {
           }}
         >
           {project.title}
-        </motion.h1>
+        </m.h1>
 
         {/* Year + tags */}
-        <motion.div variants={item} className="flex flex-wrap items-center gap-3">
+        <m.div variants={item} className="flex flex-wrap items-center gap-3">
           <span className="font-mono text-xs text-warm">{project.year}</span>
           {project.tags.map((tag) => (
             <span
@@ -90,19 +90,24 @@ export default function ProjectDetail() {
               {tag}
             </span>
           ))}
-        </motion.div>
+        </m.div>
 
         {project.award && (
-          <motion.p variants={item} className="font-mono text-xs text-rust mt-4">
-            ★ {project.award}
-          </motion.p>
+          <m.p variants={item} className="font-mono text-xs text-rust mt-4 flex items-center gap-2">
+            {/* Feather "award" icon, inline like the Nav icons */}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0">
+              <circle cx="12" cy="8" r="7" />
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+            </svg>
+            {project.award}
+          </m.p>
         )}
 
-        <motion.div variants={item} className="border-t border-line mt-8" />
+        <m.div variants={item} className="border-t border-line mt-8" />
       </header>
 
       {/* ─── BODY ───────────────────────────────────────────────────────── */}
-      <motion.article variants={item} className="pb-16 space-y-10">
+      <m.article variants={item} className="pb-16 space-y-10">
 
         {project.visual && (
           <ProjectVisual type={project.visual} className="w-full aspect-[400/220]" />
@@ -170,7 +175,7 @@ export default function ProjectDetail() {
             )}
           </div>
         </div>
-      </motion.article>
-    </motion.main>
+      </m.article>
+    </m.main>
   )
 }

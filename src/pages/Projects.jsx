@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { projects } from "../data/projects"
 import ProjectCard from "../components/ProjectCard"
 import { useMeta } from "../hooks/useMeta"
@@ -29,7 +29,7 @@ export default function Projects() {
   })
 
   return (
-    <motion.main
+    <m.main
       variants={container}
       initial={arrivedViaMorph ? false : "hidden"}
       animate="show"
@@ -42,20 +42,20 @@ export default function Projects() {
        * same hierarchy, using size + mono/serif contrast rather than color.
        */}
       <section className="pt-16 pb-10">
-        <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">
+        <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">
           Work
-        </motion.p>
-        <motion.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
+        </m.p>
+        <m.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
           Projects
-        </motion.h1>
-        <motion.p variants={item} className="font-serif text-warm text-ink mb-8 max-w-xl">
+        </m.h1>
+        <m.p variants={item} className="font-serif text-warm text-ink mb-8 max-w-xl">
           Things I&apos;ve built, broken, and shipped. Some finished, some not.
-        </motion.p>
-        <motion.div variants={item} className="border-t border-line" />
+        </m.p>
+        <m.div variants={item} className="border-t border-line" />
       </section>
 
       {/* ─── STATUS FILTER ─────────────────────────────────────────────────── */}
-      <motion.div variants={item} className="flex flex-wrap gap-2 mb-4" role="group" aria-label="Filter projects by status">
+      <m.div variants={item} className="flex flex-wrap gap-2 mb-4" role="group" aria-label="Filter projects by status">
         {STATUS_FILTERS.map((s) => (
           <button
             key={s}
@@ -70,10 +70,10 @@ export default function Projects() {
             {s}
           </button>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* ─── TAG FILTER ────────────────────────────────────────────────────── */}
-      <motion.div variants={item} className="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter projects by tag">
+      <m.div variants={item} className="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter projects by tag">
         {ALL_TAGS.map((tag) => (
           <button
             key={tag}
@@ -88,22 +88,22 @@ export default function Projects() {
             {tag}
           </button>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* ─── PROJECT LIST ─────────────────────────────────────────────────── */}
       <div className="space-y-1 mb-16">
         {filtered.map((project, i) => (
-          <motion.div key={project.id} variants={item}>
+          <m.div key={project.id} variants={item}>
             <ProjectCard index={i} {...project} />
-          </motion.div>
+          </m.div>
         ))}
 
         {filtered.length === 0 && (
-          <motion.p variants={item} className="font-mono text-sm text-warm py-8">
+          <m.p variants={item} className="font-mono text-sm text-warm py-8">
             No projects match that filter.
-          </motion.p>
+          </m.p>
         )}
       </div>
-    </motion.main>
+    </m.main>
   )
 }

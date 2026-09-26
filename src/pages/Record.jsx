@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
 import { container, item } from "../lib/motion"
@@ -30,7 +30,7 @@ function ProofLink({ url }) {
  */
 function RecordSection({ title, count, children }) {
   return (
-    <motion.section
+    <m.section
       variants={item}
       className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-12 py-10 border-t border-line"
     >
@@ -41,7 +41,7 @@ function RecordSection({ title, count, children }) {
         </span>
       </div>
       <ol className="divide-y divide-line">{children}</ol>
-    </motion.section>
+    </m.section>
   )
 }
 
@@ -65,15 +65,15 @@ export default function Record() {
   useMeta(pageMeta["/record"])
 
   return (
-    <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6 pb-16">
+    <m.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6 pb-16">
       {/* ─── PAGE HEADER ─── same treatment as About ───────────────────────── */}
       <section className="pt-16 pb-10">
-        <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">
+        <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">
           Record
-        </motion.p>
-        <motion.h1 variants={item} className="text-display-sm text-ink font-serif">
+        </m.p>
+        <m.h1 variants={item} className="text-display-sm text-ink font-serif">
           The record so far
-        </motion.h1>
+        </m.h1>
       </section>
 
       <RecordSection title="Competitions" count={competitions.length}>
@@ -115,6 +115,6 @@ export default function Record() {
           <LineEntry key={c.title} title={c.title} source={c.issuer} date={c.date} url={c.url} />
         ))}
       </RecordSection>
-    </motion.main>
+    </m.main>
   )
 }

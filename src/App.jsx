@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom"
 import { useEffect } from "react"
+import { LazyMotion, domAnimation } from "framer-motion"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import Nav from "./components/Nav"
@@ -22,32 +23,36 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  // min-h-dvh: uses the dynamic viewport height on mobile (avoids iOS Safari chrome issues)
+  // LazyMotion + m.*: pages only use variants/stagger, which domAnimation covers.
+  // strict makes a stray motion.* throw instead of silently pulling the full bundle back in.
   return (
-    <div className="min-h-dvh flex flex-col bg-paper text-ink">
-      <ScrollToTop />
-      <a
-        href="#content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] bg-paper text-ink border border-line focus:px-3 focus:py-2 font-mono text-[11px] uppercase tracking-widest"
-      >
-        Skip to content
-      </a>
-      <Nav />
-      <div id="content" tabIndex={-1} className="flex-1 outline-none">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/record" element={<Record />} />
-          <Route path="/notes" element={<Blog />} />
-          <Route path="/notes/:slug" element={<BlogPost />} />
-          <Route path="/projects/:slug" element={<ProjectDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+    <LazyMotion features={domAnimation} strict>
+      {/* min-h-dvh: uses the dynamic viewport height on mobile (avoids iOS Safari chrome issues) */}
+      <div className="min-h-dvh flex flex-col bg-paper text-ink">
+        <ScrollToTop />
+        <a
+          href="#content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] bg-paper text-ink border border-line focus:px-3 focus:py-2 font-mono text-[11px] uppercase tracking-widest"
+        >
+          Skip to content
+        </a>
+        <Nav />
+        <div id="content" tabIndex={-1} className="flex-1 outline-none">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/record" element={<Record />} />
+            <Route path="/notes" element={<Blog />} />
+            <Route path="/notes/:slug" element={<BlogPost />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <Footer />
+        <Analytics />
+        <SpeedInsights />
       </div>
-      <Footer />
-      <Analytics />
-      <SpeedInsights />
-    </div>
+    </LazyMotion>
   )
 }

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 import { useParams, Link } from "react-router-dom"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { posts } from "../data/posts"
 import { useScrollProgress } from "../hooks/useScrollProgress"
 import { useMeta } from "../hooks/useMeta"
@@ -91,7 +91,7 @@ export default function BlogPost() {
   const PostContent = post.Component
 
   return (
-    <motion.main variants={container} initial="hidden" animate="show" className="max-w-3xl mx-auto px-6">
+    <m.main variants={container} initial="hidden" animate="show" className="max-w-3xl mx-auto px-6">
       {/* ─── READING PROGRESS ───────────────────────────────────────────── */}
       <div
         className="fixed top-0 left-0 h-[2px] bg-rust transition-[width] duration-150 ease-out z-50"
@@ -100,7 +100,7 @@ export default function BlogPost() {
 
       {/* ─── ARTICLE HEADER ─────────────────────────────────────────────── */}
       <header className="pt-16 pb-10">
-        <motion.div variants={item} className="flex items-center gap-4 mb-8">
+        <m.div variants={item} className="flex items-center gap-4 mb-8">
           <Link
             to="/notes"
             className="font-mono text-[11px] uppercase tracking-widest text-warm hover:text-rust transition-colors duration-200"
@@ -110,26 +110,26 @@ export default function BlogPost() {
           <span className="font-mono text-[10px] uppercase tracking-wider text-warm border border-line px-2 py-0.5">
             {post.category}
           </span>
-        </motion.div>
+        </m.div>
 
-        <motion.h1
+        <m.h1
           variants={item}
           className="font-serif font-semibold text-ink leading-tight mb-4"
           style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", letterSpacing: "-0.02em" }}
         >
           {post.title}
-        </motion.h1>
+        </m.h1>
 
-        <motion.div variants={item} className="flex items-center gap-5 font-mono text-[11px] text-warm">
+        <m.div variants={item} className="flex items-center gap-5 font-mono text-[11px] text-warm">
           <time dateTime={post.date}>{formatDate(post.date)}</time>
           <span>{post.readingTime} read</span>
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={item} className="border-t border-line mt-8" />
+        <m.div variants={item} className="border-t border-line mt-8" />
       </header>
 
       {/* ─── ARTICLE BODY ───────────────────────────────────────────────── */}
-      <motion.article variants={item} className="pb-16">
+      <m.article variants={item} className="pb-16">
         <div className="article-body space-y-5">
           <PostContent components={mdxComponents} />
         </div>
@@ -142,7 +142,7 @@ export default function BlogPost() {
             ← All Notes
           </Link>
         </div>
-      </motion.article>
-    </motion.main>
+      </m.article>
+    </m.main>
   )
 }

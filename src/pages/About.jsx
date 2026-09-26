@@ -1,8 +1,8 @@
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
 import { container, item } from "../lib/motion"
-import portrait from "../assets/portrait.jpg"
+import portrait from "../assets/portrait.webp"
 
 const timeline = [
   {
@@ -74,17 +74,17 @@ export default function About() {
   useMeta(pageMeta["/about"])
 
   return (
-    <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
+    <m.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
       {/* ─── PAGE HEADER ───────────────────────────────────────────────────── */}
       <section className="pt-16 pb-10">
-        <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">
+        <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">
           About
-        </motion.p>
+        </m.p>
         {/* Two-line display title — second line is longer, creates natural asymmetry */}
-        <motion.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
+        <m.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
           The person behind the code
-        </motion.h1>
-        <motion.div variants={item} className="border-t border-line mt-8" />
+        </m.h1>
+        <m.div variants={item} className="border-t border-line mt-8" />
       </section>
 
       {/* ─── TWO-COLUMN BODY ────────────────────────────────────────────────
@@ -98,7 +98,7 @@ export default function About() {
       <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-12 md:gap-16 pb-16">
         {/* ── LEFT: Personal note + skills ──────────────────────────────── */}
         <div>
-          <motion.div variants={item} className="mb-10">
+          <m.div variants={item} className="mb-10">
             <h2 className="font-serif font-bold text-lg text-ink mb-4">In my own words</h2>
             <div className="space-y-4 font-serif text-ink leading-relaxed">
               <p className="dropcap">
@@ -119,10 +119,10 @@ export default function About() {
                 others feel fought-against. I also read and sleep too much.
               </p>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Skills — honest text descriptions */}
-          <motion.div variants={item} className="mb-10">
+          <m.div variants={item} className="mb-10">
             <h2 className="font-serif font-bold text-lg text-ink mb-5">Skills, honestly</h2>
             <div className="space-y-4">
               {skills.map((skill) => (
@@ -137,10 +137,10 @@ export default function About() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Resume download — prominent on About page */}
-          <motion.div variants={item}>
+          <m.div variants={item}>
             <a
               href="/resume.pdf"
               target="_blank"
@@ -149,11 +149,11 @@ export default function About() {
             >
               Download Resume ↗
             </a>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* ── RIGHT: Portrait + education timeline ─────────────────────── */}
-        <motion.div variants={item}>
+        <m.div variants={item}>
           <div className="editorial-frame aspect-[3/4] mb-10">
             <img
               src={portrait}
@@ -194,8 +194,8 @@ export default function About() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.main>
+    </m.main>
   )
 }

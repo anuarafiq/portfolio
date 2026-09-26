@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { posts } from "../data/posts"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
@@ -10,19 +10,19 @@ export default function Blog() {
   useMeta(pageMeta["/notes"])
 
   return (
-    <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
+    <m.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
       {/* ─── PAGE HEADER ───────────────────────────────────────────────────── */}
       <section className="pt-16 pb-10">
-        <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">
+        <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">
           Notes
-        </motion.p>
-        <motion.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
+        </m.p>
+        <m.h1 variants={item} className="text-display-sm text-ink font-serif mb-3">
           Thinking out loud
-        </motion.h1>
-        <motion.p variants={item} className="font-serif text-warm text-lg max-w-xl mb-8">
+        </m.h1>
+        <m.p variants={item} className="font-serif text-warm text-lg max-w-xl mb-8">
           Notes on machine learning, engineering, and whatever I&apos;m chewing on. Not polished, just honest.
-        </motion.p>
-        <motion.div variants={item} className="border-t border-line" />
+        </m.p>
+        <m.div variants={item} className="border-t border-line" />
       </section>
 
       {/* ─── POST ARCHIVE ─────────────────────────────────────────────────── */}
@@ -31,7 +31,7 @@ export default function Blog() {
        * title and excerpt fill the remaining space.
        * The .project-row hover applies here too — consistent system.
        */}
-      <motion.div variants={item} className="pb-16">
+      <m.div variants={item} className="pb-16">
         {posts.map((post) => (
           <Link
             key={post.slug}
@@ -64,7 +64,7 @@ export default function Blog() {
             </div>
           </Link>
         ))}
-      </motion.div>
-    </motion.main>
+      </m.div>
+    </m.main>
   )
 }

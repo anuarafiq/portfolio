@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import TransitionLink from "../components/TransitionLink"
 import ProjectVisual from "../components/ProjectVisual"
 import { morphNameFor } from "../lib/viewTransition"
@@ -16,7 +16,7 @@ export default function Home() {
   useMeta(pageMeta["/"])
 
   return (
-    <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
+    <m.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       {/*
        * Layout: left-aligned display name + right-aligned metadata block.
@@ -25,19 +25,19 @@ export default function Home() {
        * letters themselves become structural elements, not just text.
        */}
       <section className="pt-16 pb-12">
-        <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-6">
+        <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-6">
           00. Hello
-        </motion.p>
+        </m.p>
 
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           {/* Display name — weight 300 (light) so the high-contrast serifs of Cormorant
               Garamond create fine/thick stroke drama at large sizes */}
-          <motion.h1 variants={item} className="text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.88] tracking-[-0.03em] font-light text-ink font-serif select-none">
+          <m.h1 variants={item} className="text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.88] tracking-[-0.03em] font-light text-ink font-serif select-none">
             Anuar Afiq
-          </motion.h1>
+          </m.h1>
 
           {/* Metadata annotation — small mono, right-aligned, reads like a caption */}
-          <motion.div variants={item} className="md:text-right md:pb-3 shrink-0">
+          <m.div variants={item} className="md:text-right md:pb-3 shrink-0">
             <p className="font-mono text-xs text-warm leading-loose">
               CS Major
               <br />
@@ -58,13 +58,13 @@ export default function Home() {
             >
               Resume ↗
             </a>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Hero motif — a generated node-graph study, ink linework on paper.
             Torn-edge + one-off placement: this is the site's one imagery
             "signature moment," everywhere else stays a plain hairline frame. */}
-        <motion.div
+        <m.div
           variants={item}
           className="torn-edge editorial-frame mb-10 text-ink"
           aria-hidden="true"
@@ -113,9 +113,9 @@ export default function Home() {
             <text x="24" y="200" className="font-mono" fontSize="11" letterSpacing="0.15em" fill="currentColor" opacity="0.55">NETWORK STUDY</text>
             <text x="1176" y="200" className="font-mono" fontSize="11" letterSpacing="0.15em" fill="currentColor" opacity="0.55" textAnchor="end">2026</text>
           </svg>
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={item} className="border-t border-line" />
+        <m.div variants={item} className="border-t border-line" />
       </section>
 
       {/* ─── CURRENTLY BUILDING ──────────────────────────────────────────── */}
@@ -124,11 +124,11 @@ export default function Home() {
        * or index card. Each row is a live signal of what I'm working on.
        */}
       <section className="py-10">
-        <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-6">
+        <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-6">
           01. Currently Building
-        </motion.p>
+        </m.p>
 
-        <motion.div variants={item} className="space-y-3.5">
+        <m.div variants={item} className="space-y-3.5">
           {currentlyBuilding.map((entry) => (
             <div
               key={entry.name}
@@ -144,10 +144,10 @@ export default function Home() {
               <span className="text-warm text-xs col-span-2 col-start-2">{entry.stack}</span>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </section>
 
-      <motion.div variants={item} className="border-t border-line" />
+      <m.div variants={item} className="border-t border-line" />
 
       {/* ─── FEATURED WORK ───────────────────────────────────────────────── */}
       {/*
@@ -157,22 +157,22 @@ export default function Home() {
        */}
       <section className="py-10">
         <div className="flex items-center justify-between mb-8">
-          <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest">
+          <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest">
             02. Selected Work
-          </motion.p>
-          <motion.div variants={item}>
+          </m.p>
+          <m.div variants={item}>
             <Link
               to="/projects"
               className="font-mono text-[11px] text-warm uppercase tracking-wider hover:text-rust transition-colors duration-200"
             >
               All work →
             </Link>
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="space-y-1">
           {featured.map((project, i) => (
-            <motion.article
+            <m.article
               key={project.id}
               variants={item}
               className="project-row py-5 px-4 -mx-4"
@@ -217,31 +217,31 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </motion.article>
+            </m.article>
           ))}
         </div>
       </section>
 
-      <motion.div variants={item} className="border-t border-line" />
+      <m.div variants={item} className="border-t border-line" />
 
       {/* ─── RECORD TEASER ───────────────────────────────────────────────── */}
       {/* Three newest competition results, same status-board rows as Currently Building. */}
       <section className="py-10">
         <div className="flex items-center justify-between mb-6">
-          <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest">
+          <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest">
             03. Record
-          </motion.p>
-          <motion.div variants={item}>
+          </m.p>
+          <m.div variants={item}>
             <Link
               to="/record"
               className="font-mono text-[11px] text-warm uppercase tracking-wider hover:text-rust transition-colors duration-200"
             >
               Full record →
             </Link>
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.div variants={item} className="space-y-3.5">
+        <m.div variants={item} className="space-y-3.5">
           {competitions.slice(0, 3).map((c) => (
             <div
               key={`${c.event}-${c.date}`}
@@ -255,8 +255,8 @@ export default function Home() {
               <span className="text-warm text-xs col-start-3 row-start-1">{c.date}</span>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </section>
-    </motion.main>
+    </m.main>
   )
 }
