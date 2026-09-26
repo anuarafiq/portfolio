@@ -5,7 +5,7 @@
  * Three-color palette — each earns its place:
  *   ink      → near-black, warmer than #000, like dried ink on paper
  *   paper    → warm cream, aged laid paper (not clinical white)
- *   rust     → vermillion accent, like a correction pen or archival stamp
+ *   rust     → deep steel blue accent (token name kept from the old red)
  *
  * Two typefaces:
  *   serif    → Cormorant Garamond: high-contrast classical editorial serif
@@ -14,7 +14,7 @@
 @theme {
   --color-ink: #1a1208;
   --color-paper: #f4efe8;
-  --color-rust: #b8341d;
+  --color-rust: #355f82;
   --color-warm: #9c9080;
   --color-line: #d4cdb8;
   --color-paper-dim: #ede6d8;
@@ -48,7 +48,7 @@
  * Current: "Charcoal Broadsheet" — neutral warm charcoal, modern editorial
  *   ink       → #ede5d5  warm off-white
  *   paper     → #1e1c18  warm dark charcoal
- *   rust      → #e0623a  vermillion, brightened for 4.5:1 contrast on charcoal
+ *   rust      → #5a8fb8  steel blue, lighter than light mode for 4.5:1 on charcoal
  *   warm      → #8c8272  warm gray-brown secondary text
  *   line      → #302c24  charcoal border
  *   paper-dim → #171512  slightly darker charcoal for code blocks
@@ -59,7 +59,7 @@
   :root:not([data-theme="light"]) {
     --color-ink: #ede5d5;
     --color-paper: #1e1c18;
-    --color-rust: #e0623a;
+    --color-rust: #5a8fb8;
     --color-warm: #8c8272;
     --color-line: #302c24;
     --color-paper-dim: #171512;
@@ -70,7 +70,7 @@
 :root[data-theme="dark"] {
   --color-ink: #ede5d5;
   --color-paper: #1e1c18;
-  --color-rust: #4a7fa8;
+  --color-rust: #5a8fb8;
   --color-warm: #8c8272;
   --color-line: #302c24;
   --color-paper-dim: #171512;

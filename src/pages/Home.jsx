@@ -132,16 +132,16 @@ export default function Home() {
           {currentlyBuilding.map((entry) => (
             <div
               key={entry.name}
-              className="flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-sm"
+              className="grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 gap-y-1 font-mono text-sm sm:flex sm:flex-wrap sm:items-center"
             >
               <span className="text-warm text-xs select-none" aria-hidden="true">
                 →
               </span>
-              <span className="text-ink font-medium w-50">{entry.name}</span>
-              <span className="text-warm text-xs uppercase tracking-wider w-30">
+              <span className="text-ink font-medium sm:w-50">{entry.name}</span>
+              <span className="text-warm text-xs uppercase tracking-wider sm:w-30">
                 [{entry.status}]
               </span>
-              <span className="text-warm text-xs">{entry.stack}</span>
+              <span className="text-warm text-xs col-span-2 col-start-2">{entry.stack}</span>
             </div>
           ))}
         </motion.div>
@@ -245,14 +245,14 @@ export default function Home() {
           {competitions.slice(0, 3).map((c) => (
             <div
               key={`${c.event}-${c.date}`}
-              className="flex flex-wrap items-baseline gap-x-5 gap-y-1 font-mono text-sm"
+              className="grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 gap-y-1 font-mono text-sm sm:flex sm:flex-wrap"
             >
               <span className="text-warm text-xs select-none" aria-hidden="true">
                 →
               </span>
-              <span className="text-ink font-medium w-30">{c.title}</span>
-              <span className="text-warm text-xs flex-1 min-w-0">{c.event}</span>
-              <span className="text-warm text-xs">{c.date}</span>
+              <span className="text-ink font-medium sm:w-30">{c.title}</span>
+              <span className="text-warm text-xs col-span-2 col-start-2 row-start-2 sm:flex-1 sm:min-w-0">{c.event}</span>
+              <span className="text-warm text-xs col-start-3 row-start-1">{c.date}</span>
             </div>
           ))}
         </motion.div>

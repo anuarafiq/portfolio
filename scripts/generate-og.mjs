@@ -12,7 +12,7 @@ const OUT = join(__dirname, "../public/og-image.png")
 // Light palette from src/index.css
 const ink = "#1a1208"
 const paper = "#f4efe8"
-const rust = "#b8341d"
+const rust = "#355f82"
 const warm = "#9c9080"
 const line = "#d4cdb8"
 
