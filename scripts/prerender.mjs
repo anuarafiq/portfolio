@@ -19,16 +19,13 @@ const posts = readdirSync(BLOG_DIR)
   .map((f) => ({ slug: basename(f, ".mdx"), ...parseFrontmatter(readFileSync(join(BLOG_DIR, f), "utf-8")) }))
 
 const routes = [
-  ...Object.entries(pageMeta).map(([path, meta]) => ({
-    path, ...meta, changefreq: path === "/notes" ? "weekly" : "monthly", priority: path === "/" ? "1.0" : "0.8",
-  })),
+  ...Object.entries(pageMeta).map(([path, meta]) => ({ path, ...meta })),
   ...projects.map((p) => ({
     path: `/projects/${p.slug}`, title: `${p.title} - Anuar Afiq`, description: p.description,
-    changefreq: p.status === "wip" ? "monthly" : "yearly", priority: "0.6",
   })),
   ...posts.map((p) => ({
     path: `/notes/${p.slug}`, title: `${p.title} - Anuar Afiq`, description: p.excerpt ?? "A note by Anuar Afiq.",
-    type: "article", changefreq: "yearly", priority: "0.5",
+    type: "article", lastmod: /^\d{4}-\d{2}-\d{2}$/.test(p.date ?? "") ? p.date : null,
   })),
 ]
 
@@ -86,8 +83,12 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const notFound = { path: null, title: "404 - Not Found", description: "This page does not exist." }
   writeFileSync(join(DIST, "404.html"), injectBody(renderRoute(template, notFound), render("/__404")))
 
-  const urls = routes.map((r) =>
-    `  <url>\n    <loc>${escapeHtml(`${SITE_URL}${r.path}`)}</loc>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`)
+  // Google ignores changefreq and priority, and discounts lastmod it finds unreliable,
+  // so lastmod is emitted only for the notes, which carry a real date in frontmatter.
+  const urls = routes.map((r) => {
+    const lastmod = r.lastmod ? `\n    <lastmod>${escapeHtml(r.lastmod)}</lastmod>` : ""
+    return `  <url>\n    <loc>${escapeHtml(`${SITE_URL}${r.path}`)}</loc>${lastmod}\n  </url>`
+  })
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`
   writeFileSync(join(DIST, "sitemap.xml"), sitemap)
 
