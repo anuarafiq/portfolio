@@ -5,6 +5,9 @@ export const projects = [
     title: "Smart Parking System",
     description:
       "Console parking system in C++, built for a Structured Programming course. It draws slots on a text grid and handles entry and exit by user ID, with checks against duplicate or invalid input.",
+    // Optional. Search snippet copy when description runs past ~155 chars (Google cuts there)
+    metaDescription:
+      "Console parking system in C++ for a Structured Programming course. It draws slots on a text grid and handles entry and exit by user ID.",
     longDescription:
       "A command-line parking system for UTP students and staff, written in C++ as a two-person project for the TEB1013 Structured Programming course. A text grid shows which slots are free or taken. Users park and leave by ID. The menu can also list parked users, look up one user, or show a slot summary.",
     problem:
@@ -81,6 +84,8 @@ export const projects = [
     title: "Path OS",
     description:
       "Career navigation platform that links job seekers, employers, and universities through AI career pathing, candidate matching, and graduate outcome tracking. Took 2nd place in Web and Mobile Application at the International PBL Expo 2026.",
+    metaDescription:
+      "Career platform for job seekers, employers, and universities, with AI career pathing and candidate matching. 2nd place at the International PBL Expo 2026.",
     longDescription:
       "Path OS is a full-stack career navigation platform. It has three connected user groups (candidates, employers, and universities), and each one gets its own dashboard. Candidates get AI-powered career path visualization built with React Flow, personalized coaching, and a living portfolio. Employers get intelligent candidate matching and talent retention signals. Universities get graduate outcome tracking and curriculum feedback loops.",
     problem:
@@ -106,6 +111,8 @@ export const projects = [
     title: "Duply",
     description:
       "Mobile app for student group projects. A group uploads its assignment brief, AI turns it into tasks weighted by the grading rubric, and the app tracks the work through to a peer evaluation at the end.",
+    metaDescription:
+      "Mobile app for student group projects. AI turns the assignment brief into tasks weighted by the grading rubric. The app tracks them until peer evaluation.",
     longDescription:
       "Duply is an Expo app for iOS and Android with a Next.js backend. One student creates a group and shares a join code. The group uploads the assignment brief as a PDF or pasted text, and the app turns it into deliverables and tasks. Everyone reviews the plan and confirms it. After that, the app tracks task status, finds a meeting slot that works for everyone, flags tasks nobody has touched in three days, and runs two or three peer check-ins. At the end, each member rates the others by name and the group archives the project, which freezes a contribution summary.",
     problem:

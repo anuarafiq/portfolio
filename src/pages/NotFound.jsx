@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { m } from "framer-motion"
-import { container, item } from "../lib/motion"
+import { container, item, entrance } from "../lib/motion"
 
 export default function NotFound() {
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function NotFound() {
   return (
     <m.main
       variants={container}
-      initial="hidden"
+      initial={entrance()}
       animate="show"
       className="max-w-5xl mx-auto px-6 pt-16"
     >

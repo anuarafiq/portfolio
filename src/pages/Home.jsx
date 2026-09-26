@@ -8,7 +8,7 @@ import { currentlyBuilding } from "../data/status"
 import { competitions } from "../data/record"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
-import { container, item } from "../lib/motion"
+import { container, item, entrance } from "../lib/motion"
 
 const featured = projects.filter((p) => p.featured)
 
@@ -16,7 +16,7 @@ export default function Home() {
   useMeta(pageMeta["/"])
 
   return (
-    <m.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
+    <m.main variants={container} initial={entrance()} animate="show" className="max-w-5xl mx-auto px-6">
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       {/*
        * Layout: left-aligned display name + right-aligned metadata block.

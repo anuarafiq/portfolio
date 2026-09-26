@@ -3,14 +3,14 @@ import { m } from "framer-motion"
 import { posts } from "../data/posts"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
-import { container, item } from "../lib/motion"
+import { container, item, entrance } from "../lib/motion"
 import { formatDateShort as formatDate } from "../lib/utils"
 
 export default function Blog() {
   useMeta(pageMeta["/notes"])
 
   return (
-    <m.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
+    <m.main variants={container} initial={entrance()} animate="show" className="max-w-5xl mx-auto px-6">
       {/* ─── PAGE HEADER ───────────────────────────────────────────────────── */}
       <section className="pt-16 pb-10">
         <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">

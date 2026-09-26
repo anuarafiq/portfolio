@@ -4,7 +4,7 @@ import { projects } from "../data/projects"
 import ProjectCard from "../components/ProjectCard"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
-import { container, item } from "../lib/motion"
+import { container, item, entrance } from "../lib/motion"
 import { isViewTransitioning } from "../lib/viewTransition"
 
 const ALL_TAGS = ["All", ...new Set(projects.flatMap((p) => p.tags))]
@@ -31,7 +31,7 @@ export default function Projects() {
   return (
     <m.main
       variants={container}
-      initial={arrivedViaMorph ? false : "hidden"}
+      initial={arrivedViaMorph ? false : entrance()}
       animate="show"
       className="max-w-5xl mx-auto px-6"
     >

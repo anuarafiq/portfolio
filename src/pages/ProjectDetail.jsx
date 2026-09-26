@@ -4,7 +4,7 @@ import { projects } from "../data/projects"
 import TransitionLink from "../components/TransitionLink"
 import ProjectVisual from "../components/ProjectVisual"
 import { useMeta } from "../hooks/useMeta"
-import { container, item } from "../lib/motion"
+import { container, item, entrance } from "../lib/motion"
 import { isViewTransitioning, morphNameFor } from "../lib/viewTransition"
 
 export default function ProjectDetail() {
@@ -21,7 +21,7 @@ export default function ProjectDetail() {
 
   useMeta({
     title: project ? `${project.title} - Anuar Afiq` : "Not Found - Anuar Afiq",
-    description: project?.description ?? "Project by Anuar Afiq.",
+    description: project?.metaDescription ?? project?.description ?? "Project by Anuar Afiq.",
   })
 
   // Guard clause: if no project matched, show a minimal not-found state.
@@ -42,7 +42,7 @@ export default function ProjectDetail() {
   return (
     <m.main
       variants={container}
-      initial={arrivedViaMorph ? false : "hidden"}
+      initial={arrivedViaMorph ? false : entrance()}
       animate="show"
       className="max-w-3xl mx-auto px-6"
     >

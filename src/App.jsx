@@ -13,6 +13,7 @@ import Blog from "./pages/Blog"
 import BlogPost from "./pages/BlogPost"
 import ProjectDetail from "./pages/ProjectDetail"
 import NotFound from "./pages/NotFound"
+import { endFirstLoad } from "./lib/motion"
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -23,6 +24,9 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  // Runs after the landing page has mounted with its entrance skipped
+  useEffect(endFirstLoad, [])
+
   // LazyMotion + m.*: pages only use variants/stagger, which domAnimation covers.
   // strict makes a stray motion.* throw instead of silently pulling the full bundle back in.
   return (

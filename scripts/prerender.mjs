@@ -21,7 +21,7 @@ const posts = readdirSync(BLOG_DIR)
 const routes = [
   ...Object.entries(pageMeta).map(([path, meta]) => ({ path, ...meta })),
   ...projects.map((p) => ({
-    path: `/projects/${p.slug}`, title: `${p.title} - Anuar Afiq`, description: p.description,
+    path: `/projects/${p.slug}`, title: `${p.title} - Anuar Afiq`, description: p.metaDescription ?? p.description,
   })),
   ...posts.map((p) => ({
     path: `/notes/${p.slug}`, title: `${p.title} - Anuar Afiq`, description: p.excerpt ?? "A note by Anuar Afiq.",
@@ -32,13 +32,58 @@ const routes = [
 export const escapeHtml = (v) =>
   String(v).replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
 
+const PERSON = {
+  "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
+  name: "Anuar Afiq",
+  alternateName: "Anuar Afiq Arfahairy",
+  url: SITE_URL,
+  image: `${SITE_URL}/og-image.png`,
+  jobTitle: "Computer Science Student",
+  affiliation: { "@type": "CollegeOrUniversity", name: "Universiti Teknologi PETRONAS" },
+  address: { "@type": "PostalAddress", addressCountry: "MY" },
+  sameAs: ["https://github.com/anuarafiq", "https://linkedin.com/in/anuar-afiq-arfahairy-234964314"],
+}
+
+// Per-route structured data: ProfilePage on the profile pages, Person elsewhere,
+// plus BlogPosting on notes and BreadcrumbList on project and note pages
+function structuredData({ path, title, description, lastmod }) {
+  const url = `${SITE_URL}${path}`
+  if (path === "/" || path === "/about") {
+    return { "@context": "https://schema.org", "@type": "ProfilePage", url, mainEntity: PERSON }
+  }
+  const graph = [PERSON]
+  const section = { projects: ["Work", "/projects"], notes: ["Notes", "/notes"] }[path.split("/")[1]]
+  if (section && path !== section[1]) {
+    const name = title.replace(/ - Anuar Afiq$/, "")
+    const crumbs = [["Home", "/"], section, [name, path]]
+    graph.push({
+      "@type": "BreadcrumbList",
+      itemListElement: crumbs.map(([n, p], i) => ({ "@type": "ListItem", position: i + 1, name: n, item: `${SITE_URL}${p}` })),
+    })
+    if (section[1] === "/notes") {
+      graph.push({
+        "@type": "BlogPosting",
+        headline: name,
+        description,
+        url,
+        mainEntityOfPage: url,
+        image: `${SITE_URL}/og-image.png`,
+        ...(lastmod && { datePublished: lastmod }),
+        author: { "@type": "Person", "@id": PERSON["@id"], name: PERSON.name, url: SITE_URL },
+      })
+    }
+  }
+  return { "@context": "https://schema.org", "@graph": graph }
+}
+
 // Throws if a tag is missing from index.html, so a template edit can't silently break previews
 function replaceOnce(html, pattern, value, label) {
   if (!pattern.test(html)) throw new Error(`prerender: ${label} not found in dist/index.html`)
   return html.replace(pattern, (_, before, after) => `${before}${escapeHtml(value)}${after}`)
 }
 
-export function renderRoute(template, { path, title, description, type = "website" }) {
+export function renderRoute(template, { path, title, description, type = "website", lastmod }) {
   let html = template
   html = replaceOnce(html, /(<title>)[^<]*(<\/title>)/, title, "<title>")
   for (const [attr, key, value] of [
@@ -53,8 +98,11 @@ export function renderRoute(template, { path, title, description, type = "websit
   }
   // path null = the 404 page: no canonical, kept out of the index
   const url = path == null ? null : escapeHtml(`${SITE_URL}${path}`)
+  // JSON-LD is a data block, not executed, so the CSP script hash does not cover it.
+  // It is not HTML-escaped, so "<" becomes \u003c to keep "</script>" out.
+  const ld = url && JSON.stringify(structuredData({ path, title, description, lastmod })).replaceAll("<", "\\u003c")
   const extra = url
-    ? `<meta property="og:url" content="${url}" />\n    <link rel="canonical" href="${url}" />`
+    ? `<meta property="og:url" content="${url}" />\n    <link rel="canonical" href="${url}" />\n    <script type="application/ld+json">${ld}</script>`
     : `<meta name="robots" content="noindex" />`
   return html.replace("</head>", () => `  ${extra}\n  </head>`)
 }

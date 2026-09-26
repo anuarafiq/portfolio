@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { m } from "framer-motion"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
-import { container, item } from "../lib/motion"
+import { container, item, entrance } from "../lib/motion"
 import { competitions, campus, certifications } from "../data/record"
 
 /**
@@ -65,7 +65,7 @@ export default function Record() {
   useMeta(pageMeta["/record"])
 
   return (
-    <m.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6 pb-16">
+    <m.main variants={container} initial={entrance()} animate="show" className="max-w-5xl mx-auto px-6 pb-16">
       {/* ─── PAGE HEADER ─── same treatment as About ───────────────────────── */}
       <section className="pt-16 pb-10">
         <m.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest mb-4">

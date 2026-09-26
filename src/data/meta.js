@@ -2,7 +2,7 @@
 // scripts/prerender.mjs, which bakes them into per-route HTML for link previews.
 export const pageMeta = {
   "/": {
-    title: "Anuar Afiq",
+    title: "Anuar Afiq - Software Developer and CS Student",
     description: "Anuar Afiq - computer science student building web apps, games, and tools. Based in Malaysia.",
   },
   "/projects": {

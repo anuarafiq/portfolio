@@ -4,7 +4,7 @@ import { m } from "framer-motion"
 import { posts } from "../data/posts"
 import { useScrollProgress } from "../hooks/useScrollProgress"
 import { useMeta } from "../hooks/useMeta"
-import { container, item } from "../lib/motion"
+import { container, item, entrance } from "../lib/motion"
 import { formatDate } from "../lib/utils"
 
 function CodeBlock({ children, ...props }) {
@@ -91,7 +91,7 @@ export default function BlogPost() {
   const PostContent = post.Component
 
   return (
-    <m.main variants={container} initial="hidden" animate="show" className="max-w-3xl mx-auto px-6">
+    <m.main variants={container} initial={entrance()} animate="show" className="max-w-3xl mx-auto px-6">
       {/* ─── READING PROGRESS ───────────────────────────────────────────── */}
       <div
         className="fixed top-0 left-0 h-[2px] bg-rust transition-[width] duration-150 ease-out z-50"

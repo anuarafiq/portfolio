@@ -32,6 +32,12 @@ for (const s of postSlugs) {
 }
 assert.match(htmlFor("/"), /<link rel="canonical" href="https:\/\/anuarafiq\.me\/"/, "root canonical")
 
+// 1a. Descriptions fit a search snippet
+for (const path of paths) {
+  const desc = htmlFor(path).match(/<meta name="description" content="([^"]*)"/)[1]
+  assert.ok(desc.length <= 160, `description ${desc.length} chars ${path}`)
+}
+
 // 1b. 404 page: indexed nowhere, no canonical, renders NotFound
 const notFound = read(dist, "404.html")
 assert.match(notFound, /<meta name="robots" content="noindex"/, "404 noindex")
@@ -42,6 +48,7 @@ assert.match(notFound, /Page not found/, "404 body")
 for (const path of paths) {
   const body = htmlFor(path).match(/<div id="root">([\s\S]*)<\/div>\s*<\/body>/)?.[1] ?? ""
   assert.equal(body.match(/<h1[\s>]/g)?.length, 1, `one <h1> in prerendered body ${path}`)
+  assert.doesNotMatch(body, /opacity:0/, `prerendered body starts hidden ${path}`)
 }
 
 // 2. Sitemap lists exactly the routes
@@ -53,11 +60,21 @@ assert.ok(!existsSync(join(root, "public/sitemap.xml")), "public/sitemap.xml wou
 const llms = read(dist, "llms.txt")
 for (const path of paths.filter((p) => p !== "/")) assert.ok(llms.includes(`(https://anuarafiq.me${path})`), `llms.txt ${path}`)
 
-// 2c. Person structured data parses and is on every page
-for (const path of paths) {
-  const ld = htmlFor(path).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1]
-  assert.equal(JSON.parse(ld)["@type"], "Person", `JSON-LD ${path}`)
+// 2c. Structured data parses and has the right types per route
+const ldTypes = (html) => {
+  const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])
+  return (ld["@graph"] ?? [ld]).map((n) => n["@type"])
 }
+for (const path of paths) {
+  const expected =
+    path === "/" || path === "/about" ? ["ProfilePage"]
+    : path.startsWith("/projects/") ? ["Person", "BreadcrumbList"]
+    : path.startsWith("/notes/") ? ["Person", "BreadcrumbList", "BlogPosting"]
+    : ["Person"]
+  assert.deepEqual(ldTypes(htmlFor(path)), expected, `JSON-LD ${path}`)
+}
+for (const s of postSlugs) assert.match(htmlFor(`/notes/${s}`), /"datePublished":"\d{4}-\d{2}-\d{2}"/, `datePublished ${s}`)
+assert.doesNotMatch(notFound, /application\/ld\+json/, "404 has no JSON-LD")
 
 // 3. Inline theme script in every emitted page matches the CSP hash in vercel.json
 const csp = JSON.parse(read(root, "vercel.json")).headers[0].headers.find((h) => h.key === "Content-Security-Policy").value
@@ -74,8 +91,9 @@ for (const [, asset] of htmlFor("/about").matchAll(/src="(\/assets\/[^"]+)"/g)) 
 }
 
 // 4. Injected values are escaped
-const hostile = renderRoute(htmlFor("/"), { path: "/x", title: `A "quote" & <b>`, description: `$& '"<>` })
+const hostile = renderRoute(htmlFor("/"), { path: "/notes/x", title: `A "quote" & <b>`, description: `$& '"<>` })
 assert.match(hostile, /<title>A &quot;quote&quot; &amp; &lt;b&gt;<\/title>/)
 assert.match(hostile, /<meta name="description" content="\$&amp; '&quot;&lt;&gt;"/)
+assert.ok(!hostile.includes("<b>"), "raw < in JSON-LD could close its script tag")
 
 console.log(`check-prerender: ${paths.length} routes ok`)
