@@ -148,6 +148,52 @@ function FlowVisual() {
   )
 }
 
+function TimelineVisual() {
+  // Bar widths follow rubric weight (40/25/35). Task states: 1 done, 0 open, 2 at risk.
+  const deliverables = [
+    { x: 24, w: 134, pct: "40%", tasks: [1, 1, 0] },
+    { x: 166, w: 84, pct: "25%", tasks: [1, 0] },
+    { x: 258, w: 118, pct: "35%", tasks: [0, 2, 0] },
+  ]
+  return (
+    <svg viewBox="0 0 400 220" className="w-full h-auto block" role="presentation">
+      {deliverables.map(({ x, w, pct, tasks }) => {
+        const tw = (w - 6 * (tasks.length - 1)) / tasks.length
+        return (
+          <g key={pct}>
+            <text x={x} y="56" fontSize="10" letterSpacing="0.06em" fill="currentColor" className="font-mono">{pct}</text>
+            <rect x={x} y="64" width={w} height="12" fill="none" stroke="currentColor" strokeWidth="1" />
+            {tasks.map((state, i) => {
+              const tx = x + i * (tw + 6)
+              return (
+                <g key={i}>
+                  <rect
+                    x={tx}
+                    y="88"
+                    width={tw}
+                    height="16"
+                    fill={state === 1 ? "currentColor" : "none"}
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    strokeDasharray={state === 2 ? "3 2" : undefined}
+                    opacity={state === 1 ? 0.85 : 1}
+                  />
+                  {state === 2 && <path d={`M${tx + tw / 2} 114 l6 10 h-12 z`} fill="none" stroke="currentColor" strokeWidth="1" />}
+                </g>
+              )
+            })}
+          </g>
+        )
+      })}
+      <line x1="24" y1="148" x2="376" y2="148" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+      {Array.from({ length: 9 }).map((_, i) => (
+        <line key={i} x1={24 + i * 44} y1="148" x2={24 + i * 44} y2="154" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+      ))}
+      <text x="24" y="196" fontSize="11" letterSpacing="0.08em" fill="currentColor" opacity="0.55" className="font-mono">GRADE-WEIGHTED PLAN</text>
+    </svg>
+  )
+}
+
 function TypescaleVisual() {
   return (
     <svg viewBox="0 0 400 220" className="w-full h-auto block" role="presentation">
@@ -168,6 +214,7 @@ const visuals = {
   sprite: SpriteVisual,
   storefront: StorefrontVisual,
   flow: FlowVisual,
+  timeline: TimelineVisual,
   typescale: TypescaleVisual,
 }
 

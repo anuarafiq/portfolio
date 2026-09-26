@@ -101,6 +101,24 @@ export const projects = [
     ],
   },
   {
+    id: 7,
+    slug: "duply",
+    title: "Duply",
+    description:
+      "Mobile app for student group projects. A group uploads its assignment brief, AI turns it into tasks weighted by the grading rubric, and the app tracks the work through to a peer evaluation at the end.",
+    longDescription:
+      "Duply is an Expo app for iOS and Android with a Next.js backend. One student creates a group and shares a join code. The group uploads the assignment brief as a PDF or pasted text, and the app turns it into deliverables and tasks. Everyone reviews the plan and confirms it. After that, the app tracks task status, finds a meeting slot that works for everyone, flags tasks nobody has touched in three days, and runs two or three peer check-ins. At the end, each member rates the others by name and the group archives the project, which freezes a contribution summary.",
+    problem:
+      "Group work usually gets split by task count, so the person who writes the report and the person who formats the slides get the same credit. Tools like Notion or When2Meet also need someone to set everything up first. Duply had to split work by what the rubric rewards, with no setup beyond a join code, and leave the group with a record of who did what.",
+    solution:
+      "The server extracts text from the PDF with pdf-parse and sends it to Groq, which returns deliverables with rubric weights and tasks with effort hours. The split balances effort hours times rubric weight across members, and the archive summary uses the same formula, so the plan and the final credit always agree. Inngest runs the background jobs: extraction, the at-risk scan, check-in scheduling, reminders, and push fan-out. Data lives in Neon Postgres through Drizzle, and Clerk handles sign-in. The server works out the at-risk flag and the meeting slot on each read instead of storing them. Push delivery is still waiting on EAS credentials, and the app is not in the stores yet.",
+    tags: ["Expo", "React Native", "TypeScript", "Next.js", "Postgres", "Drizzle", "Groq", "Inngest"],
+    status: "wip",
+    year: "2026",
+    featured: true,
+    visual: "timeline",
+  },
+  {
     id: 5,
     slug: "portfolio",
     title: "This Portfolio",
