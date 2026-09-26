@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useMeta } from "../hooks/useMeta"
+import { pageMeta } from "../data/meta"
 import { container, item } from "../lib/motion"
 import { competitions, campus, certifications } from "../data/record"
 
@@ -61,11 +62,7 @@ function LineEntry({ title, source, date, url }) {
 }
 
 export default function Record() {
-  useMeta({
-    title: "Record - Anuar Afiq",
-    description:
-      "Competitions, campus leadership roles, and certifications from Anuar Afiq - CS student at Universiti Teknologi PETRONAS.",
-  })
+  useMeta(pageMeta["/record"])
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6 pb-16">

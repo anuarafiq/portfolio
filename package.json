@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-feed.mjs && vite build",
+    "build": "node scripts/generate-feed.mjs && vite build && node scripts/prerender.mjs",
     "gen-og": "node scripts/generate-og.mjs",
     "gen-feed": "node scripts/generate-feed.mjs",
     "lint": "eslint .",

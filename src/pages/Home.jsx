@@ -7,15 +7,13 @@ import { projects } from "../data/projects"
 import { currentlyBuilding } from "../data/status"
 import { competitions } from "../data/record"
 import { useMeta } from "../hooks/useMeta"
+import { pageMeta } from "../data/meta"
 import { container, item } from "../lib/motion"
 
 const featured = projects.filter((p) => p.featured)
 
 export default function Home() {
-  useMeta({
-    title: "Anuar Afiq",
-    description: "Anuar Afiq - computer science student building web apps, games, and tools. Based in Malaysia.",
-  })
+  useMeta(pageMeta["/"])
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">

@@ -4,13 +4,13 @@ export const projects = [
     slug: "smart-parking",
     title: "Smart Parking System",
     description:
-      "CLI-based parking management system with OOP design patterns. Handles space allocation, billing calculation, and usage reporting across multiple parking levels.",
+      "Console parking system in C++, built for a Structured Programming course. It draws slots on a text grid and handles entry and exit by user ID, with checks against duplicate or invalid input.",
     longDescription:
-      "A fully-featured command-line parking management system built in Python. Supports multiple parking levels, real-time space tracking, hourly billing, and end-of-day usage reports. Designed with object-oriented principles — each entity (lot, level, space, ticket) is its own class with clear responsibilities.",
+      "A command-line parking system for UTP students and staff, written in C++ as a two-person project for the TEB1013 Structured Programming course. A text grid shows which slots are free or taken. Users park and leave by ID. The menu can also list parked users, look up one user, or show a slot summary.",
     problem:
-      "Manual parking management is error-prone and doesn't scale. The brief called for a system that could track dozens of spaces across multiple levels, calculate fees accurately, and produce a summary report — all without a GUI.",
+      "The system had to show slot status live in the console and handle the mistakes people make at a gate, like parking twice under one ID or exiting without ever entering. It stays within what the course taught: structs, arrays, vectors, and functions.",
     solution:
-      "Modelled the domain with OOP: a ParkingLot owns Levels, each Level owns Spaces, and a Ticket is issued on entry and resolved on exit. Billing is calculated from timestamps. A reporting module aggregates occupancy data at the end of each session.",
+      "Slots sit in a 2D array and users in a vector of structs. Each menu option is its own function. Before it assigns a slot, entry checks that one is free and that the ID is not already parked. The grid redraws after every change, so what you see matches the data.",
     tags: ["C++", "CLI"],
     status: "complete",
     year: "2025",

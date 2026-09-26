@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { projects } from "../data/projects"
 import ProjectCard from "../components/ProjectCard"
 import { useMeta } from "../hooks/useMeta"
+import { pageMeta } from "../data/meta"
 import { container, item } from "../lib/motion"
 import { isViewTransitioning } from "../lib/viewTransition"
 
@@ -17,10 +18,7 @@ export default function Projects() {
   // its row, and a stagger would leave the morph target at opacity 0.
   const arrivedViaMorph = isViewTransitioning()
 
-  useMeta({
-    title: "Work - Anuar Afiq",
-    description: "Projects by Anuar Afiq - web apps, games, and tools built with Python, C++, C#, and React.",
-  })
+  useMeta(pageMeta["/projects"])
 
   const filtered = projects.filter((p) => {
     const tagMatch = activeTag === "All" || p.tags.includes(activeTag)

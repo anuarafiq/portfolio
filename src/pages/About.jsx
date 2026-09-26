@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { useMeta } from "../hooks/useMeta"
+import { pageMeta } from "../data/meta"
 import { container, item } from "../lib/motion"
 import portrait from "../assets/portrait.jpg"
 
@@ -41,10 +42,7 @@ const skills = [
 ]
 
 export default function About() {
-  useMeta({
-    title: "About - Anuar Afiq",
-    description: "Background, skills, and timeline of Anuar Afiq - CS student, developer, and occasional writer.",
-  })
+  useMeta(pageMeta["/about"])
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">

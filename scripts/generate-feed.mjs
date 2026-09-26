@@ -1,22 +1,12 @@
 import { readFileSync, writeFileSync, readdirSync } from "fs"
 import { join, dirname, basename } from "path"
 import { fileURLToPath } from "url"
+import { parseFrontmatter } from "./frontmatter.mjs"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const BLOG_DIR = join(__dirname, "../src/content/blog")
 const OUT = join(__dirname, "../public/feed.xml")
 const SITE_URL = "https://anuarafiq.me"
-
-function parseFrontmatter(src) {
-  const match = src.replace(/\r\n/g, "\n").match(/^---\n([\s\S]*?)\n---/)
-  if (!match) return {}
-  return Object.fromEntries(
-    match[1].split("\n").map((line) => {
-      const [key, ...rest] = line.split(":")
-      return [key.trim(), rest.join(":").trim().replace(/^"|"$/g, "")]
-    })
-  )
-}
 
 const posts = readdirSync(BLOG_DIR)
   .filter((f) => f.endsWith(".mdx"))

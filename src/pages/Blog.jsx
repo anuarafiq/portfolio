@@ -2,14 +2,12 @@ import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { posts } from "../data/posts"
 import { useMeta } from "../hooks/useMeta"
+import { pageMeta } from "../data/meta"
 import { container, item } from "../lib/motion"
 import { formatDateShort as formatDate } from "../lib/utils"
 
 export default function Blog() {
-  useMeta({
-    title: "Notes - Anuar Afiq",
-    description: "Writing on software, learning, and building things - notes by Anuar Afiq.",
-  })
+  useMeta(pageMeta["/notes"])
 
   return (
     <motion.main variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6">
