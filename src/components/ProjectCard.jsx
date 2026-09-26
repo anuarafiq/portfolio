@@ -54,7 +54,7 @@ export default function ProjectCard({ index, slug, title, description, tags, sta
           </div>
 
           {/* Description */}
-          <p className="font-serif font-bold text-warm text-base leading-relaxed mb-3 text-justify">{description}</p>
+          <p className="font-serif text-ink text-base leading-relaxed mb-3">{description}</p>
 
           {/* Tags + optional link */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">

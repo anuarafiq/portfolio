@@ -37,7 +37,7 @@ const items = posts
 const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Anuar Afiq — Notes</title>
+    <title>Anuar Afiq - Notes</title>
     <link>${SITE_URL}/notes</link>
     <description>Writing on code, design, and things worth thinking about.</description>
     <language>en-gb</language>
@@ -47,4 +47,4 @@ const feed = `<?xml version="1.0" encoding="UTF-8"?>
 </rss>`
 
 writeFileSync(OUT, feed)
-console.log(`feed.xml written — ${posts.length} posts`)
+console.log(`feed.xml written: ${posts.length} posts`)

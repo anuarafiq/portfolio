@@ -130,7 +130,7 @@ export default function BlogPost() {
 
       {/* ─── ARTICLE BODY ───────────────────────────────────────────────── */}
       <motion.article variants={item} className="pb-16">
-        <div className="article-body space-y-5 text-justify">
+        <div className="article-body space-y-5">
           <PostContent components={mdxComponents} />
         </div>
 

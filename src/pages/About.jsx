@@ -8,7 +8,7 @@ const timeline = [
   {
     year: "2023",
     event: "First complete web project in high school",
-    detail: "Paradise Shoes — HTML, CSS, JavaScript from scratch",
+    detail: "Paradise Shoes: HTML, CSS, JavaScript from scratch",
   },
   {
     year: "2024",
@@ -21,9 +21,34 @@ const timeline = [
     detail: "Completed a MonoGame project and an Airbnb-style DB system",
   },
   {
+    year: "2025",
+    event: "Gold at the Malaysia Invention & Innovation Expo",
+    detail: "May 2025",
+  },
+  {
+    year: "2025",
+    event: "Gold at the Virtual Innovation Competition Exhibition",
+    detail: "Nov 2025",
+  },
+  {
     year: "2026",
-    event: "Focusing on AI and machine learning development.",
-    detail: "Exploring the foundations of AI/ML properly with statistical methods",
+    event: "Silver at the Malaysia-Japan International Conference",
+    detail: "Jan 2026",
+  },
+  {
+    year: "2026",
+    event: "Led the Waves of Change AI literacy programme",
+    detail: "Project manager, Jun to Sep. Four AI modules for 40 Form 3 students, while I studied the statistics behind ML myself",
+  },
+  {
+    year: "2026",
+    event: "Taught GitHub to first-time users",
+    detail: "Trainer, GDSC UTP Intro to GitHub workshop, Jul 2026",
+  },
+  {
+    year: "2026",
+    event: "2nd place at the International PBL Expo with Path OS",
+    detail: "Web and Mobile Application category, Sept 2026",
   },
 ]
 
@@ -33,12 +58,16 @@ const timeline = [
  * Text lets you be precise about what you can and can't do.
  */
 const skills = [
-  { name: "Python", level: "Comfortable — OOP, scripting, beginning ML experimentation" },
-  { name: "C#", level: "Working knowledge — shipped a game with MonoGame, OOP fluent" },
-  { name: "JavaScript", level: "Improving fast — vanilla solid, learning React properly" },
-  { name: "SQL / MySQL", level: "Solid fundamentals — schema design, normalisation, complex queries" },
-  { name: "Machine Learning", level: "Early days — building intuition through projects, not courses" },
-  { name: "Git", level: "Daily use — comfortable with branching, still learning the advanced stuff" },
+  { name: "Python", level: "Comfortable. OOP, scripting, and my first ML experiments." },
+  { name: "C++", level: "Working knowledge. Structs, classes and the STL. Built a console parking system with it." },
+  { name: "C#", level: "Working knowledge. Shipped a MonoGame game, fluent in OOP." },
+  { name: "JavaScript", level: "Improving fast. Solid in vanilla JS, now mostly writing it inside React." },
+  { name: "TypeScript", level: "Early days. Used it across Path OS and still lean on the compiler a lot." },
+  { name: "React / Next.js", level: "Early days. This site is React, Path OS runs on the Next.js App Router." },
+  { name: "Supabase", level: "Working knowledge. Set up auth, tables and row-level security for Path OS." },
+  { name: "SQL / MySQL", level: "Solid fundamentals. Schema design, normalisation, complex queries." },
+  { name: "Machine Learning", level: "Early days. Finished the Finlatics Data Science and ML program, building intuition through projects now." },
+  { name: "Git", level: "Daily use. Branches and pull requests, and I taught an intro GitHub workshop for first-timers." },
 ]
 
 export default function About() {
@@ -71,7 +100,7 @@ export default function About() {
         <div>
           <motion.div variants={item} className="mb-10">
             <h2 className="font-serif font-bold text-lg text-ink mb-4">In my own words</h2>
-            <div className="space-y-4 font-serif font-bold text-warm text-ink leading-relaxed text-justify">
+            <div className="space-y-4 font-serif text-ink leading-relaxed">
               <p className="dropcap">
                 I&apos;m a Computer Science student at Universiti Teknologi PETRONAS, Malaysia.
                 My focus is software engineering with a growing interest in AI and machine learning,
@@ -86,7 +115,7 @@ export default function About() {
                 something yet.&rdquo;
               </p>
               <p>
-                Outside of code: I think a lot about design — why some interfaces feel inevitable and
+                Outside of code: I think a lot about design: why some interfaces feel inevitable and
                 others feel fought-against. I also read and sleep too much.
               </p>
             </div>
@@ -143,11 +172,11 @@ export default function About() {
               aria-hidden="true"
             />
 
-            {timeline.map((entry) => (
-              <div key={entry.year} className="flex gap-5 items-start relative">
-                {/* Year — anchored to the left of the vertical rule */}
+            {timeline.map((entry, i) => (
+              <div key={entry.event} className="flex gap-5 items-start relative">
+                {/* Year — anchored to the left of the vertical rule, shown once per year */}
                 <span className="font-mono text-[11px] text-rust w-10 shrink-0 mt-1 text-right leading-snug">
-                  {entry.year}
+                  {entry.year !== timeline[i - 1]?.year && entry.year}
                 </span>
 
                 {/* Dot — sits on the vertical rule line */}

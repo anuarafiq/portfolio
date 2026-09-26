@@ -51,7 +51,7 @@ export default function Blog() {
                 <h2 className="font-serif font-semibold text-ink text-xl leading-tight mb-2 group-hover:text-rust transition-colors duration-200">
                   {post.title}
                 </h2>
-                <p className="font-serif font-bold text-warm text-base leading-relaxed mb-3 text-justify">
+                <p className="font-serif text-ink text-base leading-relaxed mb-3">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center gap-4">

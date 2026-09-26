@@ -1,4 +1,4 @@
-# Portfolio — Anuar Afiq
+# Portfolio - Anuar Afiq
 
 Personal portfolio site built with an ink-on-paper editorial aesthetic.
 
@@ -8,7 +8,9 @@ Personal portfolio site built with an ink-on-paper editorial aesthetic.
 |---|---|
 | `/` | Hero, current status, featured work |
 | `/projects` | Tag-filtered project list |
+| `/projects/:slug` | Project detail: overview, problem, solution |
 | `/about` | Background, skills, timeline |
+| `/record` | Competitions, campus involvement, certifications |
 | `/notes` | Writing archive |
 | `/notes/:slug` | Individual post |
 

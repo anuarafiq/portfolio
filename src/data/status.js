@@ -1,3 +1,3 @@
 export const currentlyBuilding = [
-  { name: "Course Difficulty Predictor", status: "Planning", stack: "Python" }
+  { name: "Path OS", status: "Paused", stack: "Next.js, TypeScript, Supabase" }
 ];

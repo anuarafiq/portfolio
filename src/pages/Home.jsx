@@ -45,6 +45,19 @@ export default function Home() {
               <br />
               Universiti Teknologi PETRONAS
             </p>
+            <p className="font-mono text-xs text-ink leading-loose mt-3">
+              Open to internships, Jan to Aug 2027
+              <br />
+              Klang Valley on-site or remote
+            </p>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-3 font-mono text-[11px] uppercase tracking-widest text-rust border border-rust px-3 py-1.5 hover:bg-rust hover:text-paper transition-colors duration-200"
+            >
+              Resume ↗
+            </a>
           </motion.div>
         </div>
 
@@ -189,7 +202,7 @@ export default function Home() {
                     </TransitionLink>
                     <span className="font-mono text-xs text-warm">{project.year}</span>
                   </div>
-                  <p className="font-serif font-bold text-warm text-base leading-relaxed mb-3 text-justify">
+                  <p className="font-serif text-ink text-base leading-relaxed mb-3">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">

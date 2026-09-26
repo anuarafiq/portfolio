@@ -1,4 +1,4 @@
-import { NavLink, Link } from "react-router-dom"
+import { NavLink, Link, useLocation } from "react-router-dom"
 import { useTheme } from "../hooks/useTheme"
 
 /**
@@ -45,6 +45,8 @@ function MoonIcon() {
 
 export default function Nav() {
   const { isDark, toggle } = useTheme()
+  // Home has its own Resume button in the hero, next to the availability line
+  const isHome = useLocation().pathname === "/"
 
   return (
     <header className="sticky top-0 z-50 bg-paper border-b border-line">
@@ -85,15 +87,17 @@ export default function Nav() {
           </button>
 
           {/* CV — distinct from nav links; border-box that fills on hover */}
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-[11px] uppercase tracking-widest text-rust border border-rust px-3 py-1 hover:bg-rust hover:text-paper transition-colors duration-200 shrink-0"
-            aria-label="Download Resume PDF"
-          >
-            Resume ↗
-          </a>
+          {!isHome && (
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[11px] uppercase tracking-widest text-rust border border-rust px-3 py-1 hover:bg-rust hover:text-paper transition-colors duration-200 shrink-0"
+              aria-label="Download Resume PDF"
+            >
+              Resume ↗
+            </a>
+          )}
         </div>
       </nav>
     </header>

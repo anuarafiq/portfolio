@@ -92,6 +92,12 @@ export default function ProjectDetail() {
           ))}
         </motion.div>
 
+        {project.award && (
+          <motion.p variants={item} className="font-mono text-xs text-rust mt-4">
+            ★ {project.award}
+          </motion.p>
+        )}
+
         <motion.div variants={item} className="border-t border-line mt-8" />
       </header>
 
@@ -105,16 +111,22 @@ export default function ProjectDetail() {
         {/* Overview — uses longDescription if available, falls back to description */}
         <section>
           <p className="font-mono text-[11px] text-rust uppercase tracking-widest mb-3">Overview</p>
-          <p className="font-serif text-ink text-lg leading-relaxed text-justify">
+          <p className="font-serif text-ink text-lg leading-relaxed">
             {project.longDescription || project.description}
           </p>
         </section>
+
+        {project.screenshots?.map((shot) => (
+          <figure key={shot.src} className="editorial-frame">
+            <img src={shot.src} alt={shot.alt} width="1440" height="900" loading="lazy" className="w-full h-auto block" />
+          </figure>
+        ))}
 
         {/* Problem — only rendered if the field exists */}
         {project.problem && (
           <section>
             <p className="font-mono text-[11px] text-rust uppercase tracking-widest mb-3">Problem</p>
-            <p className="font-serif text-ink text-lg leading-relaxed text-justify">{project.problem}</p>
+            <p className="font-serif text-ink text-lg leading-relaxed">{project.problem}</p>
           </section>
         )}
 
@@ -122,7 +134,7 @@ export default function ProjectDetail() {
         {project.solution && (
           <section>
             <p className="font-mono text-[11px] text-rust uppercase tracking-widest mb-3">Solution</p>
-            <p className="font-serif text-ink text-lg leading-relaxed text-justify">{project.solution}</p>
+            <p className="font-serif text-ink text-lg leading-relaxed">{project.solution}</p>
           </section>
         )}
 
