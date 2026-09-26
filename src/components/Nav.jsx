@@ -61,8 +61,9 @@ export default function Nav() {
         </Link>
 
         {/* Primary navigation */}
-        {/* ponytail: tight gap + tracking below sm keeps 4 links + toggle + CV inside a 360px viewport */}
-        <div className="flex items-center gap-3 sm:gap-7">
+        {/* ponytail: tight gap + tracking below sm keeps 4 links + toggle + CV inside a 360px viewport
+            (8px spare). Below 360 the CV button hides; Home hero and About still link the resume. */}
+        <div className="flex items-center gap-2.5 sm:gap-7">
           {navLinks.map(({ to, label }) => (
             <NavLink
               key={to}
@@ -92,7 +93,7 @@ export default function Nav() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-[11px] uppercase tracking-widest text-rust border border-rust px-3 py-1 hover:bg-rust hover:text-paper transition-colors duration-200 shrink-0"
+              className="font-mono text-[11px] uppercase tracking-widest text-rust border border-rust px-3 py-1 hover:bg-rust hover:text-paper transition-colors duration-200 shrink-0 max-[360px]:hidden"
               aria-label="Download Resume PDF"
             >
               Resume ↗
