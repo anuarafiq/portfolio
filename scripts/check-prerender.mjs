@@ -49,6 +49,16 @@ const locs = [...read(dist, "sitemap.xml").matchAll(/<loc>https:\/\/anuarafiq\.m
 assert.deepEqual(locs.sort(), [...paths].sort(), "sitemap routes")
 assert.ok(!existsSync(join(root, "public/sitemap.xml")), "public/sitemap.xml would shadow the generated one")
 
+// 2b. llms.txt links every route except the root
+const llms = read(dist, "llms.txt")
+for (const path of paths.filter((p) => p !== "/")) assert.ok(llms.includes(`(https://anuarafiq.me${path})`), `llms.txt ${path}`)
+
+// 2c. Person structured data parses and is on every page
+for (const path of paths) {
+  const ld = htmlFor(path).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1]
+  assert.equal(JSON.parse(ld)["@type"], "Person", `JSON-LD ${path}`)
+}
+
 // 3. Inline theme script in every emitted page matches the CSP hash in vercel.json
 const csp = JSON.parse(read(root, "vercel.json")).headers[0].headers.find((h) => h.key === "Content-Security-Policy").value
 const allowed = csp.match(/'sha256-([^']+)'/)[1]

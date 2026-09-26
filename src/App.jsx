@@ -26,8 +26,14 @@ export default function App() {
   return (
     <div className="min-h-dvh flex flex-col bg-paper text-ink">
       <ScrollToTop />
+      <a
+        href="#content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] bg-paper text-ink border border-line focus:px-3 focus:py-2 font-mono text-[11px] uppercase tracking-widest"
+      >
+        Skip to content
+      </a>
       <Nav />
-      <div className="flex-1">
+      <div id="content" tabIndex={-1} className="flex-1 outline-none">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />

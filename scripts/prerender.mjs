@@ -90,5 +90,21 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     `  <url>\n    <loc>${escapeHtml(`${SITE_URL}${r.path}`)}</loc>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`)
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`
   writeFileSync(join(DIST, "sitemap.xml"), sitemap)
-  console.log(`prerender: ${routes.length} routes + 404.html + sitemap.xml written`)
+
+  // llms.txt (llmstxt.org): same route list, grouped, so it can't drift from the sitemap either
+  const link = (r) => `- [${r.title.replace(/ - Anuar Afiq$/, "")}](${SITE_URL}${r.path}): ${r.description}`
+  const section = (name, test) => [`## ${name}`, "", ...routes.filter((r) => test(r.path)).map(link), ""]
+  const llms = [
+    "# Anuar Afiq", "", `> ${pageMeta["/"].description}`, "",
+    ...section("Pages", (p) => p !== "/" && p.split("/").length === 2),
+    ...section("Projects", (p) => p.startsWith("/projects/")),
+    ...section("Notes", (p) => p.startsWith("/notes/")),
+    "## Optional", "",
+    `- [Resume](${SITE_URL}/resume.pdf)`,
+    "- [GitHub](https://github.com/anuarafiq)",
+    "- [LinkedIn](https://linkedin.com/in/anuar-afiq-arfahairy-234964314)",
+    "",
+  ]
+  writeFileSync(join(DIST, "llms.txt"), llms.join("\n"))
+  console.log(`prerender: ${routes.length} routes + 404.html + sitemap.xml + llms.txt written`)
 }
