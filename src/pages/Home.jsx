@@ -5,6 +5,7 @@ import ProjectVisual from "../components/ProjectVisual"
 import { morphNameFor } from "../lib/viewTransition"
 import { projects } from "../data/projects"
 import { currentlyBuilding } from "../data/status"
+import { competitions } from "../data/record"
 import { useMeta } from "../hooks/useMeta"
 import { container, item } from "../lib/motion"
 
@@ -208,6 +209,42 @@ export default function Home() {
             </motion.article>
           ))}
         </div>
+      </section>
+
+      <motion.div variants={item} className="border-t border-line" />
+
+      {/* ─── RECORD TEASER ───────────────────────────────────────────────── */}
+      {/* Three newest competition results, same status-board rows as Currently Building. */}
+      <section className="py-10">
+        <div className="flex items-center justify-between mb-6">
+          <motion.p variants={item} className="font-mono text-[11px] text-rust uppercase tracking-widest">
+            03. Record
+          </motion.p>
+          <motion.div variants={item}>
+            <Link
+              to="/record"
+              className="font-mono text-[11px] text-warm uppercase tracking-wider hover:text-rust transition-colors duration-200"
+            >
+              Full record →
+            </Link>
+          </motion.div>
+        </div>
+
+        <motion.div variants={item} className="space-y-3.5">
+          {competitions.slice(0, 3).map((c) => (
+            <div
+              key={`${c.event}-${c.date}`}
+              className="flex flex-wrap items-baseline gap-x-5 gap-y-1 font-mono text-sm"
+            >
+              <span className="text-warm text-xs select-none" aria-hidden="true">
+                →
+              </span>
+              <span className="text-ink font-medium w-30">{c.title}</span>
+              <span className="text-warm text-xs flex-1 min-w-0">{c.event}</span>
+              <span className="text-warm text-xs">{c.date}</span>
+            </div>
+          ))}
+        </motion.div>
       </section>
     </motion.main>
   )

@@ -7,6 +7,7 @@ import Footer from "./components/Footer"
 import Home from "./pages/Home"
 import Projects from "./pages/Projects"
 import About from "./pages/About"
+import Record from "./pages/Record"
 import Blog from "./pages/Blog"
 import BlogPost from "./pages/BlogPost"
 import ProjectDetail from "./pages/ProjectDetail"
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/about" element={<About />} />
+            <Route path="/record" element={<Record />} />
             <Route path="/notes" element={<Blog />} />
             <Route path="/notes/:slug" element={<BlogPost />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />

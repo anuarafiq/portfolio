@@ -15,6 +15,7 @@ import { useTheme } from "../hooks/useTheme"
 const navLinks = [
   { to: "/projects", label: "Work" },
   { to: "/about", label: "About" },
+  { to: "/record", label: "Record" },
   { to: "/notes", label: "Notes" },
 ]
 
@@ -47,7 +48,7 @@ export default function Nav() {
 
   return (
     <header className="sticky top-0 z-50 bg-paper border-b border-line">
-      <nav className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <nav className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between gap-3">
         {/* Monogram — Cormorant Garamond, slightly larger than nav links */}
         <Link
           to="/"
@@ -58,13 +59,14 @@ export default function Nav() {
         </Link>
 
         {/* Primary navigation */}
-        <div className="flex items-center gap-5 sm:gap-7">
+        {/* ponytail: tight gap + tracking below sm keeps 4 links + toggle + CV inside a 360px viewport */}
+        <div className="flex items-center gap-3 sm:gap-7">
           {navLinks.map(({ to, label }) => (
             <NavLink
               key={to}
               to={to}
               className={({ isActive }) =>
-                `nav-link font-mono text-[11px] uppercase tracking-widest transition-colors duration-200 ${
+                `nav-link font-mono text-[11px] uppercase tracking-wider sm:tracking-widest transition-colors duration-200 ${
                   isActive ? "text-ink active" : "text-warm hover:text-ink"
                 }`
               }
