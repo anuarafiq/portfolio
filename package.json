@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-feed.mjs && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/generate-feed.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
     "gen-og": "node scripts/generate-og.mjs",
     "gen-feed": "node scripts/generate-feed.mjs",
     "check": "node scripts/check-prerender.mjs",
@@ -22,7 +22,7 @@
     "react-router-dom": "^7.14.0",
     "rehype-pretty-code": "^0.14.3",
     "remark-frontmatter": "^5.0.0",
-    "remark-mdx-frontmatter": "^5.2.0",
+    "remark-mdx-frontmatter": "^6.0.0",
     "shiki": "^4.0.2"
   },
   "devDependencies": {
@@ -39,5 +39,11 @@
     "globals": "^17.4.0",
     "tailwindcss": "^4.2.2",
     "vite": "^8.0.4"
+  },
+  "knip": {
+    "entry": [
+      "src/entry-server.jsx",
+      "scripts/*.mjs"
+    ]
   }
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 const STORAGE_KEY = 'theme'
 
 function getSystemTheme() {
+  if (typeof window === 'undefined') return 'light'
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
@@ -16,8 +17,9 @@ function getSystemTheme() {
  * On 'system', the attribute is removed and the CSS media query takes over.
  */
 export function useTheme() {
+  // typeof guard: this also renders at build time (entry-server.jsx), where there is no window
   const [theme, setTheme] = useState(
-    () => localStorage.getItem(STORAGE_KEY) || 'system'
+    () => (typeof window === 'undefined' ? null : localStorage.getItem(STORAGE_KEY)) || 'system'
   )
 
   useEffect(() => {

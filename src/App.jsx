@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
+import { Routes, Route, useLocation } from "react-router-dom"
 import { useEffect } from "react"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
@@ -22,28 +22,26 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  // min-h-dvh: uses the dynamic viewport height on mobile (avoids iOS Safari chrome issues)
   return (
-    <BrowserRouter>
-      {/* min-h-dvh: uses the dynamic viewport height on mobile (avoids iOS Safari chrome issues) */}
-      <div className="min-h-dvh flex flex-col bg-paper text-ink">
-        <ScrollToTop />
-        <Nav />
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/record" element={<Record />} />
-            <Route path="/notes" element={<Blog />} />
-            <Route path="/notes/:slug" element={<BlogPost />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-        <Footer />
-        <Analytics />
-        <SpeedInsights />
+    <div className="min-h-dvh flex flex-col bg-paper text-ink">
+      <ScrollToTop />
+      <Nav />
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/record" element={<Record />} />
+          <Route path="/notes" element={<Blog />} />
+          <Route path="/notes/:slug" element={<BlogPost />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
-    </BrowserRouter>
+      <Footer />
+      <Analytics />
+      <SpeedInsights />
+    </div>
   )
 }

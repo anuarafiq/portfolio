@@ -54,27 +54,41 @@ export function renderRoute(template, { path, title, description, type = "websit
   ]) {
     html = replaceOnce(html, new RegExp(`(<meta ${attr}="${key}" content=")[^"]*(")`), value, key)
   }
-  // Canonical/og:url only on real routes: dist/index.html is also the fallback for unknown paths
-  if (path !== "/") {
-    const url = escapeHtml(`${SITE_URL}${path}`)
-    html = html.replace("</head>", () => `  <meta property="og:url" content="${url}" />\n    <link rel="canonical" href="${url}" />\n  </head>`)
-  }
-  return html
+  // path null = the 404 page: no canonical, kept out of the index
+  const url = path == null ? null : escapeHtml(`${SITE_URL}${path}`)
+  const extra = url
+    ? `<meta property="og:url" content="${url}" />\n    <link rel="canonical" href="${url}" />`
+    : `<meta name="robots" content="noindex" />`
+  return html.replace("</head>", () => `  ${extra}\n  </head>`)
+}
+
+// React-rendered markup goes in as-is (already escaped by React); function replacer so
+// `$&` etc. in note code blocks aren't read as replacement patterns
+export function injectBody(html, body) {
+  const root = '<div id="root"></div>'
+  if (!html.includes(root)) throw new Error("prerender: empty #root not found in dist/index.html")
+  return html.replace(root, () => `<div id="root">${body}</div>`)
 }
 
 // Only build when run directly, so the escaping test can import renderRoute
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const template = readFileSync(join(DIST, "index.html"), "utf-8")
+  const { render } = await import("../dist-ssr/entry-server.js")
 
   for (const route of routes) {
     const out = route.path === "/" ? join(DIST, "index.html") : join(DIST, route.path, "index.html")
     mkdirSync(dirname(out), { recursive: true })
-    writeFileSync(out, renderRoute(template, route))
+    writeFileSync(out, injectBody(renderRoute(template, route), render(route.path)))
   }
+
+  // Vercel serves dist/404.html with a 404 status for any path not on disk.
+  // "/__404" matches no route, so App falls through to NotFound.
+  const notFound = { path: null, title: "404 - Not Found", description: "This page does not exist." }
+  writeFileSync(join(DIST, "404.html"), injectBody(renderRoute(template, notFound), render("/__404")))
 
   const urls = routes.map((r) =>
     `  <url>\n    <loc>${escapeHtml(`${SITE_URL}${r.path}`)}</loc>\n    <changefreq>${r.changefreq}</changefreq>\n    <priority>${r.priority}</priority>\n  </url>`)
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`
   writeFileSync(join(DIST, "sitemap.xml"), sitemap)
-  console.log(`prerender: ${routes.length} routes + sitemap.xml written`)
+  console.log(`prerender: ${routes.length} routes + 404.html + sitemap.xml written`)
 }
