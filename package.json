@@ -10,7 +10,8 @@
     "gen-feed": "node scripts/generate-feed.mjs",
     "check": "node scripts/check-prerender.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "capture": "python3 scripts/capture.py"
   },
   "dependencies": {
     "@mdx-js/rollup": "^3.1.1",

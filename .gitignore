@@ -36,3 +36,6 @@ CLAUDE.md
 docs/superpowers/
 
 .vercel
+
+# Screenshots from scripts/capture.py
+.captures
