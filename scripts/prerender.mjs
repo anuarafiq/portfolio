@@ -8,6 +8,7 @@ import { fileURLToPath } from "url"
 import { parseFrontmatter } from "./frontmatter.mjs"
 import { pageMeta } from "../src/data/meta.js"
 import { projects } from "../src/data/projects.js"
+import { renderOg } from "./generate-og.mjs"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = join(__dirname, "../dist")
@@ -22,10 +23,12 @@ const routes = [
   ...Object.entries(pageMeta).map(([path, meta]) => ({ path, ...meta })),
   ...projects.map((p) => ({
     path: `/projects/${p.slug}`, title: `${p.title} - Anuar Afiq`, description: p.metaDescription ?? p.description,
+    image: `/og/projects-${p.slug}.png`, og: { label: "PROJECT", title: p.title, footer: String(p.year) },
   })),
   ...posts.map((p) => ({
     path: `/notes/${p.slug}`, title: `${p.title} - Anuar Afiq`, description: p.excerpt ?? "A note by Anuar Afiq.",
     type: "article", lastmod: /^\d{4}-\d{2}-\d{2}$/.test(p.date ?? "") ? p.date : null,
+    image: `/og/notes-${p.slug}.png`, og: { label: "NOTE", title: p.title, footer: String(p.date ?? "").toUpperCase() },
   })),
 ]
 
@@ -47,7 +50,7 @@ const PERSON = {
 
 // Per-route structured data: ProfilePage on the profile pages, Person elsewhere,
 // plus BlogPosting on notes and BreadcrumbList on project and note pages
-function structuredData({ path, title, description, lastmod }) {
+function structuredData({ path, title, description, lastmod, image }) {
   const url = `${SITE_URL}${path}`
   if (path === "/" || path === "/about") {
     return { "@context": "https://schema.org", "@type": "ProfilePage", url, mainEntity: PERSON }
@@ -68,7 +71,7 @@ function structuredData({ path, title, description, lastmod }) {
         description,
         url,
         mainEntityOfPage: url,
-        image: `${SITE_URL}/og-image.png`,
+        image: `${SITE_URL}${image}`,
         ...(lastmod && { datePublished: lastmod }),
         author: { "@type": "Person", "@id": PERSON["@id"], name: PERSON.name, url: SITE_URL },
       })
@@ -83,7 +86,8 @@ function replaceOnce(html, pattern, value, label) {
   return html.replace(pattern, (_, before, after) => `${before}${escapeHtml(value)}${after}`)
 }
 
-export function renderRoute(template, { path, title, description, type = "website", lastmod }) {
+// image: path of this route's preview image under SITE_URL (the default for pages without their own)
+export function renderRoute(template, { path, title, description, type = "website", lastmod, image = "/og-image.png" }) {
   let html = template
   html = replaceOnce(html, /(<title>)[^<]*(<\/title>)/, title, "<title>")
   for (const [attr, key, value] of [
@@ -91,6 +95,8 @@ export function renderRoute(template, { path, title, description, type = "websit
     ["property", "og:type", type],
     ["property", "og:title", title],
     ["property", "og:description", description],
+    ["property", "og:image", `${SITE_URL}${image}`],
+    ["name", "twitter:image", `${SITE_URL}${image}`],
     ["name", "twitter:title", title],
     ["name", "twitter:description", description],
   ]) {
@@ -100,7 +106,7 @@ export function renderRoute(template, { path, title, description, type = "websit
   const url = path == null ? null : escapeHtml(`${SITE_URL}${path}`)
   // JSON-LD is a data block, not executed, so the CSP script hash does not cover it.
   // It is not HTML-escaped, so "<" becomes \u003c to keep "</script>" out.
-  const ld = url && JSON.stringify(structuredData({ path, title, description, lastmod })).replaceAll("<", "\\u003c")
+  const ld = url && JSON.stringify(structuredData({ path, title, description, lastmod, image })).replaceAll("<", "\\u003c")
   const extra = url
     ? `<meta property="og:url" content="${url}" />\n    <link rel="canonical" href="${url}" />\n    <script type="application/ld+json">${ld}</script>`
     : `<meta name="robots" content="noindex" />`
@@ -124,6 +130,10 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const out = route.path === "/" ? join(DIST, "index.html") : join(DIST, route.path, "index.html")
     mkdirSync(dirname(out), { recursive: true })
     writeFileSync(out, injectBody(renderRoute(template, route), render(route.path)))
+    if (route.og) {
+      mkdirSync(join(DIST, "og"), { recursive: true })
+      writeFileSync(join(DIST, route.image), renderOg(route.og))
+    }
   }
 
   // Vercel serves dist/404.html with a 404 status for any path not on disk.

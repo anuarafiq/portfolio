@@ -35,6 +35,23 @@ assert.match(htmlFor("/"), /<link rel="canonical" href="https:\/\/anuarafiq\.me\
 // 1a0. Every page advertises the RSS feed
 for (const path of paths) assert.match(htmlFor(path), /<link rel="alternate" type="application\/rss\+xml"[^>]*href="\/feed\.xml"/, `RSS link ${path}`)
 
+// 1a0b. Each page's preview image is a real 1200x630 PNG in dist; project and note pages have their own
+const defaultImage = "https://anuarafiq.me/og-image.png"
+for (const path of paths) {
+  const html = htmlFor(path)
+  const og = html.match(/<meta property="og:image" content="([^"]*)"/)[1]
+  assert.equal(html.match(/<meta name="twitter:image" content="([^"]*)"/)[1], og, `twitter:image matches og:image ${path}`)
+  assert.ok(og.startsWith("https://anuarafiq.me/"), `og:image absolute ${path}`)
+  const file = join(dist, og.slice("https://anuarafiq.me/".length))
+  assert.ok(existsSync(file), `og:image file missing ${og}`)
+  const png = readFileSync(file)
+  assert.equal(`${png.readUInt32BE(16)}x${png.readUInt32BE(20)}`, "1200x630", `og:image size ${og}`)
+  const own = path.match(/^\/(projects|notes)\/(.+)$/)
+  if (own) assert.equal(og, `https://anuarafiq.me/og/${own[1]}-${own[2]}.png`, `own og:image ${path}`)
+  else assert.equal(og, defaultImage, `default og:image ${path}`)
+}
+assert.ok(read(dist, "404.html").includes(`<meta property="og:image" content="${defaultImage}"`), "404 og:image")
+
 // 1a. Descriptions fit a search snippet
 for (const path of paths) {
   const desc = htmlFor(path).match(/<meta name="description" content="([^"]*)"/)[1]
@@ -75,6 +92,10 @@ for (const path of paths) {
     : path.startsWith("/notes/") ? ["Person", "BreadcrumbList", "BlogPosting"]
     : ["Person"]
   assert.deepEqual(ldTypes(htmlFor(path)), expected, `JSON-LD ${path}`)
+}
+for (const s of postSlugs) {
+  const ld = JSON.parse(htmlFor(`/notes/${s}`).match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])
+  assert.equal(ld["@graph"].find((n) => n["@type"] === "BlogPosting").image, `https://anuarafiq.me/og/notes-${s}.png`, `BlogPosting image ${s}`)
 }
 for (const s of postSlugs) assert.match(htmlFor(`/notes/${s}`), /"datePublished":"\d{4}-\d{2}-\d{2}"/, `datePublished ${s}`)
 assert.doesNotMatch(notFound, /application\/ld\+json/, "404 has no JSON-LD")

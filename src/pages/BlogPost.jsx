@@ -75,6 +75,7 @@ function PostView({ post }) {
     title: `${post.title} - Anuar Afiq`,
     description: post.excerpt ?? "A note by Anuar Afiq.",
     type: "article",
+    image: `/og/notes-${post.slug}.png`,
   })
 
   const progress = useScrollProgress()

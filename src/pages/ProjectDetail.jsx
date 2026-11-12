@@ -25,6 +25,7 @@ function ProjectView({ project }) {
   useMeta({
     title: `${project.title} - Anuar Afiq`,
     description: project.metaDescription ?? project.description ?? "Project by Anuar Afiq.",
+    image: `/og/projects-${project.slug}.png`,
   })
 
   return (
