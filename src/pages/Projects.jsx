@@ -35,6 +35,10 @@ export default function Projects() {
       animate="show"
       className="max-w-5xl mx-auto px-6"
     >
+      <p className="sr-only" aria-live="polite">
+        {filtered.length} {filtered.length === 1 ? "project" : "projects"}
+      </p>
+
       {/* ─── PAGE HEADER ───────────────────────────────────────────────────── */}
       {/*
        * "Projects" in display-sm scale — at 1440px this is ~72px tall.

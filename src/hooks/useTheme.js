@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useSyncExternalStore } from 'react'
 
 const STORAGE_KEY = 'theme'
 
-function getSystemTheme() {
-  if (typeof window === 'undefined') return 'light'
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+const DARK_QUERY = '(prefers-color-scheme: dark)'
+
+// Subscribes to OS theme changes; React removes the listener on unmount.
+function subscribeSystemDark(callback) {
+  const mq = window.matchMedia(DARK_QUERY)
+  mq.addEventListener('change', callback)
+  return () => mq.removeEventListener('change', callback)
 }
+const getSystemDark = () => window.matchMedia(DARK_QUERY).matches
+const getServerSystemDark = () => false
 
 /**
  * Manages light/dark theme with three states:
@@ -33,9 +39,8 @@ export function useTheme() {
     }
   }, [theme])
 
-  const isDark =
-    theme === 'dark' ||
-    (theme === 'system' && getSystemTheme() === 'dark')
+  const systemDark = useSyncExternalStore(subscribeSystemDark, getSystemDark, getServerSystemDark)
+  const isDark = theme === 'dark' || (theme === 'system' && systemDark)
 
   function toggle() {
     setTheme(isDark ? 'light' : 'dark')

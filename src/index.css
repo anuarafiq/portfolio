@@ -46,7 +46,7 @@
   --color-ink: #1a1208;
   --color-paper: #f4efe8;
   --color-rust: #355f82;
-  --color-warm: #9c9080;
+  --color-warm: #6f665b;
   --color-line: #d4cdb8;
   --color-paper-dim: #ede6d8;
 
@@ -80,7 +80,7 @@
  *   ink       → #ede5d5  warm off-white
  *   paper     → #1e1c18  warm dark charcoal
  *   rust      → #5a8fb8  steel blue, lighter than light mode for 4.5:1 on charcoal
- *   warm      → #8c8272  warm gray-brown secondary text
+ *   warm      → #8d8372  warm gray-brown secondary text (4.5:1 on paper and paper-dim)
  *   line      → #302c24  charcoal border
  *   paper-dim → #171512  slightly darker charcoal for code blocks
  */
@@ -91,7 +91,7 @@
     --color-ink: #ede5d5;
     --color-paper: #1e1c18;
     --color-rust: #5a8fb8;
-    --color-warm: #8c8272;
+    --color-warm: #8d8372;
     --color-line: #302c24;
     --color-paper-dim: #171512;
   }
@@ -102,7 +102,7 @@
   --color-ink: #ede5d5;
   --color-paper: #1e1c18;
   --color-rust: #5a8fb8;
-  --color-warm: #8c8272;
+  --color-warm: #8d8372;
   --color-line: #302c24;
   --color-paper-dim: #171512;
 }
@@ -195,13 +195,15 @@
   .nav-link {
     position: relative;
     display: inline-block;
-    padding-bottom: 2px;
+    /* 3px extra above and below lifts the box to 24px+ (WCAG 2.2 target size);
+     * ::after bottom matches, so text and underline stay where they were. */
+    padding: 3px 0 5px;
   }
 
   .nav-link::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: 3px;
     left: 0;
     width: 0;
     height: 1px;

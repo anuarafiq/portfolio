@@ -14,7 +14,7 @@ const OUT = join(__dirname, "../public/og-image.png")
 const ink = "#1a1208"
 const paper = "#f4efe8"
 const rust = "#355f82"
-const warm = "#9c9080"
+const warm = "#6f665b"
 const line = "#d4cdb8"
 
 // Same node-graph motif as the home page hero (src/pages/Home.jsx), 1200x220 space
