@@ -2,6 +2,7 @@ import { m } from "framer-motion"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
 import { container, item, entrance } from "../lib/motion"
+import Contact from "../components/Contact"
 import portrait from "../assets/portrait.webp"
 
 const timeline = [
@@ -196,6 +197,8 @@ export default function About() {
           </div>
         </m.div>
       </div>
+
+      <Contact />
     </m.main>
   )
 }

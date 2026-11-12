@@ -3,16 +3,18 @@
  * All type in IBM Plex Mono, small uppercase.
  * Left: copyright. Right: external links.
  */
+import { github, linkedin, email } from "../data/links"
+
 const sameTab = (href) => href.startsWith("mailto") || href.startsWith("/")
 
-export default function Footer() {
-  const links = [
-    { href: "https://github.com/anuarafiq", label: "GitHub", ariaLabel: "GitHub profile (opens in new tab)" },
-    { href: "https://linkedin.com/in/anuar-afiq-arfahairy-234964314", label: "LinkedIn", ariaLabel: "LinkedIn profile (opens in new tab)" },
-    { href: "mailto:anuarafiq2407@gmail.com", label: "Email", ariaLabel: "Send email to Anuar Afiq" },
-    { href: "/feed.xml", label: "RSS", ariaLabel: "RSS feed of notes" },
-  ]
+const links = [
+  github,
+  linkedin,
+  email,
+  { href: "/feed.xml", label: "RSS", ariaLabel: "RSS feed of notes" },
+]
 
+export default function Footer() {
   return (
     <footer className="border-t border-line mt-auto">
       <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

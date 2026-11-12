@@ -4,7 +4,8 @@ import TransitionLink from "../components/TransitionLink"
 import ProjectVisual from "../components/ProjectVisual"
 import { morphNameFor } from "../lib/viewTransition"
 import { projects } from "../data/projects"
-import { currentlyBuilding } from "../data/status"
+import { currentlyBuilding, availability } from "../data/status"
+import Contact from "../components/Contact"
 import { competitions } from "../data/record"
 import { useMeta } from "../hooks/useMeta"
 import { pageMeta } from "../data/meta"
@@ -46,7 +47,7 @@ export default function Home() {
               Universiti Teknologi PETRONAS
             </p>
             <p className="font-mono text-xs text-ink leading-loose mt-3">
-              Open to internships, Jan to Aug 2027
+              {availability}
               <br />
               Klang Valley on-site or remote
             </p>
@@ -270,6 +271,8 @@ export default function Home() {
           ))}
         </m.div>
       </section>
+
+      <Contact label="04. Contact" />
     </m.main>
   )
 }
