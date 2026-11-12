@@ -205,15 +205,28 @@ export default function Home() {
                   <p className="font-serif text-ink text-base leading-relaxed mb-3">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="font-mono text-[10px] uppercase tracking-wider text-warm border border-line px-2 py-0.5"
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="font-mono text-[10px] uppercase tracking-wider text-warm border border-line px-2 py-0.5"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Live: ${project.title} (opens in new tab)`}
+                        className="font-mono text-xs text-rust hover:underline ml-auto"
                       >
-                        {tag}
-                      </span>
-                    ))}
+                        Live ↗
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

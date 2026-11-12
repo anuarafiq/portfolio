@@ -32,6 +32,9 @@ for (const s of postSlugs) {
 }
 assert.match(htmlFor("/"), /<link rel="canonical" href="https:\/\/anuarafiq\.me\/"/, "root canonical")
 
+// 1a0. Every page advertises the RSS feed
+for (const path of paths) assert.match(htmlFor(path), /<link rel="alternate" type="application\/rss\+xml"[^>]*href="\/feed\.xml"/, `RSS link ${path}`)
+
 // 1a. Descriptions fit a search snippet
 for (const path of paths) {
   const desc = htmlFor(path).match(/<meta name="description" content="([^"]*)"/)[1]

@@ -12,7 +12,7 @@ import TransitionLink from "./TransitionLink"
 import { morphNameFor } from "../lib/viewTransition"
 import ProjectVisual from "./ProjectVisual"
 
-export default function ProjectCard({ index, slug, title, description, tags, status, year, githubUrl, visual }) {
+export default function ProjectCard({ index, slug, title, description, tags, status, year, githubUrl, liveUrl, visual }) {
   const displayNum = String(index + 1).padStart(2, "0")
 
   return (
@@ -69,15 +69,31 @@ export default function ProjectCard({ index, slug, title, description, tags, sta
               ))}
             </div>
 
-            {githubUrl && (
-              <a
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-xs text-rust hover:underline ml-auto"
-              >
-                View ↗
-              </a>
+            {(liveUrl || githubUrl) && (
+              <div className="flex items-center gap-4 ml-auto">
+                {liveUrl && (
+                  <a
+                    href={liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Live: ${title} (opens in new tab)`}
+                    className="font-mono text-xs text-rust hover:underline"
+                  >
+                    Live ↗
+                  </a>
+                )}
+                {githubUrl && (
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${liveUrl ? "Code" : "View"}: ${title} on GitHub (opens in new tab)`}
+                    className="font-mono text-xs text-rust hover:underline"
+                  >
+                    {liveUrl ? "Code ↗" : "View ↗"}
+                  </a>
+                )}
+              </div>
             )}
           </div>
         </div>
