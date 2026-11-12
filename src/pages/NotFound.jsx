@@ -1,12 +1,13 @@
-import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { m } from "framer-motion"
+import { useMeta } from "../hooks/useMeta"
 import { container, item, entrance } from "../lib/motion"
 
 export default function NotFound() {
-  useEffect(() => {
-    document.title = "404 - Not Found"
-  }, [])
+  useMeta({
+    title: "404 - Not Found",
+    description: "This page does not exist or has moved.",
+  })
 
   return (
     <m.main

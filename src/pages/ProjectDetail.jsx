@@ -6,38 +6,26 @@ import ProjectVisual from "../components/ProjectVisual"
 import { useMeta } from "../hooks/useMeta"
 import { container, item, entrance } from "../lib/motion"
 import { isViewTransitioning, morphNameFor } from "../lib/viewTransition"
+import NotFound from "./NotFound"
 
 export default function ProjectDetail() {
+  const { slug } = useParams()
+  const project = projects.find((p) => p.slug === slug)
+  // Separate component so NotFound's useMeta is the only one that runs for an unknown slug.
+  return project ? <ProjectView project={project} /> : <NotFound />
+}
+
+function ProjectView({ project }) {
   // When arriving via a TransitionLink morph, the View Transitions API owns
   // the entrance - skip the Framer stagger so the title isn't opacity-0 when
   // the browser snapshots the new state. Direct loads keep the stagger.
   const arrivedViaMorph = isViewTransitioning()
-  // useParams() reads the :slug segment from the URL.
-  // If the user visits /projects/smart-parking, slug === "smart-parking".
-  const { slug } = useParams()
-
-  // Find the matching project. .find() returns the first match or undefined.
-  const project = projects.find((p) => p.slug === slug)
+  const next = projects[(projects.indexOf(project) + 1) % projects.length]
 
   useMeta({
-    title: project ? `${project.title} - Anuar Afiq` : "Not Found - Anuar Afiq",
-    description: project?.metaDescription ?? project?.description ?? "Project by Anuar Afiq.",
+    title: `${project.title} - Anuar Afiq`,
+    description: project.metaDescription ?? project.description ?? "Project by Anuar Afiq.",
   })
-
-  // Guard clause: if no project matched, show a minimal not-found state.
-  if (!project) {
-    return (
-      <div className="max-w-3xl mx-auto px-6 py-24">
-        <p className="font-mono text-sm text-warm mb-4">Project not found.</p>
-        <Link
-          to="/projects"
-          className="font-mono text-[11px] uppercase tracking-widest text-rust hover:underline"
-        >
-          ← Back to Projects
-        </Link>
-      </div>
-    )
-  }
 
   return (
     <m.main
@@ -143,7 +131,7 @@ export default function ProjectDetail() {
           </section>
         )}
 
-        {/* Footer: GitHub link + back nav */}
+        {/* Footer: back nav, GitHub link, next project */}
         <div className="pt-8 border-t border-line flex items-center justify-between">
           <TransitionLink
             to="/projects"
@@ -175,6 +163,13 @@ export default function ProjectDetail() {
             )}
           </div>
         </div>
+
+        <Link
+          to={`/projects/${next.slug}`}
+          className="block font-mono text-xs text-rust hover:underline"
+        >
+          Next: {next.title} →
+        </Link>
       </m.article>
     </m.main>
   )

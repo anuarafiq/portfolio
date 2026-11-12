@@ -6,6 +6,7 @@ import { useScrollProgress } from "../hooks/useScrollProgress"
 import { useMeta } from "../hooks/useMeta"
 import { container, item, entrance } from "../lib/motion"
 import { formatDate } from "../lib/utils"
+import NotFound from "./NotFound"
 
 function CodeBlock({ children, ...props }) {
   const [copied, setCopied] = useState(false)
@@ -65,28 +66,22 @@ const mdxComponents = {
 export default function BlogPost() {
   const { slug } = useParams()
   const post = posts.find((p) => p.slug === slug)
+  // Separate component so NotFound's useMeta is the only one that runs for an unknown slug.
+  return post ? <PostView post={post} /> : <NotFound />
+}
 
+function PostView({ post }) {
   useMeta({
-    title: post ? `${post.title} - Anuar Afiq` : "Not Found - Anuar Afiq",
-    description: post?.excerpt ?? "A note by Anuar Afiq.",
+    title: `${post.title} - Anuar Afiq`,
+    description: post.excerpt ?? "A note by Anuar Afiq.",
     type: "article",
   })
 
   const progress = useScrollProgress()
-
-  if (!post) {
-    return (
-      <div className="max-w-3xl mx-auto px-6 py-24">
-        <p className="font-mono text-sm text-warm mb-4">Post not found.</p>
-        <Link
-          to="/notes"
-          className="font-mono text-[11px] uppercase tracking-widest text-rust hover:underline"
-        >
-          ← Back to Notes
-        </Link>
-      </div>
-    )
-  }
+  // posts is sorted newest first, so the next index is the older note.
+  const index = posts.indexOf(post)
+  const newer = posts[index - 1]
+  const older = posts[index + 1]
 
   const PostContent = post.Component
 
@@ -135,6 +130,28 @@ export default function BlogPost() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-line">
+          <nav aria-label="More notes" className="grid grid-cols-2 gap-6 mb-8">
+            {older && (
+              <Link to={`/notes/${older.slug}`} className="group col-start-1 min-w-0">
+                <span className="font-mono text-[11px] uppercase tracking-widest text-warm group-hover:text-rust transition-colors duration-200">
+                  ← Older
+                </span>
+                <span className="block font-serif text-ink text-lg leading-snug mt-1 group-hover:text-rust transition-colors duration-200">
+                  {older.title}
+                </span>
+              </Link>
+            )}
+            {newer && (
+              <Link to={`/notes/${newer.slug}`} className="group col-start-2 min-w-0 text-right">
+                <span className="font-mono text-[11px] uppercase tracking-widest text-warm group-hover:text-rust transition-colors duration-200">
+                  Newer →
+                </span>
+                <span className="block font-serif text-ink text-lg leading-snug mt-1 group-hover:text-rust transition-colors duration-200">
+                  {newer.title}
+                </span>
+              </Link>
+            )}
+          </nav>
           <Link
             to="/notes"
             className="font-mono text-[11px] uppercase tracking-widest text-warm hover:text-rust transition-colors duration-200"
